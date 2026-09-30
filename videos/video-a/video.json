@@ -1,0 +1,22 @@
+{
+  "id": "video-a",
+  "title": "I Let 3 AI Agents Run Unsupervised For 30 Days",
+  "presenter": "presenter.webp",
+  "voice": {
+    "model": "eleven_multilingual_v2"
+  },
+  "hedra": {
+    "model": "d1dd37a3-e39a-4854-a298-6510289f9cf2",
+    "resolution": "1080p",
+    "credits_per_second": 8.75,
+    "prompt": "A confident presenter speaking directly to camera in a boardroom, calm and conversational, natural head movement and blinking, hands resting on the table."
+  },
+  "youtube": {
+    "title": "I Let 3 AI Agents Run Unsupervised For 30 Days",
+    "description": "A month ago I built a three agent team, put it on a schedule, and did nothing at all. No corrections, no restarts. Thirty days later I read every run it had done. These are the five things that broke, in the order they happened, none of which looked like an error, and the four cheap changes I'd make to yours before you set it running.",
+    "tags": ["AI agents", "AI automation", "agent teams", "Claude", "AI workflow"],
+    "category_id": "28",
+    "privacy": "private",
+    "language": "en"
+  }
+}
