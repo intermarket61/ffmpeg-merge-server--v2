@@ -11,10 +11,42 @@
     "credits_per_second": 8.75,
     "prompt": "A confident presenter speaking directly to camera in a boardroom, calm and conversational, natural head movement and blinking, hands resting on the table."
   },
+  "thumbnail": {
+    "shot": "h3",
+    "t": 3.0,
+    "params": {
+      "lines": [
+        {
+          "html": "30 DAYS",
+          "size": 250,
+          "color": "var(--orange)"
+        },
+        {
+          "html": "UNSUPERVISED",
+          "size": 128
+        }
+      ]
+    }
+  },
   "youtube": {
     "title": "I Let 3 AI Agents Run Unsupervised For 30 Days",
-    "description": "A month ago I built a three agent team, put it on a schedule, and did nothing at all. No corrections, no restarts. Thirty days later I read every run it had done. These are the five things that broke, in the order they happened, none of which looked like an error, and the four cheap changes I'd make to yours before you set it running.",
-    "tags": ["AI agents", "AI automation", "agent teams", "Claude", "AI workflow"],
+    "description": "A month ago I built a three agent team, put it on a schedule, and did the one thing nobody who makes these videos ever actually does: nothing at all. No corrections, no restarts, not a single thread opened to see how it was getting on. Thirty days later I read every run it had done.\n\nThe team is three agents with one job each: research finds what launched in AI with a source and a date on every item, judgment decides what is worth covering, and design turns it into a page I can send to an editor. The deal was four weeks, four pages. What I got was two pages, one empty run, one page I couldn't use, and a bill that didn't match any of it.\n\nThis is what an agent team does to itself when nobody is watching, in the order it happened. Five failures, and none of them looked like an error:\n1. The run that finished and never arrived: an approval request sitting in a dashboard nobody opened.\n2. An agent with no way to say no: a judgment step that never once returned a shorter list.\n3. Everything the handoff left behind: source links lost between agents, because the brief never named them.\n4. The bill nobody reads until the end of the month: the expensive model checking that nothing had changed.\n5. The tool it never used: a publishing switch left on for thirty days on an agent that ran unattended.\n\nThen the four cheap changes I'd make to yours before you set it running, and the real lesson about what supervising an agent team means: you don't audit the output, you build alarms on the shape of it.",
+    "tags": [
+      "AI agents",
+      "AI agent team",
+      "multi-agent systems",
+      "AI automation",
+      "autonomous AI agents",
+      "agent orchestration",
+      "AI workflow",
+      "unsupervised AI",
+      "AI agent failures",
+      "human in the loop",
+      "AI approvals",
+      "prompt engineering",
+      "Claude",
+      "agent teams"
+    ],
     "category_id": "28",
     "privacy": "private",
     "language": "en"

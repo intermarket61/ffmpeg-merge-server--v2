@@ -1,6 +1,7 @@
 [
   {
     "key": "a1",
+    "chapter": "Thirty days, hands off",
     "part": "p1",
     "scene": "counter",
     "lines": [
@@ -28,6 +29,7 @@
   },
   {
     "key": "b1",
+    "chapter": "The team and the deal",
     "part": "p1",
     "scene": "spine",
     "lines": [
@@ -65,6 +67,7 @@
   },
   {
     "key": "c1",
+    "chapter": "Week one is the trap",
     "part": "p2",
     "scene": "weekOne",
     "lines": [
@@ -124,6 +127,7 @@
   },
   {
     "key": "d1",
+    "chapter": "Failure 1: the run that never arrived",
     "part": "p2",
     "scene": "failureTitle",
     "lines": [
@@ -219,6 +223,7 @@
   },
   {
     "key": "e1",
+    "chapter": "Failure 2: an agent with no way to say no",
     "part": "p2",
     "scene": "failureTitle",
     "lines": [
@@ -357,6 +362,7 @@
   },
   {
     "key": "f1",
+    "chapter": "Failure 3: what the handoff left behind",
     "part": "p2",
     "scene": "failureTitle",
     "lines": [
@@ -448,6 +454,7 @@
   },
   {
     "key": "g1",
+    "chapter": "Failure 4: the bill nobody reads",
     "part": "p3",
     "scene": "failureTitle",
     "lines": [
@@ -551,6 +558,7 @@
   },
   {
     "key": "h1",
+    "chapter": "Failure 5: the tool it never used",
     "part": "p3",
     "scene": "failureTitle",
     "lines": [
@@ -649,6 +657,7 @@
   },
   {
     "key": "i1",
+    "chapter": "The four changes I'd make",
     "part": "p3",
     "scene": "fourFixes",
     "lines": [
@@ -666,6 +675,7 @@
   },
   {
     "key": "j1",
+    "chapter": "What supervision actually means",
     "part": "p3",
     "scene": "presenter",
     "lines": [
@@ -738,6 +748,7 @@
   },
   {
     "key": "k1",
+    "chapter": "Another thirty days",
     "part": "p3",
     "scene": "presenter",
     "lines": [
