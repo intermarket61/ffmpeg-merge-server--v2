@@ -11,7 +11,7 @@ SCENES.phone=()=>{
     <div class="mega" style="text-align:center;font-size:130px;margin-top:6px;color:#eef6f8">07:00</div>
     <div class="note" style="margin:60px 24px 0;padding:22px 24px;border-radius:24px;background:rgba(240,248,250,.16);color:#eef6f8">
       <div style="font-weight:700;font-size:20px;opacity:.75">MAIL · now</div>
-      <div style="font-weight:900;font-size:26px;margin-top:6px">Re: Revised numbers for Q3</div>
+      <div style="font-weight:900;font-size:26px;margin-top:6px">Re: Updated figures for Q3</div>
       <div style="font-family:Newsreader,serif;font-size:24px;margin-top:4px;opacity:.85">I think this was meant for someone else?</div></div>`;
   const note=scr.querySelector('.note');
   let words;

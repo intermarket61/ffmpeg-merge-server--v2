@@ -1,7 +1,7 @@
 {
   "id": "video-b",
   "title": "Never Give An AI Agent Your Inbox Until You Do This",
-  "presenter": "../video-a/presenter.webp",
+  "presenter": "presenter.webp",
   "params": {
     "tally": false,
     "accent": "#7fc4d6",
@@ -14,7 +14,7 @@
     "model": "d1dd37a3-e39a-4854-a298-6510289f9cf2",
     "resolution": "1080p",
     "credits_per_second": 8.75,
-    "prompt": "A confident presenter speaking directly to camera in a boardroom, calm and conversational, natural head movement and blinking, hands resting on the table."
+    "prompt": "A confident presenter in a leather jacket speaking directly to camera at a desk in a warm, modern home studio, calm and conversational, natural head movement and blinking, hands resting on the desk."
   },
   "youtube": {
     "title": "Never Give An AI Agent Your Inbox Until You Do This",

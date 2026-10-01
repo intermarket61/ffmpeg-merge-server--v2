@@ -2,9 +2,9 @@
 SCENES.footerSwap=()=>{
   theme('dark');
   const box=panel(null,{left:'420px',top:'130px',width:'860px',padding:'40px 48px'});
-  box.innerHTML=`<div style="font-size:24px;color:var(--mute)">From <b style="color:var(--cream)">you@yourcompany.com</b> · to client@northlake.co</div>
-    <div style="font-weight:900;font-size:40px;margin-top:20px">Re: Revised numbers for Q3</div>
-    <div class="serif" style="font-size:32px;line-height:1.5;margin-top:20px;color:#d8d0c4">Hi Sam — attached are the revised figures for the third quarter, with the shipping line split out as you asked. Happy to walk through them on Thursday.<br><br>Best,<br>Your name</div>
+  box.innerHTML=`<div style="font-size:24px;color:var(--mute)">From <b style="color:var(--cream)">you@yourcompany.com</b> · to client@jojiai.co</div>
+    <div style="font-weight:900;font-size:40px;margin-top:20px">Re: Updated figures for Q3</div>
+    <div class="serif" style="font-size:32px;line-height:1.5;margin-top:20px;color:#d8d0c4">Hi Joji — attached are the revised figures for the third quarter, with the shipping line split out as you asked. Happy to walk through them on Thursday.<br><br>Best,<br>Your name</div>
     <div class="ft" style="margin-top:26px;padding-top:18px;border-top:1px solid #2a2622;font-size:26px;font-weight:700;color:var(--blue);overflow:hidden;white-space:nowrap">Sent automatically by my email assistant.</div>`;
   const ft=box.querySelector('.ft');
   const opts=[['identity','A separate sending identity'],['alias','An alias'],['bottom','A line at the bottom']].map(([w,txt],i)=>{
