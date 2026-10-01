@@ -159,11 +159,12 @@ def sync_metadata(video, token, yt):
     want = metadata.youtube(video)
     if yt.get("sent") == want:
         return
+    last = yt.get("sent")                    # what we last set on YouTube
+    if not last:
+        print("  youtube: no record of what was last sent; not changing title or description")
+        return
     _, _, body = request("GET", f"{VIDEOS_URL}?part=snippet&id={yt['video_id']}", token)
     live = json.loads(body)["items"][0]["snippet"]
-    # what we last set; for uploads made before this was recorded, what video.json had then
-    last = yt.get("sent") or {"title": want["title"],
-                              "description": video.meta.get("youtube", {}).get("description", "")}
     if (live.get("title"), live.get("description", "")) != (last["title"], last["description"]):
         print("  youtube: title or description was edited in Studio; not overwriting it")
         return
