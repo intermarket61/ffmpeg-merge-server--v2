@@ -21,7 +21,9 @@ from .render import take_for
 from .util import FPS, SCENES_DIR, ffmpeg_exe, sha256_file, sha256_text
 
 W, H = 1080, 1920
-FACE_SCENES = {"presenter"}                 # shots with nothing on screen but the presenter
+# shots that are the presenter full frame (in the cut, text over the face), so a
+# split would show him twice: these go full frame in a Short, from the time given
+FACE_SCENES = {"presenter": 0, "presenterWords": 0, "presenterFive": 0, "failureTitle": 3.8}
 MAX_WORDS = 3                               # words per caption
 
 
@@ -115,12 +117,13 @@ def make_one(video, short):
         page.evaluate("document.fonts.ready.then(()=>true)")
         f, shot_start = 0, 0.0
         for shot in shots:
-            mode = "face" if shot.scene in FACE_SCENES else "split"
+            face_from = FACE_SCENES.get(shot.scene)
             face = frames(ff, take_for(shot), shot.part_offset, shot.length)
             for _ in range(round((shot_start + shot.length) * FPS) - f):
                 if f >= n:
                     break
                 t = f / FPS
+                mode = "face" if face_from is not None and t - shot_start >= face_from else "split"
                 chunk = next((c for c in caps if c[0] <= t < c[1]), None)
                 words = [w[2] for w in chunk[2]] if chunk else []
                 current = max((i for i, w in enumerate(chunk[2]) if w[0] <= t), default=0) if chunk else -1
