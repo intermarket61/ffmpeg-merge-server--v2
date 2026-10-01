@@ -17,7 +17,8 @@
   :root{
     --night:#0c0b0a; --coal:#171513; --line:#2a2622;
     --cream:#f1eadf; --paper:#e9e1d3; --ink:#15120f; --mute:#8d857b;
-    --orange:#ff5a1f; --ember:#ff8a3d; --green:#8fd694;
+    --orange:#ff5a1f; --ember:#ff8a3d; --green:#8fd694; --amber:#ffb13d; --blue:#7fc4d6;
+    --accent:var(--orange); --accent-ink:var(--orange);   /* a video may override (params.accent) */
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html,body{width:1920px;height:1080px;overflow:hidden;background:var(--night)}
@@ -43,7 +44,7 @@
   #tally b{font-weight:900;font-size:34px;margin-left:12px;letter-spacing:-.02em}
   #tally small{display:block;font-size:14px;font-weight:700;letter-spacing:.18em;color:var(--mute);margin-left:4px}
 
-  .kicker{font-weight:700;font-size:26px;letter-spacing:.24em;text-transform:uppercase;color:var(--orange)}
+  .kicker{font-weight:700;font-size:26px;letter-spacing:.24em;text-transform:uppercase;color:var(--accent)}
   .mega{font-weight:900;letter-spacing:-.045em;line-height:.86}
   .serif{font-family:Newsreader,serif}
 
@@ -51,7 +52,7 @@
   .pill{position:absolute;left:50%;bottom:120px;transform:translateX(-50%);white-space:nowrap;
     font-weight:900;font-size:64px;letter-spacing:-.02em;padding:18px 38px 22px;border-radius:22px;
     background:var(--cream);color:var(--ink);box-shadow:0 24px 50px rgba(0,0,0,.45);z-index:30}
-  .pill em{font-style:normal;color:var(--orange)}
+  .pill em{font-style:normal;color:var(--accent-ink)}
 
   /* thread-history wall */
   .runcard{position:absolute;width:330px;height:118px;border-radius:18px;background:#1b1916;

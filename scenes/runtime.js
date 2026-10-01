@@ -60,6 +60,7 @@ function cam(enterAt=0.2,size=330){
 
 // ------------------------------------------------------------------ tally
 function tally(struck=(S.params&&S.params.tally)||0, strikeAt=null){
+  if(S.params&&S.params.tally===false) return ()=>{};   // video without a failure count
   const box=el('div'); box.id='tally';
   const bars=[...Array(5)].map(()=>el('i','',box));
   const lab=el('div','',box,`<b>${struck}/5</b><small>FAILURES</small>`);
@@ -110,6 +111,7 @@ function runPills(pills,t){
 function theme(name){
   if(name==='paper'){stage.className='paper'; stage.style.background='var(--paper)'}
   else if(name==='orange'){stage.style.background='var(--orange)'}
+  else if(name==='accent'){stage.style.background='var(--accent)'}
   else {stage.style.background='radial-gradient(ellipse at 30% 40%,#1c1612 0%,#0c0b0a 70%)'}
 }
 // tally with the n-th bar striking on at time `at`
@@ -134,7 +136,10 @@ function panel(parent,style){const d=el('div','abs',parent);Object.assign(d.styl
 
 // ------------------------------------------------------------------ API
 window.setup=function(shot){
-  S=shot; stage.innerHTML=''; stage.className=''; stage.style.background=''; faceCanvases.length=0;
+  S=shot; stage.innerHTML=''; stage.className=''; stage.style.cssText=''; faceCanvases.length=0;
+  const p=shot.params||{};                  // a video's own accent colour, if it sets one
+  if(p.accent) stage.style.setProperty('--accent',p.accent);
+  if(p.accentInk) stage.style.setProperty('--accent-ink',p.accentInk);
   scene=SCENES[shot.scene]();
   return document.fonts.ready.then(()=>true);
 };

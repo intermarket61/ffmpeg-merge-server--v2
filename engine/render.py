@@ -135,20 +135,22 @@ def run(video, only=None, force=False):
 
 def stills(video, keys, at=0.6, out_dir=None):
     """One frame per shot (at a fraction of its length) for quick review,
-    using the real face take when there is one."""
+    using the real face take when there is one and the presenter photo
+    when there isn't (so framing can be judged before paying for a take)."""
     from playwright.sync_api import sync_playwright
 
     ff = ffmpeg_exe()
     out_dir = out_dir or video.build / "stills"
     out_dir.mkdir(parents=True, exist_ok=True)
     outs = []
+    photo = "data:image/webp;base64," + base64.b64encode(video.presenter.read_bytes()).decode()
     with sync_playwright() as p:
         browser, page = open_page(p, video)
         for i, shot in enumerate(video.shots):
             if shot.key not in keys:
                 continue
             t = shot.length * at
-            face = None
+            face = photo
             if take_for(shot).exists():
                 jpg = subprocess.run([ff, "-loglevel", "error", "-ss", f"{shot.part_offset + t:.3f}",
                                       "-i", str(take_for(shot)), "-frames:v", "1", "-f", "image2pipe",

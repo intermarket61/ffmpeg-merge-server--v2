@@ -41,6 +41,12 @@ ElevenLabs reads exactly this text.
 
 A shot with `"lines": []` and a `hold` is a silent shot (an end card).
 
+`video.json` can set `"params"` too: defaults merged under every shot's own
+params. `video-b` uses it to switch off the failure tally (`"tally": false`)
+and to set its accent colour (`"accent"`, `"accentInk"` for text on cream).
+Kickers, pill highlights and `theme('accent')` follow the accent; it
+defaults to orange.
+
 ### Parts
 
 Each part is one Hedra generation, so the face is lip-synced to that part's

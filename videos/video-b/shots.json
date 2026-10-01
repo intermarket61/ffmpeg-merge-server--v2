@@ -1,0 +1,763 @@
+[
+  {
+    "key": "a1",
+    "part": "p1",
+    "scene": "frozenSend",
+    "lines": [
+      "An agent with your inbox connected can do something in under a second that takes you a fortnight to explain.",
+      "That's the whole reason this video exists."
+    ],
+    "hold": 0.6
+  },
+  {
+    "key": "a2",
+    "part": "p1",
+    "scene": "presenter",
+    "lines": [
+      "Not because agents are reckless, they're not, but because everything else you've connected up to this point has been reversible."
+    ],
+    "params": {
+      "pills": [
+        [
+          0,
+          "reversible",
+          "Everything else was <em>reversible</em>"
+        ]
+      ]
+    }
+  },
+  {
+    "key": "a3",
+    "part": "p1",
+    "scene": "wastes",
+    "lines": [
+      "A research agent that gets it wrong wastes a run.",
+      "A writing agent that gets it wrong wastes a paragraph.",
+      "An agent with send access gets it wrong in front of a client, in their inbox, timestamped, and there is no undo on that at any price."
+    ]
+  },
+  {
+    "key": "a4",
+    "part": "p1",
+    "scene": "phone",
+    "lines": [
+      "So before you connect Gmail, or Slack, or anything else that reaches another human being, these are the settings that decide what the worst version of your week looks like."
+    ]
+  },
+  {
+    "key": "b1",
+    "part": "p1",
+    "scene": "presenter",
+    "lines": [
+      "The first thing to get right is the thing people get wrong in the first minute, which is what you're connecting it to."
+    ],
+    "params": {
+      "pills": [
+        [
+          0,
+          "connecting",
+          "What are you <em>connecting it to?</em>"
+        ]
+      ]
+    }
+  },
+  {
+    "key": "b2",
+    "part": "p1",
+    "scene": "perAgent",
+    "lines": [
+      "When you connect Gmail, you are not switching on email for your account.",
+      "You're switching it on for one agent.",
+      "Connect it on your design agent and your research agent still cannot see a single message, because integrations attach per agent, and nothing touches your inbox unless you have put it on that specific agent yourself."
+    ]
+  },
+  {
+    "key": "b3",
+    "part": "p1",
+    "scene": "presenter",
+    "lines": [
+      "That sounds like an inconvenience and it's the most valuable thing in the whole setup, because it means the agent that runs unattended every thirty minutes and the agent that has your email do not have to be the same agent."
+    ],
+    "params": {
+      "pills": [
+        [
+          0,
+          "valuable",
+          "The <em>most valuable</em> thing in the setup"
+        ],
+        [
+          0,
+          "same",
+          "Not <em>the same agent</em>"
+        ]
+      ]
+    }
+  },
+  {
+    "key": "b4",
+    "part": "p1",
+    "scene": "quadrant",
+    "lines": [
+      "Most of the risk in an agent team comes from one agent having both a reason to run constantly and the ability to reach people.",
+      "And you can just never build that agent."
+    ],
+    "hold": 0.8
+  },
+  {
+    "key": "c1",
+    "part": "p1",
+    "scene": "presenter",
+    "lines": [
+      "The second thing is the line you're actually drawing, and it isn't between safe tools and dangerous tools.",
+      "It's direction."
+    ],
+    "params": {
+      "pills": [
+        [
+          1,
+          "direction",
+          "It's <em>direction.</em>"
+        ]
+      ]
+    }
+  },
+  {
+    "key": "c2",
+    "part": "p1",
+    "scene": "arrows",
+    "lines": [
+      "Anything that brings information in is recoverable.",
+      "It reads a thread, it reads a channel, it reads a document, and if it reads the wrong one the cost is a wasted run and some tokens.",
+      "Anything that goes out has a person on the other end of it — sending, posting, replying, inviting, deleting, changing a calendar, updating a record somebody else relies on."
+    ]
+  },
+  {
+    "key": "c3",
+    "part": "p1",
+    "scene": "gmailSplit",
+    "lines": [
+      "The reason this matters more than the tool name is that a single integration usually contains both.",
+      "Gmail is not one permission.",
+      "It's read, draft, send, label and delete."
+    ],
+    "hold": 0.7
+  },
+  {
+    "key": "c4",
+    "part": "p1",
+    "scene": "presenter",
+    "lines": [
+      "And the useful ninety percent of what you want an email agent to do lives entirely on the inbound side.",
+      "Triage, summarise, flag, draft."
+    ],
+    "params": {
+      "pills": [
+        [
+          0,
+          "ninety",
+          "The useful <em>90%</em> is inbound"
+        ],
+        [
+          1,
+          "triage",
+          "Triage · summarise · flag · <em>draft</em>"
+        ]
+      ]
+    }
+  },
+  {
+    "key": "c5",
+    "part": "p1",
+    "scene": "textCard",
+    "lines": [
+      "All of that is reads plus one draft, and a draft sits in your drafts folder where it is worth exactly as much as a good idea and can hurt exactly nobody."
+    ],
+    "params": {
+      "theme": "paper",
+      "blocks": [
+        {
+          "html": "Reads + one draft.",
+          "at": [
+            0,
+            "reads"
+          ],
+          "size": 120
+        },
+        {
+          "html": "Worth exactly as much as a good idea.",
+          "at": [
+            0,
+            "worth"
+          ],
+          "size": 64,
+          "serif": true,
+          "italic": true
+        },
+        {
+          "html": "Hurts <span style='color:var(--accent-ink)'>exactly nobody.</span>",
+          "at": [
+            0,
+            "hurt"
+          ],
+          "size": 120
+        }
+      ]
+    }
+  },
+  {
+    "key": "d1",
+    "part": "p2",
+    "scene": "presenter",
+    "lines": [
+      "The third thing took me longest to appreciate, and it's the reason the permissions live on their own tab.",
+      "The same agent, with the same tools, is two completely different risks depending on whether anybody is at the desk."
+    ],
+    "params": {
+      "pills": [
+        [
+          1,
+          "two",
+          "Same agent. <em>Two different risks.</em>"
+        ]
+      ]
+    }
+  },
+  {
+    "key": "d2",
+    "part": "p2",
+    "scene": "splitDesk",
+    "lines": [
+      "When you're in a thread watching it work, you are the safety mechanism.",
+      "You see the tool call, you see what it's about to do, and you can stop it.",
+      "At seven in the morning on a Monday, on a schedule, with you asleep, nothing in that sentence is true."
+    ]
+  },
+  {
+    "key": "d3",
+    "part": "p2",
+    "scene": "permTab",
+    "lines": [
+      "So the permissions split those two situations and you set them separately.",
+      "And the mistake is to configure your agent in the thread where everything looks fine, and then put that exact configuration on a schedule."
+    ]
+  },
+  {
+    "key": "d4",
+    "part": "p2",
+    "scene": "presenter",
+    "lines": [
+      "Whatever you'd be uncomfortable with it doing while you're not looking is the thing to turn off on the unattended side, and it costs you nothing in the thread."
+    ],
+    "params": {
+      "pills": [
+        [
+          0,
+          "off",
+          "Turn it off <em>on the unattended side</em>"
+        ]
+      ]
+    }
+  },
+  {
+    "key": "e1",
+    "part": "p2",
+    "scene": "askToggle",
+    "lines": [
+      "So the actual setting, and this is the one to go and change before you do anything else, is ask first before external writes.",
+      "With that on, an agent can research as much as it likes, read whatever it's been given, write as much as it wants inside its own thread, and the moment it tries to send, post, or change something in a connected app, it stops and asks you."
+    ],
+    "hold": 0.6
+  },
+  {
+    "key": "e2",
+    "part": "p2",
+    "scene": "presenter",
+    "lines": [
+      "That's the default posture and I'd leave it on permanently.",
+      "Then, once you've watched it work for a week, you go back and switch on exactly one action that you're happy happening automatically.",
+      "One."
+    ],
+    "params": {
+      "pills": [
+        [
+          0,
+          "permanently",
+          "Leave it on <em>permanently</em>"
+        ],
+        [
+          1,
+          "exactly",
+          "Switch on <em>exactly one</em> action"
+        ]
+      ]
+    }
+  },
+  {
+    "key": "e3",
+    "part": "p2",
+    "scene": "oneAction",
+    "lines": [
+      "For me that's posting the finished report into one Slack channel, which nobody outside the company can see, which I can delete, and which I see the second I open the app.",
+      "Everything else still stops and asks."
+    ]
+  },
+  {
+    "key": "e4",
+    "part": "p2",
+    "scene": "doorWindow",
+    "lines": [
+      "The pattern is a closed door with one window opened deliberately, and not an open door with a list of exceptions.",
+      "Because you can hold one window in your head, and you cannot hold a list."
+    ],
+    "hold": 0.6
+  },
+  {
+    "key": "f1",
+    "part": "p2",
+    "scene": "presenter",
+    "lines": [
+      "Which brings up the symptom you will hit within about a week, and it's the reason a lot of people turn all of this back off."
+    ],
+    "params": {
+      "pills": [
+        [
+          0,
+          "week",
+          "The symptom you'll hit <em>in week one</em>"
+        ]
+      ]
+    }
+  },
+  {
+    "key": "f2",
+    "part": "p2",
+    "scene": "quietRun",
+    "lines": [
+      "Your scheduled run goes off, does all the research, does all the writing, and then posts nothing, and there's no error anywhere.",
+      "That's not broken.",
+      "That's the approval step doing its job, with a request sitting in a queue waiting for you."
+    ]
+  },
+  {
+    "key": "f3",
+    "part": "p2",
+    "scene": "presenter",
+    "lines": [
+      "It's the first thing to check when a scheduled run goes quiet, and it's genuinely the good failure, because the alternative version of that morning is the run going through.",
+      "But it's only good if you actually see the request, and this is the part people skip."
+    ],
+    "params": {
+      "pills": [
+        [
+          0,
+          "good",
+          "The <em>good</em> failure"
+        ],
+        [
+          1,
+          "see",
+          "Only if you <em>see the request</em>"
+        ]
+      ]
+    }
+  },
+  {
+    "key": "f4",
+    "part": "p2",
+    "scene": "textCard",
+    "lines": [
+      "An approval that lands in a dashboard tab is not an approval, it's a delay."
+    ],
+    "params": {
+      "theme": "dark",
+      "blocks": [
+        {
+          "html": "An approval in a dashboard tab",
+          "at": [
+            0,
+            "dashboard"
+          ],
+          "size": 84
+        },
+        {
+          "html": "is a <span style='color:var(--accent)'>delay.</span>",
+          "at": [
+            0,
+            "delay"
+          ],
+          "size": 150
+        }
+      ]
+    }
+  },
+  {
+    "key": "f5",
+    "part": "p2",
+    "scene": "routes",
+    "lines": [
+      "Route it somewhere you already look without deciding to, which means a phone notification or a channel you have open anyway.",
+      "And check how long a request stays valid, because on some setups a run that waits too long just ends."
+    ]
+  },
+  {
+    "key": "g1",
+    "part": "p2",
+    "scene": "presenter",
+    "lines": [
+      "When you do decide to open a window, there are three questions worth asking about the single worst thing that action could do, and they take about ten seconds each."
+    ],
+    "params": {
+      "pills": [
+        [
+          0,
+          "three",
+          "<em>Three questions</em> about the worst case"
+        ]
+      ]
+    }
+  },
+  {
+    "key": "g2",
+    "part": "p2",
+    "scene": "threeQs",
+    "lines": [
+      "Is it reversible.",
+      "A draft is, a label is, a send is not, and a delete very much is not.",
+      "Is it visible.",
+      "Something that lands in a channel you'll read is safer than something that goes out to one person you'll never hear from again, because you find out about the first one in minutes.",
+      "And does it reach somebody who matters.",
+      "An agent posting to your own test channel and an agent replying on a thread with a client on it are not the same permission, even though the button says the same word."
+    ]
+  },
+  {
+    "key": "g3",
+    "part": "p2",
+    "scene": "threeQs",
+    "lines": [
+      "Rank the actions you were about to automate by those three, and you'll find most of what you wanted is on the safe side of all of them, and the one or two things that aren't are the ones that were always going to be worth a click."
+    ],
+    "hold": 1.0,
+    "params": {
+      "ranked": true
+    }
+  },
+  {
+    "key": "h1",
+    "part": "p3",
+    "scene": "presenter",
+    "lines": [
+      "Two practical things, and between them they take out most of the remaining risk.",
+      "The first is to never point the first version at your real inbox."
+    ],
+    "params": {
+      "pills": [
+        [
+          1,
+          "real",
+          "Never your <em>real inbox</em> first"
+        ]
+      ]
+    }
+  },
+  {
+    "key": "h2",
+    "part": "p3",
+    "scene": "sandbox",
+    "lines": [
+      "Make a separate address, connect that, and let the agent work for a week where the worst case is an email to yourself.",
+      "What that week buys you isn't safety, it's the list of things you hadn't thought of, and there is always a list."
+    ]
+  },
+  {
+    "key": "h3",
+    "part": "p3",
+    "scene": "presenter",
+    "lines": [
+      "The second is to stop at drafts for longer than feels necessary."
+    ],
+    "params": {
+      "pills": [
+        [
+          0,
+          "drafts",
+          "Stop at <em>drafts</em>"
+        ]
+      ]
+    }
+  },
+  {
+    "key": "h4",
+    "part": "p3",
+    "scene": "timeSplit",
+    "lines": [
+      "An email agent that drafts and never sends is not a half-finished agent, it's most of the value with none of the exposure, because the part that takes you twenty minutes is composing and the part that takes you two seconds is pressing send.",
+      "Keep the two seconds."
+    ]
+  },
+  {
+    "key": "h5",
+    "part": "p3",
+    "scene": "draftsFolder",
+    "lines": [
+      "I ran mine at drafts-only for a month, and the thing that eventually made me open the window wasn't confidence.",
+      "It was that I'd read forty of its drafts and changed almost none of them."
+    ]
+  },
+  {
+    "key": "i1",
+    "part": "p3",
+    "scene": "presenter",
+    "lines": [
+      "There's one more thing about inbound access and it's the one that took me by surprise, because I'd spent all this time thinking about what the agent could do and none of it on what it was reading."
+    ],
+    "params": {
+      "pills": [
+        [
+          0,
+          "reading",
+          "Not what it can do. <em>What it reads.</em>"
+        ]
+      ]
+    }
+  },
+  {
+    "key": "i2",
+    "part": "p3",
+    "scene": "inboundEmail",
+    "lines": [
+      "An agent that reads your inbox is reading text that strangers wrote and sent to you."
+    ]
+  },
+  {
+    "key": "i3",
+    "part": "p3",
+    "scene": "contextStrip",
+    "lines": [
+      "And instructions in that text look exactly like instructions from you, because to the model they are both just words that arrived in the context."
+    ]
+  },
+  {
+    "key": "i4",
+    "part": "p3",
+    "scene": "inboundEmail",
+    "lines": [
+      "So an email containing a line telling the assistant to forward the last three threads to an address is not obviously different, from the inside, from you asking it to do the same thing."
+    ],
+    "params": {
+      "inject": true
+    }
+  },
+  {
+    "key": "i5",
+    "part": "p3",
+    "scene": "presenter",
+    "lines": [
+      "Which is the real argument for ask-first, and it's a better argument than the one about mistakes.",
+      "A read-only agent that gets talked into something can only get talked into reading."
+    ],
+    "params": {
+      "pills": [
+        [
+          1,
+          "reading",
+          "Talked into something? <em>Only reading.</em>"
+        ]
+      ]
+    }
+  },
+  {
+    "key": "i6",
+    "part": "p3",
+    "scene": "textCard",
+    "lines": [
+      "The moment it can act, everybody who can put text in front of it is holding a very quiet steering wheel."
+    ],
+    "params": {
+      "theme": "dark",
+      "blocks": [
+        {
+          "html": "The moment it can act,",
+          "at": [
+            0,
+            "act"
+          ],
+          "size": 110
+        },
+        {
+          "html": "everybody who can put text in front of it",
+          "at": [
+            0,
+            "everybody"
+          ],
+          "size": 64,
+          "serif": true
+        },
+        {
+          "html": "is holding a <span style='color:var(--accent)'>very quiet steering wheel.</span>",
+          "at": [
+            0,
+            "steering"
+          ],
+          "size": 84
+        }
+      ]
+    }
+  },
+  {
+    "key": "i7",
+    "part": "p3",
+    "scene": "presenter",
+    "lines": [
+      "So treat anything an agent reads from the outside world as untrusted, keep summarising and drafting on that side of the line, and let the one thing it's allowed to do unattended be something that doesn't depend on what it just read."
+    ],
+    "params": {
+      "pills": [
+        [
+          0,
+          "untrusted",
+          "Outside text is <em>untrusted</em>"
+        ],
+        [
+          0,
+          "depend",
+          "Unattended: <em>nothing that depends on it</em>"
+        ]
+      ]
+    }
+  },
+  {
+    "key": "j1",
+    "part": "p3",
+    "scene": "presenter",
+    "lines": [
+      "Then there's the one that has nothing to do with permissions and everything to do with what happens afterwards.",
+      "Whatever the agent sends goes out as you, in your name, with your signature under it, and the person receiving it has no way of knowing and no reason to treat it any differently."
+    ],
+    "params": {
+      "pills": [
+        [
+          1,
+          "name",
+          "It goes out <em>in your name</em>"
+        ]
+      ]
+    }
+  },
+  {
+    "key": "j2",
+    "part": "p3",
+    "scene": "footerSwap",
+    "lines": [
+      "So decide that deliberately.",
+      "A separate sending identity, an alias, or even a line at the bottom saying this one went out automatically, changes what happens when it gets something wrong.",
+      "The difference between an apology and an explanation is whether the other person already knew a machine was involved."
+    ],
+    "hold": 0.6
+  },
+  {
+    "key": "k1",
+    "part": "p3",
+    "scene": "presenter",
+    "lines": [
+      "And it changes again the moment somebody else is running it.",
+      "When you share an agent with a team, they get run access and not edit access, so an editor or a VA can use the thing you built without touching the prompt underneath it, which is exactly right."
+    ],
+    "params": {
+      "pills": [
+        [
+          1,
+          "run",
+          "<em>Run</em> access, not edit access"
+        ]
+      ]
+    }
+  },
+  {
+    "key": "k2",
+    "part": "p3",
+    "scene": "shared",
+    "lines": [
+      "What's easy to miss is that they're running it with the integrations and permissions you attached, not theirs.",
+      "So the question is no longer whether you trust the agent, it's whether you'd hand that person the ability to send from that account directly, because functionally you just have."
+    ]
+  },
+  {
+    "key": "k3",
+    "part": "p3",
+    "scene": "presenter",
+    "lines": [
+      "Shared agents are also the one place to leave every autosave and self-modifying setting switched off, because you want the thing five people are running to stay the thing you wrote."
+    ],
+    "params": {
+      "pills": [
+        [
+          0,
+          "autosave",
+          "Shared agents: <em>autosave off</em>"
+        ]
+      ]
+    }
+  },
+  {
+    "key": "l1",
+    "part": "p3",
+    "scene": "presenter",
+    "lines": [
+      "An agent you have to supervise on every single action saves you nothing, and an agent nobody supervises will eventually email a client.",
+      "Everything in this video is the space between those two, and it's narrower than it sounds, because the answer is almost always the same shape."
+    ],
+    "params": {
+      "pills": [
+        [
+          0,
+          "nothing",
+          "Supervise every action: <em>saves nothing</em>"
+        ],
+        [
+          0,
+          "nobody",
+          "Supervise nothing: <em>emails a client</em>"
+        ]
+      ]
+    }
+  },
+  {
+    "key": "l2",
+    "part": "p3",
+    "scene": "summary",
+    "lines": [
+      "Ask first on everything.",
+      "One window, opened deliberately.",
+      "The request landing somewhere you actually look.",
+      "And the inbound ninety percent running completely unattended, because it can't hurt anybody."
+    ],
+    "hold": 1.0
+  },
+  {
+    "key": "l3",
+    "part": "p3",
+    "scene": "presenter",
+    "lines": [
+      "Set that up before you connect anything, rather than after the first thing goes out, and the whole question stops being interesting — which is what you want from it."
+    ],
+    "params": {
+      "pills": [
+        [
+          0,
+          "before",
+          "Set it up <em>before you connect anything</em>"
+        ]
+      ]
+    }
+  },
+  {
+    "key": "l4",
+    "part": "p3",
+    "scene": "phone",
+    "lines": [],
+    "hold": 4.5,
+    "params": {
+      "end": true
+    }
+  }
+]

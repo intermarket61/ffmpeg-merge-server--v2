@@ -31,7 +31,7 @@ class Shot:
         self.lines = data["lines"]          # voiceover sentences, spoken in order
         self.hold = data.get("hold", 0.0)   # silence after the last word
         self.trim = data.get("trim", 0.0)   # seconds cut from the tail in the edit only
-        self.params = data.get("params", {})
+        self.params = {**video.meta.get("params", {}), **data.get("params", {})}
         self.offset = 0.0
         self.part_offset = 0.0
         self.starts, self.ends, self.words = [], [], []
