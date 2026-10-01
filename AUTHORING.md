@@ -178,7 +178,12 @@ Both are made and published automatically; set them up while authoring.
   one surprising idea. They are rebuilt vertically (the graphic on top,
   the presenter below, captions from the voice timings), made by
   `previews`, uploaded by `publish` as private videos linking to the full
-  one. No credits: they reuse the takes.
+  one. No credits: they reuse the takes. Keep each under 60 s (the
+  pipeline refuses longer); `"skip": ["d4"]` drops a shot inside the range.
+* **Release schedule**: `"publish_at": "2026-10-04 14:00 America/Chicago"`
+  in `video.json` `"youtube"` and on each Short. The channel's rhythm is the
+  long video Sunday, Shorts Tuesday and Thursday, 2 pm Central. Videos stay
+  private until then; YouTube Studio shows them as Scheduled.
 
 `publish` uploads the thumbnail and records exactly what it sent in
 `build/<id>/youtube.json`, which goes to S3 with the cut. Edit any of it

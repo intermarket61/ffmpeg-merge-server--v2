@@ -53,3 +53,14 @@ def short(video, short, long_id=None):
     return {"title": short["title"][:100], "description": description[:5000],
             "tags": short.get("tags", yt.get("tags", [])), "categoryId": yt.get("category_id", "28"),
             "defaultLanguage": yt.get("language", "en"), "defaultAudioLanguage": yt.get("language", "en")}
+
+
+def publish_time(spec):
+    """'2026-10-04 14:00 America/Chicago' -> the UTC instant YouTube wants, or None."""
+    if not spec:
+        return None
+    from datetime import datetime, timezone
+    from zoneinfo import ZoneInfo
+    day, clock, zone = spec.split()
+    local = datetime.fromisoformat(f"{day}T{clock}").replace(tzinfo=ZoneInfo(zone))
+    return local.astimezone(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")

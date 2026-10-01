@@ -12,7 +12,10 @@ YouTube (YOUTUBE_CLIENT_ID, YOUTUBE_CLIENT_SECRET, YOUTUBE_REFRESH_TOKEN)
     thumbnail. Later changes to the metadata or thumbnail are pushed to the
     same video, unless its title or description was edited in YouTube
     Studio since we last set them: then publish warns and leaves it alone.
-    Custom thumbnails need a verified channel (youtube.com/verify). Get the
+    Custom thumbnails need a verified channel (youtube.com/verify).
+    "publish_at" (video.json "youtube", and each Short) schedules the
+    release: the video stays private until then and YouTube makes it public.
+    Changing it later reschedules; a video already public is left alone. Get the
     refresh token once with tools/youtube_auth.py on your own computer.
 
 What was published is recorded in build/<id>/publish.json, and re-running
@@ -107,10 +110,11 @@ def request(method, url, token, data=None, headers=None):
 
 
 def upload_video(video, token):
-    return upload_file(video, video.final, metadata.youtube(video), token)
+    when = metadata.publish_time(video.meta.get("youtube", {}).get("publish_at"))
+    return upload_file(video, video.final, metadata.youtube(video), token, when)
 
 
-def upload_file(video, path, snippet, token):
+def upload_file(video, path, snippet, token, publish_at=None):
     yt = video.meta.get("youtube", {})
     meta = {
         "snippet": snippet,
@@ -118,6 +122,8 @@ def upload_file(video, path, snippet, token):
                    "selfDeclaredMadeForKids": False,
                    "containsSyntheticMedia": yt.get("synthetic_media", True)},
     }
+    if publish_at:
+        meta["status"].update(privacyStatus="private", publishAt=publish_at)
     size = path.stat().st_size
     _, headers, _ = request(
         "POST", f"{UPLOAD_URL}?uploadType=resumable&part=snippet,status", token,
@@ -199,6 +205,32 @@ def set_thumbnail(video, token, yt):
     print("  youtube: thumbnail set")
 
 
+STATUS_FIELDS = ("privacyStatus", "embeddable", "license", "publicStatsViewable", "publishAt",
+                 "selfDeclaredMadeForKids", "containsSyntheticMedia")
+
+
+def schedule(token, entry, when, name):
+    """Set (or move) an uploaded video's release time, keeping its other status settings."""
+    if not when or entry.get("publish_at") == when:
+        return
+    from datetime import datetime, timezone
+    if datetime.strptime(when, "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=timezone.utc) <= datetime.now(timezone.utc):
+        print(f"  youtube: {name}: {when} is in the past; not scheduling")
+        return
+    _, _, body = request("GET", f"{VIDEOS_URL}?part=status&id={entry['video_id']}", token)
+    status = json.loads(body)["items"][0]["status"]
+    if status.get("privacyStatus") != "private":
+        print(f"  youtube: {name} is already {status.get('privacyStatus')}; not scheduling")
+        return
+    status = {k: v for k, v in status.items() if k in STATUS_FIELDS}
+    status.update(privacyStatus="private", publishAt=when)
+    request("PUT", f"{VIDEOS_URL}?part=status", token,
+            data=json.dumps({"id": entry["video_id"], "status": status}).encode(),
+            headers={"Content-Type": "application/json; charset=UTF-8"})
+    entry["publish_at"] = when
+    print(f"  youtube: {name} scheduled for {when}")
+
+
 def to_youtube_shorts(video, rec):
     done = rec.setdefault("shorts", {})
     for short in video.meta.get("shorts", []):
@@ -206,15 +238,19 @@ def to_youtube_shorts(video, rec):
         if not path.exists():
             continue
         sha = sha256_file(path)
+        when = metadata.publish_time(short.get("publish_at"))
         if done.get(short["id"], {}).get("video_sha") == sha:
+            schedule(access_token(), done[short["id"]], when, f"short {short['id']}")
+            save_record(video, rec)
             continue
         snippet = metadata.short(video, short, rec.get("youtube", {}).get("video_id"))
         if done.get(short["id"]):
             print(f"  youtube: short {short['id']} changed since upload; uploading a new private one")
-        vid = upload_file(video, path, snippet, access_token())
-        done[short["id"]] = {"video_id": vid, "video_sha": sha, "sent": snippet}
+        vid = upload_file(video, path, snippet, access_token(), when)
+        done[short["id"]] = {"video_id": vid, "video_sha": sha, "sent": snippet, "publish_at": when}
         save_record(video, rec)
-        print(f"  youtube: short {short['id']} https://youtube.com/shorts/{vid} (private)")
+        print(f"  youtube: short {short['id']} https://youtube.com/shorts/{vid} (private"
+              f"{', public at ' + when if when else ''})")
 
 
 def to_youtube(video, rec):
@@ -236,6 +272,7 @@ def to_youtube(video, rec):
     token = access_token()
     sync_metadata(video, token, yt)
     set_thumbnail(video, token, yt)
+    schedule(token, yt, metadata.publish_time(video.meta.get("youtube", {}).get("publish_at")), "video")
     save_record(video, rec)
     print(f"  youtube: https://studio.youtube.com/video/{yt['video_id']}/edit (private)")
 

@@ -1,9 +1,10 @@
 """Vertical Shorts cut from the finished video, set up in video.json:
 
-    "shorts": [{"id": "inject", "from": "i2", "to": "i6", "label": "Prompt injection",
-                "title": "...", "description": "...", "tags": [...]}]
+    "shorts": [{"id": "inject", "from": "i2", "to": "i6", "skip": ["i3"], "label": "Prompt injection",
+                "title": "...", "description": "...", "tags": [...], "publish_at": "..."}]
 
-A Short is a run of consecutive shots, rebuilt at 1080x1920 rather than
+A Short is a run of shots (from..to, leaving out any in "skip") of at most
+60 seconds, the length the Shorts feed favours, rebuilt at 1080x1920 rather than
 cropped (a crop would cut the graphics in half): the cut's frame on top with
 the presenter's Hedra take below, or the take full frame for shots that are
 only the presenter, with word-by-word captions from the voice timings. The
@@ -21,6 +22,7 @@ from .render import take_for
 from .util import FPS, SCENES_DIR, ffmpeg_exe, sha256_file, sha256_text
 
 W, H = 1080, 1920
+MAX_SECONDS = 60
 # shots that are the presenter full frame (in the cut, text over the face), so a
 # split would show him twice: these go full frame in a Short, from the time given
 FACE_SCENES = {"presenter": 0, "presenterWords": 0, "presenterFive": 0, "failureTitle": 3.8}
@@ -37,9 +39,13 @@ def path(video, short):
 
 def span(video, short):
     keys = [s.key for s in video.shots]
-    shots = video.shots[keys.index(short["from"]):keys.index(short["to"]) + 1]
+    shots = [s for s in video.shots[keys.index(short["from"]):keys.index(short["to"]) + 1]
+             if s.key not in short.get("skip", [])]
     if not shots:
-        raise SystemExit(f"short {short['id']}: {short['to']} comes before {short['from']}")
+        raise SystemExit(f"short {short['id']}: no shots between {short['from']} and {short['to']}")
+    total = sum(s.length for s in shots)
+    if total > MAX_SECONDS:
+        raise SystemExit(f"short {short['id']} is {total:.1f}s; keep it to {MAX_SECONDS}s (skip a shot)")
     return shots
 
 
@@ -98,7 +104,7 @@ def make_one(video, short):
     from playwright.sync_api import sync_playwright
 
     shots = span(video, short)
-    start, total = shots[0].offset, sum(s.length for s in shots)
+    total = sum(s.length for s in shots)
     n = round(total * FPS)
     ff = ffmpeg_exe()
     out = path(video, short)
@@ -107,7 +113,6 @@ def make_one(video, short):
     enc = subprocess.Popen([ff, "-y", "-loglevel", "error", "-f", "image2pipe", "-c:v", "mjpeg", "-r", str(FPS),
                             "-i", "-", "-c:v", "libx264", "-preset", "medium", "-crf", "18",
                             "-pix_fmt", "yuv420p", str(silent)], stdin=subprocess.PIPE)
-    cut = frames(ff, video.final, start, total)
     caps = captions(shots)
     accent = video.meta.get("params", {}).get("accent")
     with sync_playwright() as p:
@@ -119,6 +124,7 @@ def make_one(video, short):
         for shot in shots:
             face_from = FACE_SCENES.get(shot.scene)
             face = frames(ff, take_for(shot), shot.part_offset, shot.length)
+            cut = frames(ff, video.final, shot.offset, shot.length)
             for _ in range(round((shot_start + shot.length) * FPS) - f):
                 if f >= n:
                     break
@@ -137,10 +143,16 @@ def make_one(video, short):
     enc.stdin.close()
     if enc.wait() != 0:
         raise RuntimeError(f"ffmpeg failed on short {short['id']}")
+    # the same stretches of the cut's audio, joined; short fades hide the joins
+    inputs, chains = [], []
+    for i, s in enumerate(shots):
+        inputs += ["-ss", f"{s.offset:.3f}", "-t", f"{s.length:.3f}", "-i", str(video.final)]
+        chains.append(f"[{i + 1}:a]afade=t=in:d=0.05,afade=t=out:st={max(s.length - 0.05, 0):.3f}:d=0.05[a{i}]")
+    joined = "".join(f"[a{i}]" for i in range(len(shots)))
     fade = max(total - 0.3, 0)
-    subprocess.run([ff, "-y", "-loglevel", "error", "-i", str(silent), "-ss", f"{start:.3f}", "-t", f"{total:.3f}",
-                    "-i", str(video.final), "-map", "0:v", "-map", "1:a", "-c:v", "copy",
-                    "-af", f"afade=t=in:d=0.15,afade=t=out:st={fade:.3f}:d=0.3", "-c:a", "aac", "-b:a", "192k",
+    graph = ";".join(chains) + f";{joined}concat=n={len(shots)}:v=0:a=1,afade=t=out:st={fade:.3f}:d=0.3[a]"
+    subprocess.run([ff, "-y", "-loglevel", "error", "-i", str(silent), *inputs, "-filter_complex", graph,
+                    "-map", "0:v", "-map", "[a]", "-c:v", "copy", "-c:a", "aac", "-b:a", "192k",
                     "-shortest", "-movflags", "+faststart", str(out)], check=True)
     silent.unlink()
     out.with_suffix(".stamp").write_text(stamp(video, short))

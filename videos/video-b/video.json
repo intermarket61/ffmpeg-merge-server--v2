@@ -48,7 +48,8 @@
         "AI security",
         "Gmail AI agent",
         "AI automation"
-      ]
+      ],
+      "publish_at": "2026-10-15 14:00 America/Chicago"
     },
     {
       "id": "no-undo",
@@ -62,7 +63,8 @@
         "AI agent permissions",
         "Gmail AI agent",
         "AI automation"
-      ]
+      ],
+      "publish_at": "2026-10-13 14:00 America/Chicago"
     }
   ],
   "youtube": {
@@ -78,6 +80,7 @@
     ],
     "category_id": "28",
     "privacy": "private",
-    "language": "en"
+    "language": "en",
+    "publish_at": "2026-10-11 14:00 America/Chicago"
   }
 }
