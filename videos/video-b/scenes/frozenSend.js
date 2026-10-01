@@ -3,7 +3,7 @@ SCENES.frozenSend=()=>{
   theme('dark'); coolGlow('30%','40%');
   const win=panel(null,{left:'860px',top:'230px',width:'900px',height:'680px',padding:'0',overflow:'visible'});
   win.innerHTML=`<div style="height:84px;border-radius:28px 28px 0 0;background:#211e1a;display:flex;align-items:center;padding:0 36px;font-weight:900;font-size:30px">New message</div>
-    <div style="padding:22px 40px;font-size:28px;color:var(--mute);border-bottom:1px solid #2a2622">To <span style="color:var(--cream);font-weight:700;margin-left:14px">client@jojiai.co</span></div>
+    <div style="padding:22px 40px;font-size:28px;color:var(--mute);border-bottom:1px solid #2a2622">To <span style="color:var(--cream);font-weight:700;margin-left:14px">client@luwakiai.co</span></div>
     <div style="padding:22px 40px;font-size:28px;color:var(--mute);border-bottom:1px solid #2a2622">Subject <span style="color:var(--cream);font-weight:700;margin-left:14px">Updated figures for Q3</span></div>`;
   const send=el('div','abs',win,'Send'); Object.assign(send.style,{left:'40px',bottom:'38px',padding:'18px 46px',borderRadius:'16px',background:'var(--blue)',color:'var(--ink)',fontWeight:900,fontSize:'30px'});
   // the message itself: the sheet that leaves

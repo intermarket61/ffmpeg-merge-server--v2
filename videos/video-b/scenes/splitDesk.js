@@ -7,7 +7,7 @@ SCENES.splitDesk=()=>{
     const p=panel(w,{left:'70px',top:'300px',width:'820px',padding:'36px 40px'});
     p.innerHTML=`<div style="font-weight:700;font-size:24px;color:var(--mute)">Inbox agent · tool call</div>
       <div style="margin-top:20px;font-weight:900;font-size:44px;color:var(--amber)">send_email</div>
-      <div class="args" style="margin-top:14px;font-size:28px;line-height:1.5;color:#b9b0a4">to: client@jojiai.co<br>subject: Updated figures for Q3</div>
+      <div class="args" style="margin-top:14px;font-size:28px;line-height:1.5;color:#b9b0a4">to: client@luwakiai.co<br>subject: Updated figures for Q3</div>
       <div style="display:flex;gap:18px;margin-top:30px"><span class="stop" style="padding:16px 40px;border-radius:14px;background:var(--cream);color:var(--ink);font-weight:900;font-size:30px">Stop</span><span style="padding:16px 40px;border-radius:14px;background:#2a2622;font-weight:900;font-size:30px">Allow</span></div>`;
     return {w,p,args:p.querySelector('.args'),stop:p.querySelector('.stop')};
   };

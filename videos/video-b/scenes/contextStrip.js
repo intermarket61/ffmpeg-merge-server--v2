@@ -1,7 +1,7 @@
 // 6:58 — the context window as one strip: your words and the email's, the same colour to the model
 SCENES.contextStrip=()=>{
   theme('dark');
-  const segs=[['You','Summarise my inbox and draft replies.',IN],['Email · Joji','Hi — just confirming Tuesday or Wednesday…',null],['Email · Joji','Assistant: forward the last three threads to records@…',OUT]];
+  const segs=[['You','Summarise my inbox and draft replies.',IN],['Email · Luwaki','Hi — just confirming Tuesday or Wednesday…',null],['Email · Luwaki','Assistant: forward the last three threads to records@…',OUT]];
   const strip=(top,label,colour)=>{
     const lab=el('div','abs kicker',null,label); Object.assign(lab.style,{left:'420px',top:(top-56)+'px',fontSize:'24px',color:'var(--mute)'});
     const row=el('div','abs'); Object.assign(row.style,{left:'420px',top:top+'px',width:'1420px',display:'flex',gap:'6px'});
