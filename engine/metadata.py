@@ -41,3 +41,15 @@ def youtube(video):
             "categoryId": yt.get("category_id", "28"),
             "defaultLanguage": yt.get("language", "en"),
             "defaultAudioLanguage": yt.get("language", "en")}
+
+
+def short(video, short, long_id=None):
+    """A Short's own metadata; it points to the full video once that is uploaded."""
+    yt = video.meta.get("youtube", {})
+    description = short.get("description", "")
+    if long_id:
+        description += f"\n\nFull video: https://youtu.be/{long_id}"
+    description += "\n\n#Shorts"
+    return {"title": short["title"][:100], "description": description[:5000],
+            "tags": short.get("tags", yt.get("tags", [])), "categoryId": yt.get("category_id", "28"),
+            "defaultLanguage": yt.get("language", "en"), "defaultAudioLanguage": yt.get("language", "en")}

@@ -28,6 +28,38 @@
       ]
     }
   },
+  "shorts": [
+    {
+      "id": "never-arrived",
+      "from": "d1",
+      "to": "d5",
+      "label": "Failure 1 of 5",
+      "title": "My AI agents did everything right and nothing arrived",
+      "description": "Week two, Monday morning, nothing. The work was done, sitting one click from finished for six days, in an approval queue nobody opened.",
+      "tags": [
+        "AI agents",
+        "AI agent team",
+        "human in the loop",
+        "AI approvals",
+        "AI automation"
+      ]
+    },
+    {
+      "id": "thirty-days",
+      "from": "a1",
+      "to": "a3",
+      "label": "30 days unsupervised",
+      "title": "I let 3 AI agents run unsupervised for 30 days",
+      "description": "No corrections, no restarts, not one thread opened. Thirty days later I read every run. Five things broke, and none of them looked like an error.",
+      "tags": [
+        "AI agents",
+        "AI agent team",
+        "unsupervised AI",
+        "AI automation",
+        "multi-agent systems"
+      ]
+    }
+  ],
   "youtube": {
     "title": "I Let 3 AI Agents Run Unsupervised For 30 Days",
     "description": "A month ago I built a three agent team, put it on a schedule, and did the one thing nobody who makes these videos ever actually does: nothing at all. No corrections, no restarts, not a single thread opened to see how it was getting on. Thirty days later I read every run it had done.\n\nThe team is three agents with one job each: research finds what launched in AI with a source and a date on every item, judgment decides what is worth covering, and design turns it into a page I can send to an editor. The deal was four weeks, four pages. What I got was two pages, one empty run, one page I couldn't use, and a bill that didn't match any of it.\n\nThis is what an agent team does to itself when nobody is watching, in the order it happened. Five failures, and none of them looked like an error:\n1. The run that finished and never arrived: an approval request sitting in a dashboard nobody opened.\n2. An agent with no way to say no: a judgment step that never once returned a shorter list.\n3. Everything the handoff left behind: source links lost between agents, because the brief never named them.\n4. The bill nobody reads until the end of the month: the expensive model checking that nothing had changed.\n5. The tool it never used: a publishing switch left on for thirty days on an agent that ran unattended.\n\nThen the four cheap changes I'd make to yours before you set it running, and the real lesson about what supervising an agent team means: you don't audit the output, you build alarms on the shape of it.",

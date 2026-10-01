@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<!--
+  Vertical Short frame (1080x1920). engine/shorts.py loads this page and,
+  per frame, calls show({mode, graphic, face, label, words, current}):
+    split  the cut's frame (the graphic) on top, the presenter below
+    face   the presenter full frame (shots that are only the presenter)
+  Captions are the chunk of spoken words on screen, the current one lit.
+-->
+<style>
+  @font-face{font-family:Archivo;font-weight:900;src:url(../assets/fonts/Archivo-Black.ttf)}
+  @font-face{font-family:Archivo;font-weight:700;src:url(../assets/fonts/Archivo-Bold.ttf)}
+  :root{--accent:#ff5a1f}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{width:1080px;height:1920px;overflow:hidden;background:#0c0b0a;font-family:Archivo,sans-serif}
+  img{position:absolute;display:block}
+  #face{left:0;width:1080px;object-fit:cover}
+  body.split #face{top:900px;height:1020px;object-position:50.5% 12%}
+  body.face #face{top:0;height:1920px;object-position:50.5% 30%}
+  #graphic{left:0;top:250px;width:1080px;height:608px;box-shadow:0 30px 60px rgba(0,0,0,.6);z-index:2}
+  body.face #graphic{display:none}
+  #fadeTop{position:absolute;left:0;right:0;top:860px;height:160px;z-index:1;background:linear-gradient(#0c0b0a,transparent)}
+  body.face #fadeTop{display:none}
+  #label{position:absolute;left:0;right:0;top:120px;text-align:center;z-index:3;font-weight:700;font-size:38px;
+    letter-spacing:.2em;text-transform:uppercase;color:var(--accent);text-shadow:0 4px 20px rgba(0,0,0,.8)}
+  #cap{position:absolute;left:70px;width:880px;top:1240px;text-align:center;z-index:4;font-weight:900;font-size:92px;
+    line-height:1.05;letter-spacing:-.02em;color:#fff;-webkit-text-stroke:14px #000;paint-order:stroke fill;
+    text-shadow:0 8px 30px rgba(0,0,0,.6)}
+  #cap b{color:var(--accent);font-weight:900}
+</style>
+</head>
+<body class="split">
+<div id="label"></div>
+<img id="graphic"><div id="fadeTop"></div><img id="face">
+<div id="cap"></div>
+<script>
+const $=id=>document.getElementById(id);
+async function put(img,src){ if(!src||img.dataset.src===src) return; img.dataset.src=src; img.src=src; await img.decode(); }
+window.show=async function(f){
+  document.body.className=f.mode;
+  if(f.accent) document.documentElement.style.setProperty('--accent',f.accent);
+  $('label').textContent=f.label||'';
+  await Promise.all([put($('graphic'),f.graphic),put($('face'),f.face)]);
+  $('cap').innerHTML=(f.words||[]).map((w,i)=>i===f.current?`<b>${w}</b>`:w).join(' ');
+};
+</script>
+</body>
+</html>

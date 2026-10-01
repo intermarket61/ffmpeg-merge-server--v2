@@ -34,6 +34,37 @@
       "badge": "Do this first"
     }
   },
+  "shorts": [
+    {
+      "id": "injection",
+      "from": "i2",
+      "to": "i6",
+      "label": "Prompt injection",
+      "title": "Your AI agent can't tell your instructions from a stranger's email",
+      "description": "An agent that reads your inbox is reading text strangers wrote, and to the model it looks exactly like you asking. That's the real argument for ask-first.",
+      "tags": [
+        "prompt injection",
+        "AI agents",
+        "AI security",
+        "Gmail AI agent",
+        "AI automation"
+      ]
+    },
+    {
+      "id": "no-undo",
+      "from": "a1",
+      "to": "a3",
+      "label": "Before you connect Gmail",
+      "title": "Under a second to send. Two weeks to explain.",
+      "description": "Everything else you've connected to an AI agent was reversible. Send access isn't: it goes wrong in front of a client, timestamped, with no undo.",
+      "tags": [
+        "AI agents",
+        "AI agent permissions",
+        "Gmail AI agent",
+        "AI automation"
+      ]
+    }
+  ],
   "youtube": {
     "title": "Never Give An AI Agent Your Inbox Until You Do This",
     "description": "An agent with your inbox connected can do something in under a second that takes you a fortnight to explain. Before you connect Gmail, Slack or anything else that reaches another person, these are the settings that decide what the worst version of your week looks like: integrations attach per agent, the line is direction (reads versus writes), watched and unattended are two different risks, ask first before external writes with one window opened deliberately, approvals that land where you already look, three questions before you automate an action, a test inbox and drafts-only first, why everything an agent reads is somebody else's writing, whose name is on what it sends, and what changes when somebody else runs it.",

@@ -1,7 +1,7 @@
 """Publish a finished cut: S3 and a private YouTube upload.
 
 S3 (AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_REGION, S3_BUCKET, S3_PREFIX)
-    s3://<bucket>/<prefix><id>/<id>.mp4, <id>.srt, thumbnail.jpg, youtube.json
+    s3://<bucket>/<prefix><id>/<id>.mp4, <id>.srt, thumbnail.jpg, youtube.json, shorts/
     (exactly what was sent to YouTube), and assets/ (the voice and Hedra
     takes, the paid-for parts) so the video can be re-cut anywhere.
 
@@ -25,7 +25,7 @@ import urllib.parse
 import urllib.request
 import uuid
 
-from . import metadata, thumbnail
+from . import metadata, shorts, thumbnail
 from .util import env, sha256_file
 
 TOKEN_URL = "https://oauth2.googleapis.com/token"
@@ -61,13 +61,16 @@ def to_s3(video, rec):
     files = [(video.final, "video/mp4"), (video.captions, "application/x-subrip")]
     files += [(p, t) for p, t in ((thumbnail.path(video), "image/jpeg"),
                                   (meta_path(video), "application/json")) if p.exists()]
+    files += [(p, "video/mp4") for p in sorted(shorts.out_dir(video).glob("*.mp4"))]
     files += [(p, "audio/mpeg") for p in sorted((video.build / "vo").glob("*.mp3"))]
     files += [(p, "application/json") for p in sorted((video.build / "vo").glob("*.json"))]
     files += [(p, "video/mp4") for p in sorted((video.build / "hedra").glob("*.mp4"))]
     files += [(p, "application/json") for p in sorted((video.build / "hedra").glob("*.json"))]
     done = rec.setdefault("s3", {})
     for path, ctype in files:
-        rel = path.name if path.parent == video.build else f"assets/{path.parent.name}/{path.name}"
+        rel = (path.name if path.parent == video.build else
+               f"shorts/{path.name}" if path.parent == shorts.out_dir(video) else
+               f"assets/{path.parent.name}/{path.name}")
         key = base + rel
         sha = sha256_file(path)
         if done.get(key) == sha:
@@ -104,14 +107,18 @@ def request(method, url, token, data=None, headers=None):
 
 
 def upload_video(video, token):
+    return upload_file(video, video.final, metadata.youtube(video), token)
+
+
+def upload_file(video, path, snippet, token):
     yt = video.meta.get("youtube", {})
     meta = {
-        "snippet": metadata.youtube(video),
+        "snippet": snippet,
         "status": {"privacyStatus": yt.get("privacy", "private"),
                    "selfDeclaredMadeForKids": False,
                    "containsSyntheticMedia": yt.get("synthetic_media", True)},
     }
-    size = video.final.stat().st_size
+    size = path.stat().st_size
     _, headers, _ = request(
         "POST", f"{UPLOAD_URL}?uploadType=resumable&part=snippet,status", token,
         data=json.dumps(meta).encode(),
@@ -119,7 +126,7 @@ def upload_video(video, token):
                  "X-Upload-Content-Length": str(size), "X-Upload-Content-Type": "video/mp4"})
     session = headers.get("Location") or headers.get("location")
     sent = 0
-    with open(video.final, "rb") as f:
+    with open(path, "rb") as f:
         while sent < size:
             chunk = f.read(CHUNK)
             end = sent + len(chunk) - 1
@@ -192,6 +199,24 @@ def set_thumbnail(video, token, yt):
     print("  youtube: thumbnail set")
 
 
+def to_youtube_shorts(video, rec):
+    done = rec.setdefault("shorts", {})
+    for short in video.meta.get("shorts", []):
+        path = shorts.path(video, short)
+        if not path.exists():
+            continue
+        sha = sha256_file(path)
+        if done.get(short["id"], {}).get("video_sha") == sha:
+            continue
+        snippet = metadata.short(video, short, rec.get("youtube", {}).get("video_id"))
+        if done.get(short["id"]):
+            print(f"  youtube: short {short['id']} changed since upload; uploading a new private one")
+        vid = upload_file(video, path, snippet, access_token())
+        done[short["id"]] = {"video_id": vid, "video_sha": sha, "sent": snippet}
+        save_record(video, rec)
+        print(f"  youtube: short {short['id']} https://youtube.com/shorts/{vid} (private)")
+
+
 def to_youtube(video, rec):
     yt = rec.setdefault("youtube", {})
     sha = sha256_file(video.final)
@@ -219,6 +244,7 @@ def run(video, s3=True, youtube=True):
     if not video.final.exists():
         raise SystemExit("nothing to publish: run make (or merge) first")
     rec = load_record(video)
+    shorts.make(video)
     if thumbnail.make(video):
         print(f"  thumbnail -> {video.rel(thumbnail.path(video))}")
     meta_path(video).write_text(json.dumps(metadata.youtube(video), indent=2, ensure_ascii=False))
@@ -226,3 +252,4 @@ def run(video, s3=True, youtube=True):
         to_s3(video, rec)
     if youtube:
         to_youtube(video, rec)
+        to_youtube_shorts(video, rec)

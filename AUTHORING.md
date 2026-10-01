@@ -171,6 +171,15 @@ Both are made and published automatically; set them up while authoring.
   appended to the description with timestamps from the cut.
 * **Title, description, tags**: `video.json` `"youtube"`.
 
+* **Shorts** (two per video): `video.json` `"shorts": [{"id", "from", "to",
+  "label", "title", "description", "tags"}]`, a run of consecutive shots
+  (`from`..`to`) of 30-60 s. Choose a section that opens on a strong
+  first line and makes sense with no context: a cold open, one failure,
+  one surprising idea. They are rebuilt vertically (the graphic on top,
+  the presenter below, captions from the voice timings), made by
+  `previews`, uploaded by `publish` as private videos linking to the full
+  one. No credits: they reuse the takes.
+
 `publish` uploads the thumbnail and records exactly what it sent in
 `build/<id>/youtube.json`, which goes to S3 with the cut. Edit any of it
 and re-run `publish`: the same YouTube video is updated, unless its title or

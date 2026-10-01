@@ -8,14 +8,14 @@ Single steps, each safe to re-run (finished work is skipped):
     hedra    [--yes]                     lip-synced take per part (spends credits)
     render   [--only k1,k2] [--force]    motion graphics per shot
     merge                                cut + voice -> build/<id>/<id>.mp4 and .srt
-    previews                             720p parts under ~20 MB for sharing
+    previews                             720p parts under ~20 MB, and the vertical Shorts
     stills   [--only k1,k2] [--at 0.6]   one review frame per shot, plus the thumbnail
     publish  [--s3] [--youtube]          upload the finished cut (see engine/publish.py)
 """
 import argparse
 import sys
 
-from . import hedra, metadata, mix, render, thumbnail, voice
+from . import hedra, metadata, mix, render, shorts, thumbnail, voice
 from .video import Video
 
 
@@ -62,6 +62,8 @@ def cmd_merge(video, args):
 def cmd_previews(video, args):
     for p in mix.previews(video):
         print(f"  {video.rel(p)}  {p.stat().st_size / 2**20:.1f} MiB")
+    for p in shorts.make(video):
+        print(f"  {video.rel(p)}  {p.stat().st_size / 2**20:.1f} MiB (Short)")
 
 
 def cmd_stills(video, args):
