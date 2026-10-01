@@ -1,14 +1,19 @@
 """Publish a finished cut: S3 and a private YouTube upload.
 
 S3 (AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_REGION, S3_BUCKET, S3_PREFIX)
-    s3://<bucket>/<prefix><id>/<id>.mp4, <id>.srt, and assets/ (the voice
-    and Hedra takes, the paid-for parts) so the video can be re-cut anywhere.
+    s3://<bucket>/<prefix><id>/<id>.mp4, <id>.srt, thumbnail.jpg, youtube.json
+    (exactly what was sent to YouTube), and assets/ (the voice and Hedra
+    takes, the paid-for parts) so the video can be re-cut anywhere.
 
 YouTube (YOUTUBE_CLIENT_ID, YOUTUBE_CLIENT_SECRET, YOUTUBE_REFRESH_TOKEN)
-    Uploads with the title, description and tags from video.json "youtube",
-    as private, flagged as containing synthetic media (AI voice and
-    lip-sync), then attaches the captions. Get the refresh token once with
-    tools/youtube_auth.py on your own computer.
+    Uploads as private, flagged as containing synthetic media (AI voice and
+    lip-sync), with the metadata from engine/metadata.py (video.json
+    "youtube" plus chapters from shots.json), the captions and the
+    thumbnail. Later changes to the metadata or thumbnail are pushed to the
+    same video, unless its title or description was edited in YouTube
+    Studio since we last set them: then publish warns and leaves it alone.
+    Custom thumbnails need a verified channel (youtube.com/verify). Get the
+    refresh token once with tools/youtube_auth.py on your own computer.
 
 What was published is recorded in build/<id>/publish.json, and re-running
 skips anything already done, so a video is never uploaded twice.
@@ -20,11 +25,14 @@ import urllib.parse
 import urllib.request
 import uuid
 
+from . import metadata, thumbnail
 from .util import env, sha256_file
 
 TOKEN_URL = "https://oauth2.googleapis.com/token"
 UPLOAD_URL = "https://www.googleapis.com/upload/youtube/v3/videos"
 CAPTIONS_URL = "https://www.googleapis.com/upload/youtube/v3/captions"
+THUMB_URL = "https://www.googleapis.com/upload/youtube/v3/thumbnails/set"
+VIDEOS_URL = "https://www.googleapis.com/youtube/v3/videos"
 CHUNK = 32 * 1024 * 1024
 
 
@@ -51,6 +59,8 @@ def to_s3(video, rec):
     base = f"{prefix}{video.id}/"
     s3 = boto3.client("s3", region_name=env("AWS_REGION"))
     files = [(video.final, "video/mp4"), (video.captions, "application/x-subrip")]
+    files += [(p, t) for p, t in ((thumbnail.path(video), "image/jpeg"),
+                                  (meta_path(video), "application/json")) if p.exists()]
     files += [(p, "audio/mpeg") for p in sorted((video.build / "vo").glob("*.mp3"))]
     files += [(p, "application/json") for p in sorted((video.build / "vo").glob("*.json"))]
     files += [(p, "video/mp4") for p in sorted((video.build / "hedra").glob("*.mp4"))]
@@ -96,11 +106,7 @@ def request(method, url, token, data=None, headers=None):
 def upload_video(video, token):
     yt = video.meta.get("youtube", {})
     meta = {
-        "snippet": {"title": yt.get("title", video.meta.get("title", video.id))[:100],
-                    "description": yt.get("description", ""), "tags": yt.get("tags", []),
-                    "categoryId": yt.get("category_id", "28"),
-                    "defaultLanguage": yt.get("language", "en"),
-                    "defaultAudioLanguage": yt.get("language", "en")},
+        "snippet": metadata.youtube(video),
         "status": {"privacyStatus": yt.get("privacy", "private"),
                    "selfDeclaredMadeForKids": False,
                    "containsSyntheticMedia": yt.get("synthetic_media", True)},
@@ -144,6 +150,47 @@ def upload_captions(video, token, video_id):
             headers={"Content-Type": f"multipart/related; boundary={boundary}"})
 
 
+def meta_path(video):
+    return video.build / "youtube.json"
+
+
+def sync_metadata(video, token, yt):
+    """Push changed metadata to the uploaded video, never over edits made in Studio."""
+    want = metadata.youtube(video)
+    if yt.get("sent") == want:
+        return
+    _, _, body = request("GET", f"{VIDEOS_URL}?part=snippet&id={yt['video_id']}", token)
+    live = json.loads(body)["items"][0]["snippet"]
+    # what we last set; for uploads made before this was recorded, what video.json had then
+    last = yt.get("sent") or {"title": want["title"],
+                              "description": video.meta.get("youtube", {}).get("description", "")}
+    if (live.get("title"), live.get("description", "")) != (last["title"], last["description"]):
+        print("  youtube: title or description was edited in Studio; not overwriting it")
+        return
+    request("PUT", f"{VIDEOS_URL}?part=snippet", token,
+            data=json.dumps({"id": yt["video_id"], "snippet": want}).encode(),
+            headers={"Content-Type": "application/json; charset=UTF-8"})
+    yt["sent"] = want
+    print("  youtube: metadata updated")
+
+
+def set_thumbnail(video, token, yt):
+    path = thumbnail.path(video)
+    if not path.exists():
+        return
+    sha = sha256_file(path)
+    if yt.get("thumbnail_sha") == sha:
+        return
+    try:
+        request("POST", f"{THUMB_URL}?videoId={yt['video_id']}", token, data=path.read_bytes(),
+                headers={"Content-Type": "image/jpeg"})
+    except SystemExit as e:                  # most often: channel not verified for custom thumbnails
+        print(f"  youtube: thumbnail not set ({e}); it is in S3 to upload by hand")
+        return
+    yt["thumbnail_sha"] = sha
+    print("  youtube: thumbnail set")
+
+
 def to_youtube(video, rec):
     yt = rec.setdefault("youtube", {})
     sha = sha256_file(video.final)
@@ -153,12 +200,17 @@ def to_youtube(video, rec):
         if yt.get("video_id"):
             print(f"  youtube: cut changed since upload {yt['video_id']}; uploading a new private video")
         token = access_token()
-        yt.update(video_id=upload_video(video, token), video_sha=sha, captions=False)
+        yt.update(video_id=upload_video(video, token), video_sha=sha, captions=False,
+                  sent=metadata.youtube(video), thumbnail_sha=None)
         save_record(video, rec)
     if not yt.get("captions"):
         upload_captions(video, access_token(), yt["video_id"])
         yt["captions"] = True
         save_record(video, rec)
+    token = access_token()
+    sync_metadata(video, token, yt)
+    set_thumbnail(video, token, yt)
+    save_record(video, rec)
     print(f"  youtube: https://studio.youtube.com/video/{yt['video_id']}/edit (private)")
 
 
@@ -166,6 +218,9 @@ def run(video, s3=True, youtube=True):
     if not video.final.exists():
         raise SystemExit("nothing to publish: run make (or merge) first")
     rec = load_record(video)
+    if thumbnail.make(video):
+        print(f"  thumbnail -> {video.rel(thumbnail.path(video))}")
+    meta_path(video).write_text(json.dumps(metadata.youtube(video), indent=2, ensure_ascii=False))
     if s3:
         to_s3(video, rec)
     if youtube:

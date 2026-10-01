@@ -9,13 +9,13 @@ Single steps, each safe to re-run (finished work is skipped):
     render   [--only k1,k2] [--force]    motion graphics per shot
     merge                                cut + voice -> build/<id>/<id>.mp4 and .srt
     previews                             720p parts under ~20 MB for sharing
-    stills   [--only k1,k2] [--at 0.6]   one review frame per shot
+    stills   [--only k1,k2] [--at 0.6]   one review frame per shot, plus the thumbnail
     publish  [--s3] [--youtube]          upload the finished cut (see engine/publish.py)
 """
 import argparse
 import sys
 
-from . import hedra, mix, render, voice
+from . import hedra, metadata, mix, render, thumbnail, voice
 from .video import Video
 
 
@@ -35,6 +35,8 @@ def cmd_status(video, args):
     todo = render.stale(video)
     print(f"  render: {'all current' if not todo else f'{len(todo)} to render: ' + ', '.join(todo)}")
     print(f"  final:  {video.rel(video.final) if video.final.exists() else 'not merged'}")
+    ch = metadata.chapters(video)
+    print(f"  youtube: {len(ch)} chapters, thumbnail {'set up' if video.meta.get('thumbnail') else 'not set up'}")
 
 
 def cmd_voice(video, args):
@@ -66,6 +68,10 @@ def cmd_stills(video, args):
     ks = keys(args.only) or [s.key for s in video.shots]
     for p in render.stills(video, ks, at=args.at):
         print(f"  {video.rel(p)}")
+    if not args.only or "thumbnail" in ks:
+        th = thumbnail.make(video)
+        if th:
+            print(f"  {video.rel(th)}")
 
 
 def cmd_make(video, args):
@@ -75,6 +81,8 @@ def cmd_make(video, args):
     cmd_render(video, argparse.Namespace(only=None, force=False))
     cmd_merge(video, args)
     cmd_previews(video, args)
+    if thumbnail.make(video):
+        print(f"thumbnail -> {video.rel(thumbnail.path(video))}")
 
 
 def cmd_publish(video, args):

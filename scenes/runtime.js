@@ -140,6 +140,7 @@ window.setup=function(shot){
   const p=shot.params||{};                  // a video's own accent colour, if it sets one
   if(p.accent) stage.style.setProperty('--accent',p.accent);
   if(p.accentInk) stage.style.setProperty('--accent-ink',p.accentInk);
+  document.getElementById('grain').style.opacity= p.grain!=null ? p.grain : '';   // '' = the page default
   scene=SCENES[shot.scene]();
   return document.fonts.ready.then(()=>true);
 };

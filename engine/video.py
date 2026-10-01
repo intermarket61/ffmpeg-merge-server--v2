@@ -32,6 +32,7 @@ class Shot:
         self.hold = data.get("hold", 0.0)   # silence after the last word
         self.trim = data.get("trim", 0.0)   # seconds cut from the tail in the edit only
         self.params = {**video.meta.get("params", {}), **data.get("params", {})}
+        self.chapter = data.get("chapter")  # starts a YouTube chapter (metadata only, not rendered)
         self.offset = 0.0
         self.part_offset = 0.0
         self.starts, self.ends, self.words = [], [], []

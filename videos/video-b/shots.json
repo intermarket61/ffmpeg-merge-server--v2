@@ -1,6 +1,7 @@
 [
   {
     "key": "a1",
+    "chapter": "Why your inbox is different",
     "part": "p1",
     "scene": "frozenSend",
     "lines": [
@@ -46,6 +47,7 @@
   },
   {
     "key": "b1",
+    "chapter": "You're connecting one agent, not your account",
     "part": "p1",
     "scene": "presenter",
     "lines": [
@@ -105,6 +107,7 @@
   },
   {
     "key": "c1",
+    "chapter": "The line is direction, not the tool",
     "part": "p1",
     "scene": "presenter",
     "lines": [
@@ -206,6 +209,7 @@
   },
   {
     "key": "d1",
+    "chapter": "Watched and unattended are two different agents",
     "part": "p2",
     "scene": "presenter",
     "lines": [
@@ -260,6 +264,7 @@
   },
   {
     "key": "e1",
+    "chapter": "The setting to change now",
     "part": "p2",
     "scene": "askToggle",
     "lines": [
@@ -313,6 +318,7 @@
   },
   {
     "key": "f1",
+    "chapter": "The silence you will hit in week one",
     "part": "p2",
     "scene": "presenter",
     "lines": [
@@ -401,6 +407,7 @@
   },
   {
     "key": "g1",
+    "chapter": "Three questions before you open a window",
     "part": "p2",
     "scene": "presenter",
     "lines": [
@@ -443,6 +450,7 @@
   },
   {
     "key": "h1",
+    "chapter": "A test inbox and drafts first",
     "part": "p3",
     "scene": "presenter",
     "lines": [
@@ -505,6 +513,7 @@
   },
   {
     "key": "i1",
+    "chapter": "Everything it reads is somebody else's writing",
     "part": "p3",
     "scene": "presenter",
     "lines": [
@@ -627,6 +636,7 @@
   },
   {
     "key": "j1",
+    "chapter": "Whose name is on it",
     "part": "p3",
     "scene": "presenter",
     "lines": [
@@ -656,6 +666,7 @@
   },
   {
     "key": "k1",
+    "chapter": "When somebody else runs it",
     "part": "p3",
     "scene": "presenter",
     "lines": [
@@ -700,6 +711,7 @@
   },
   {
     "key": "l1",
+    "chapter": "The whole setup in four lines",
     "part": "p3",
     "scene": "presenter",
     "lines": [

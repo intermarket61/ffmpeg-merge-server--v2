@@ -16,10 +16,35 @@
     "credits_per_second": 8.75,
     "prompt": "A confident presenter in a leather jacket speaking directly to camera at a desk in a warm, modern home studio, calm and conversational, natural head movement and blinking, hands resting on the desk."
   },
+  "thumbnail": {
+    "shot": "a2",
+    "t": 5.5,
+    "params": {
+      "lines": [
+        {
+          "html": "Your inbox?",
+          "size": 180
+        },
+        {
+          "html": "Not yet.",
+          "size": 230,
+          "color": "var(--accent)"
+        }
+      ],
+      "badge": "Do this first"
+    }
+  },
   "youtube": {
     "title": "Never Give An AI Agent Your Inbox Until You Do This",
     "description": "An agent with your inbox connected can do something in under a second that takes you a fortnight to explain. Before you connect Gmail, Slack or anything else that reaches another person, these are the settings that decide what the worst version of your week looks like: integrations attach per agent, the line is direction (reads versus writes), watched and unattended are two different risks, ask first before external writes with one window opened deliberately, approvals that land where you already look, three questions before you automate an action, a test inbox and drafts-only first, why everything an agent reads is somebody else's writing, whose name is on what it sends, and what changes when somebody else runs it.",
-    "tags": ["AI agents", "AI automation", "AI agent permissions", "Gmail AI agent", "prompt injection", "AI workflow"],
+    "tags": [
+      "AI agents",
+      "AI automation",
+      "AI agent permissions",
+      "Gmail AI agent",
+      "prompt injection",
+      "AI workflow"
+    ],
     "category_id": "28",
     "privacy": "private",
     "language": "en"

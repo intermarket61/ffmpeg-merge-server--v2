@@ -126,7 +126,7 @@ presenter in a rounded-square frame.
 | Rhythm | alternate presenter shots and graphics, and never show two static text cards in a row. Slam an orange full frame for big statements (sparingly: once or twice per section) |
 | Motion | things spring in on the word that names them. Nothing moves without a reason. Slow camera drift (≤5% scale) on diagrams |
 | Presenter | full frame for opinion and story. `cam()` bottom-left while a graphic holds the frame. The persistent `tally` sits top-right |
-| Texture | film grain overlay at 0.13 and a soft vignette are always on (runtime) |
+| Texture | film grain overlay at 0.06 (`params.grain` to change it; YouTube's encoder smears heavy grain) and a soft vignette are always on (runtime) |
 
 ## 4. Pacing
 
@@ -155,7 +155,29 @@ presenter in a rounded-square frame.
 * The grain canvas is regenerated per frame from the frame number (it's
   deterministic). Don't use `Math.random()` in scenes; use `rng(seed)`.
 
-## 6. The review loop
+## 6. Thumbnail and YouTube metadata
+
+Both are made and published automatically; set them up while authoring.
+
+* **Thumbnail**: `video.json` `"thumbnail": {"shot": "a2", "t": 5.5, "params": {...}}`.
+  The face is that moment of the shot's Hedra take (the presenter photo
+  before there is one); `params` go to the library `thumbnail` scene:
+  `lines` (two or three huge words; the title's promise, not the title),
+  optional `kicker` and `badge`. Pick a frame with eye contact. `stills`
+  renders it to `build/<id>/thumbnail.jpg` (1280x720) for review.
+* **Chapters**: add `"chapter": "Title"` to the first shot of each section
+  in `shots.json`. The first must be on the first shot; YouTube needs at
+  least three, each 10 s or longer (`status` checks this). They are
+  appended to the description with timestamps from the cut.
+* **Title, description, tags**: `video.json` `"youtube"`.
+
+`publish` uploads the thumbnail and records exactly what it sent in
+`build/<id>/youtube.json`, which goes to S3 with the cut. Edit any of it
+and re-run `publish`: the same YouTube video is updated, unless its title or
+description was changed in YouTube Studio meanwhile (then it warns and
+leaves YouTube alone). Custom thumbnails need a verified channel.
+
+## 7. The review loop
 
 ```bash
 python -m engine voice videos/<id>                 # cheap; gives real timings
