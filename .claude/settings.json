@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python -m engine status *)",
+      "Bash(python -m engine voice *)",
+      "Bash(python -m engine stills *)",
+      "Bash(python -m engine hedra *)",
+      "Bash(python -m engine render *)",
+      "Bash(python -m engine merge *)",
+      "Bash(python -m engine previews *)",
+      "Bash(python -m engine make *)",
+      "Bash(python -m engine publish *)"
+    ]
+  }
+}
