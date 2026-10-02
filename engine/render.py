@@ -28,7 +28,9 @@ def stamp(shot, index, count):
     meta = video.build / "hedra" / f"{shot.part}.json"
     take = json.loads(meta.read_text()).get("audio_sha", "") if take_for(shot).exists() and meta.exists() else "no-take"
     spec = json.dumps(shot.spec(index == 0, index == count - 1), sort_keys=True)
-    return sha256_text(spec, f"{shot.length:.4f}|{shot.part_offset:.4f}", take, *code)
+    src = video.screen_clip(shot)
+    screen = f"{src.stat().st_size}|{src.stat().st_mtime_ns}" if src and src.exists() else "no-screen"
+    return sha256_text(spec, f"{shot.length:.4f}|{shot.part_offset:.4f}", take, screen, *code)
 
 
 def clip(shot):
@@ -50,11 +52,36 @@ def face_frames(ff, shot):
     if not take.exists():
         while True:
             yield None
-    proc = subprocess.Popen(
-        [ff, "-loglevel", "error", "-ss", f"{shot.part_offset:.3f}", "-i", str(take),
-         "-t", f"{shot.duration:.3f}", "-vf", f"fps={FPS}", "-q:v", "3",
-         "-f", "image2pipe", "-c:v", "mjpeg", "-"],
-        stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
+    yield from jpeg_frames([ff, "-loglevel", "error", "-ss", f"{shot.part_offset:.3f}", "-i", str(take),
+                            "-t", f"{shot.duration:.3f}", "-vf", f"fps={FPS}", "-q:v", "3",
+                            "-f", "image2pipe", "-c:v", "mjpeg", "-"])
+
+
+def screen_span(shot):
+    """(start, end, speed) of the stretch of the recording this shot plays.
+    The stretch is fitted to the shot's full voiced duration, sped up or
+    slowed down, so the screen action runs exactly under its narration."""
+    sc = shot.params["screen"]
+    a = float(sc.get("from", 0))
+    b = float(sc["to"]) if sc.get("to") is not None else a + shot.duration
+    return a, b, (b - a) / shot.duration
+
+
+def screen_frames(ff, shot):
+    """Screen-recording frames for this shot (params.screen), or None while
+    the recording hasn't been added yet (the scene then draws a storyboard card)."""
+    src = shot.video.screen_clip(shot)
+    if not src or not src.exists():
+        while True:
+            yield None
+    a, b, k = screen_span(shot)
+    yield from jpeg_frames([ff, "-loglevel", "error", "-ss", f"{a:.3f}", "-t", f"{b - a:.3f}", "-i", str(src),
+                            "-vf", f"setpts=(PTS-STARTPTS)/{k:.5f},fps={FPS}", "-q:v", "2",
+                            "-f", "image2pipe", "-c:v", "mjpeg", "-"])
+
+
+def jpeg_frames(cmd):
+    proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
     buf, last = b"", None
     while True:
         chunk = proc.stdout.read(1 << 16)
@@ -104,11 +131,14 @@ def render_shot(args):
          "-i", "-", "-c:v", "libx264", "-preset", "medium", "-crf", "17", "-pix_fmt", "yuv420p",
          "-r", str(FPS), str(tmp)], stdin=subprocess.PIPE)
     faces = face_frames(ff, shot)
+    screens = screen_frames(ff, shot) if shot.params.get("screen") else None
     with sync_playwright() as p:
         browser, page = open_page(p, video)
         page.evaluate("s => setup(s)", shot.spec(index == 0, index == len(video.shots) - 1))
         for f in range(n):
             page.evaluate("f => setFace(f)", next(faces))
+            if screens:
+                page.evaluate("f => setScreen(f)", next(screens))
             page.evaluate("([t, f]) => seek(t, f)", [f / FPS, f])
             enc.stdin.write(page.screenshot(type="jpeg", quality=93))
         browser.close()
@@ -158,6 +188,15 @@ def stills(video, keys, at=0.6, out_dir=None):
                 face = "data:image/jpeg;base64," + base64.b64encode(jpg).decode()
             page.evaluate("s => setup(s)", shot.spec(i == 0, i == len(video.shots) - 1))
             page.evaluate("f => setFace(f)", face)
+            src = video.screen_clip(shot)
+            if src and src.exists():
+                a, _, k = screen_span(shot)
+                jpg = subprocess.run([ff, "-loglevel", "error", "-ss", f"{a + t * k:.3f}", "-i", str(src),
+                                      "-frames:v", "1", "-f", "image2pipe", "-c:v", "mjpeg", "-"],
+                                     capture_output=True).stdout
+                page.evaluate("f => setScreen(f)", "data:image/jpeg;base64," + base64.b64encode(jpg).decode())
+            else:
+                page.evaluate("f => setScreen(f)", None)
             page.evaluate("([t, f]) => seek(t, f)", [t, int(t * FPS)])
             path = out_dir / f"{shot.key}.jpg"
             page.screenshot(path=str(path), type="jpeg", quality=85)

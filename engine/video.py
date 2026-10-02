@@ -26,7 +26,7 @@ class Shot:
     def __init__(self, video, data):
         self.video = video
         self.key = data["key"]
-        self.part = data["part"]            # which Hedra take the face comes from
+        self.part = data.get("part")        # which Hedra take the face comes from; None = voice only
         self.scene = data["scene"]          # SCENES.<name> in a scene file
         self.lines = data["lines"]          # voiceover sentences, spoken in order
         self.hold = data.get("hold", 0.0)   # silence after the last word
@@ -103,7 +103,7 @@ class Shot:
 
     def spec(self, first, last):
         """What the scene page receives in setup()."""
-        return {"key": self.key, "scene": self.scene, "duration": self.duration,
+        return {"key": self.key, "scene": self.scene, "duration": self.duration, "face": self.part is not None,
                 "lines": [{"t0": a, "t1": b} for a, b in zip(self.starts, self.ends)],
                 "words": self.words, "fadeIn": first, "fadeOut": last,
                 "params": self.params}
@@ -140,13 +140,18 @@ class Video:
 
     @property
     def parts(self):
-        return list(dict.fromkeys(s.part for s in self.shots))
+        return list(dict.fromkeys(s.part for s in self.shots if s.part is not None))
 
     def part_shots(self, part=None):
         return [s for s in self.shots if part is None or s.part == part]
 
     def shot(self, key):
         return next(s for s in self.shots if s.key == key)
+
+    def screen_clip(self, shot):
+        """The screen recording a shot plays (params.screen.clip), or None."""
+        sc = shot.params.get("screen")
+        return self.dir / "screen" / sc["clip"] if sc and sc.get("clip") else None
 
     @property
     def presenter(self):

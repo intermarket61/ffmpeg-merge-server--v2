@@ -1,14 +1,14 @@
 [
   {
-    "key": "a1",
+    "key": "o1",
     "part": "p1",
     "scene": "presenter",
     "lines": [
       "Most small businesses don't have a lead problem.",
       "They have a leak.",
-      "Someone fills in your contact form on a Tuesday night, and the notification lands in an inbox nobody checks until Thursday."
+      "Someone fills in your form on a Tuesday night, and the notification sits in an inbox nobody checks until Thursday.",
+      "By then, somebody else has answered them."
     ],
-    "chapter": "Where leads slip through",
     "params": {
       "pills": [
         [
@@ -17,417 +17,810 @@
           "Not a lead problem. <em>A leak.</em>"
         ],
         [
-          2,
-          "Thursday",
-          "Tuesday night → <em>seen Thursday</em>"
+          3,
+          "somebody",
+          "Lost to <em>a slower reply</em>"
         ]
       ]
-    }
+    },
+    "chapter": "Where leads slip through"
   },
   {
-    "key": "a2",
-    "part": "p1",
-    "scene": "leakTimeline",
-    "lines": [
-      "By then they've asked two other businesses, and one of them answered in five minutes.",
-      "You didn't lose that lead to a better offer.",
-      "You lost it to a slower reply."
-    ]
-  },
-  {
-    "key": "a3",
+    "key": "o2",
     "part": "p1",
     "scene": "presenter",
     "lines": [
-      "So here's a fix you can build tonight.",
-      "One n8n workflow, about ten minutes once your accounts are connected.",
-      "Every lead gets seen and answered within a minute, followed up if nobody gets back to them, and you find out if the whole thing ever breaks."
+      "So today we're going to fix that, together, in n8n.",
+      "We'll build one workflow from an empty canvas.",
+      "It catches every enquiry, writes it down, replies within a minute, and pings your phone.",
+      "If nobody has got back to the lead by the next working morning, it reminds you.",
+      "And a second, tiny workflow tells you if any of it ever breaks."
     ],
     "params": {
       "pills": [
         [
           1,
-          "ten",
-          "One workflow. <em>Ten minutes.</em>"
+          "empty",
+          "Built live, <em>from an empty canvas</em>"
         ],
         [
-          2,
-          "minute",
-          "Seen and answered <em>in a minute</em>"
+          3,
+          "morning",
+          "Nobody replied? <em>It reminds you.</em>"
         ]
       ]
     }
   },
   {
-    "key": "b1",
+    "key": "o3",
     "part": "p1",
-    "scene": "leakMap",
+    "scene": "presenter",
     "lines": [
-      "There are three places a lead slips through, and it's worth naming them, because each one gets its own step.",
-      "Leak one, nobody sees it.",
-      "The form emails a shared inbox, or a spam folder, or the address of someone who left last year."
+      "At the end, we'll run the whole thing live, with a real form, a real inbox and a real phone.",
+      "You'll need n8n, a Google account and Telegram.",
+      "I'm on a self-hosted n8n on a small server, and I'll point out the two places where that makes a difference.",
+      "Let's open the canvas."
     ],
-    "chapter": "The three leaks",
     "params": {
-      "upto": 1
+      "pills": [
+        [
+          1,
+          "telegram",
+          "n8n · Google · <em>Telegram</em>"
+        ]
+      ]
     }
+  },
+  {
+    "key": "m0",
+    "part": null,
+    "scene": "buildMap",
+    "chapter": "The plan",
+    "lines": [
+      "Here's where we're heading.",
+      "Nine nodes in the main workflow, and two in the alarm.",
+      "Don't try to memorise it. We'll add them one at a time, and test each one as we go."
+    ]
+  },
+  {
+    "key": "b1",
+    "part": null,
+    "scene": "screen",
+    "lines": [
+      "First, somewhere for leads to live.",
+      "In Google Sheets, create a new spreadsheet called Leads, and in the first row type eight column headers.",
+      "Received at, name, email, phone, need, source, status and replied at, in lower case with underscores, exactly as you see them here.",
+      "n8n matches on these names, so the spelling matters."
+    ],
+    "params": {
+      "screen": {
+        "clip": "s01.mp4"
+      },
+      "tag": "PREP · Google Sheets",
+      "show": "New spreadsheet <b>Leads</b>, eight headers in row 1",
+      "notes": [
+        {
+          "at": [
+            1,
+            "headers"
+          ],
+          "html": "<code style=\"font-family:monospace;font-size:28px;color:var(--blue)\">received_at · name · email · phone · need · source · status · replied_at</code>"
+        }
+      ]
+    },
+    "chapter": "Prepare the sheet"
   },
   {
     "key": "b2",
-    "part": "p1",
-    "scene": "leakMap",
+    "part": null,
+    "scene": "screen",
     "lines": [
-      "Leak two, nobody replies fast.",
-      "Someone sees it, means to answer properly, and properly turns into tomorrow."
+      "Back in n8n, create a new workflow and call it Lead catcher.",
+      "Click add first step, search for form, and choose on form submission.",
+      "That's n8n's own form trigger. It hosts the form for you, so you don't need a website to follow along."
     ],
     "params": {
-      "upto": 2
-    }
+      "screen": {
+        "clip": "s02.mp4"
+      },
+      "tag": "STEP 1 · On form submission",
+      "show": "New workflow <b>Lead catcher</b> → Add first step → <b>On form submission</b>",
+      "notes": [
+        {
+          "at": [
+            0,
+            "lead"
+          ],
+          "html": "Workflow name: <b>Lead catcher</b>"
+        },
+        {
+          "at": [
+            1,
+            "submission"
+          ],
+          "html": "Trigger: <b>On form submission</b>"
+        }
+      ]
+    },
+    "chapter": "Step 1: Catch the form"
   },
   {
     "key": "b3",
-    "part": "p1",
-    "scene": "leakMap",
+    "part": null,
+    "scene": "screen",
     "lines": [
-      "Leak three, nobody follows up.",
-      "One reply goes out, the lead doesn't answer, and the conversation just stops.",
-      "Nobody decided to drop it. There was just nothing to remind anyone."
+      "Give the form a title, get a quote.",
+      "Then add four fields.",
+      "Name, as text, required.",
+      "Email, with the element type set to email, required.",
+      "Phone, as text, optional.",
+      "And what do you need, as a text area, required.",
+      "Leave respond when on form is submitted, and in the options add a completion message.",
+      "Thanks, we've got it. Check your inbox in the next minute."
     ],
     "params": {
-      "upto": 3
+      "screen": {
+        "clip": "s02.mp4"
+      },
+      "tag": "STEP 1 · On form submission",
+      "show": "Form title, four fields, completion message",
+      "notes": [
+        {
+          "at": [
+            0,
+            "title"
+          ],
+          "html": "Form title: <b>Get a quote</b>"
+        },
+        {
+          "at": [
+            2,
+            "name"
+          ],
+          "html": "<b>Name</b> · Text · required"
+        },
+        {
+          "at": [
+            3,
+            "email"
+          ],
+          "html": "<b>Email</b> · Email · required"
+        },
+        {
+          "at": [
+            4,
+            "phone"
+          ],
+          "html": "<b>Phone</b> · Text · optional"
+        },
+        {
+          "at": [
+            5,
+            "need"
+          ],
+          "html": "<b>What do you need?</b> · Textarea · required"
+        },
+        {
+          "at": [
+            6,
+            "completion"
+          ],
+          "html": "Completion message: <b>Thanks, we've got it. Check your inbox in the next minute.</b>"
+        }
+      ]
     }
   },
   {
     "key": "b4",
-    "part": "p1",
-    "scene": "presenter",
+    "part": null,
+    "scene": "screen",
     "lines": [
-      "And there's a fourth leak that nobody plans for, which is the fix itself breaking quietly.",
-      "We'll get to that one last, because it's the one that turns a good workflow into a false sense of security."
+      "Now click execute step. n8n opens the test version of the form in a new tab.",
+      "Fill it in as a test lead and submit, and back on the canvas you can see exactly what arrived.",
+      "Name, email, phone, the question under its own label, plus submitted at and form mode.",
+      "Click the pin icon to keep this test data, so you don't have to fill in the form every time you test the next step."
     ],
     "params": {
-      "pills": [
-        [
-          0,
-          "quietly",
-          "Leak four: <em>the fix breaks quietly</em>"
-        ]
+      "screen": {
+        "clip": "s02.mp4"
+      },
+      "tag": "STEP 1 · Test it",
+      "show": "Execute step → fill in the test form → pin the output",
+      "notes": [
+        {
+          "at": [
+            3,
+            "pin"
+          ],
+          "html": "📌 <b>Pin data</b> · reuse this test lead for every step"
+        }
       ]
     }
   },
   {
-    "key": "c1",
-    "part": "p1",
-    "scene": "flowOverview",
+    "key": "b5",
+    "part": null,
+    "scene": "screen",
     "lines": [
-      "Here's the whole thing.",
-      "A trigger that catches the form.",
-      "A step that tidies the data.",
-      "A row in a sheet, so every lead is written down somewhere.",
-      "An instant reply to the lead.",
-      "An alert to you.",
-      "And a wait that checks back the next day."
+      "Add the next node, edit fields, and rename it tidy lead.",
+      "Set the mode to manual mapping, and add seven fields, using the same names as the sheet columns."
     ],
-    "chapter": "The whole workflow",
     "params": {
-      "mode": "intro"
-    }
+      "screen": {
+        "clip": "s03.mp4"
+      },
+      "tag": "STEP 2 · Edit Fields → Tidy lead",
+      "show": "Edit Fields, renamed <b>Tidy lead</b>, Manual Mapping, seven fields",
+      "notes": [
+        {
+          "at": [
+            0,
+            "tidy"
+          ],
+          "html": "Edit Fields · renamed <b>Tidy lead</b>"
+        },
+        {
+          "at": [
+            1,
+            "seven"
+          ],
+          "html": "Mode: <b>Manual Mapping</b> · 7 fields"
+        }
+      ]
+    },
+    "chapter": "Step 2: Tidy it"
   },
   {
-    "key": "c2",
-    "part": "p1",
-    "scene": "presenter",
+    "key": "b6",
+    "part": null,
+    "scene": "screen",
     "lines": [
-      "No code, and nothing you have to host to try it.",
-      "Let's build it in order."
+      "Name gets the name with the spaces trimmed. Open the expression editor and type dollar json dot name dot trim.",
+      "Email gets trim and to lower case, so the same person always has the same email.",
+      "Phone and need are dragged straight in from the left.",
+      "Received at is dollar now, formatted as year, month, day, hours and minutes.",
+      "Source is fixed text, quote form.",
+      "And status is fixed text, new."
     ],
     "params": {
-      "pills": [
-        [
-          0,
-          "code",
-          "<em>No code.</em>"
-        ]
+      "screen": {
+        "clip": "s03.mp4"
+      },
+      "tag": "STEP 2 · Tidy lead",
+      "show": "The seven fields and their expressions",
+      "notes": [
+        {
+          "at": [
+            0,
+            "name"
+          ],
+          "html": "name = <code style=\"font-family:monospace;font-size:28px;color:var(--blue)\">{{ $json.Name.trim() }}</code>"
+        },
+        {
+          "at": [
+            1,
+            "email"
+          ],
+          "html": "email = <code style=\"font-family:monospace;font-size:28px;color:var(--blue)\">{{ $json.Email.trim().toLowerCase() }}</code>"
+        },
+        {
+          "at": [
+            2,
+            "phone"
+          ],
+          "html": "phone, need ← drag from the input"
+        },
+        {
+          "at": [
+            3,
+            "received"
+          ],
+          "html": "received_at = <code style=\"font-family:monospace;font-size:28px;color:var(--blue)\">{{ $now.toFormat('yyyy-MM-dd HH:mm') }}</code>"
+        },
+        {
+          "at": [
+            4,
+            "source"
+          ],
+          "html": "source = <b>quote form</b>"
+        },
+        {
+          "at": [
+            5,
+            "status"
+          ],
+          "html": "status = <b>new</b>"
+        }
       ]
     }
   },
   {
-    "key": "d1",
-    "part": "p1",
-    "scene": "stepTitle",
+    "key": "b7",
+    "part": null,
+    "scene": "screen",
     "lines": [
-      "Step one, catch the form.",
-      "Start with a Webhook node, or n8n's own Form Trigger if you don't have a form yet."
-    ],
-    "chapter": "Step 1: Catch the form",
-    "params": {
-      "n": 1,
-      "title": "Catch the form"
-    }
-  },
-  {
-    "key": "d2",
-    "part": "p1",
-    "scene": "webhookUrl",
-    "lines": [
-      "The webhook gives you a web address.",
-      "Most form tools and website builders have a setting that sends every submission to an address like that.",
-      "Paste it in there, submit a test, and you'll see the lead arrive in n8n."
-    ]
-  },
-  {
-    "key": "d3",
-    "part": "p1",
-    "scene": "testVsProd",
-    "lines": [
-      "One thing catches nearly everyone the first time.",
-      "The webhook has a test address and a production address.",
-      "The test one only listens while you're watching the editor.",
-      "Put the production address in your form, and make sure the workflow is switched on, or it hears nothing."
-    ],
-    "hold": 0.3
-  },
-  {
-    "key": "d4",
-    "part": "p1",
-    "scene": "leadSources",
-    "lines": [
-      "Your website form probably isn't the only way leads arrive.",
-      "There's a booking page, a lead ad, an email to your info address.",
-      "n8n has a trigger for most of them, and each one can feed into the same steps you're about to build, with a source field saying which door it came through.",
-      "After a month, that one field tells you where your leads actually come from."
-    ]
-  },
-  {
-    "key": "e1",
-    "part": "p1",
-    "scene": "stepTitle",
-    "lines": [
-      "Step two, write it down."
-    ],
-    "chapter": "Step 2: Write it down",
-    "params": {
-      "n": 2,
-      "title": "Write it down"
-    }
-  },
-  {
-    "key": "e2",
-    "part": "p1",
-    "scene": "cleanFields",
-    "lines": [
-      "Add an Edit Fields node and tidy what came in.",
-      "Trim the spaces and lower-case the email.",
-      "Then add three fields of your own. When it arrived, where it came from, and a status, which starts as new."
-    ]
-  },
-  {
-    "key": "e2a",
-    "part": "p1",
-    "scene": "junkFilter",
-    "lines": [
-      "Before anything gets written down, drop the junk.",
-      "Any public form attracts bots, and if every bot gets an instant reply and sets off an alert, within a week you'll mute the alerts, real leads included.",
-      "The simplest fix is a hidden field on the form that people never see.",
-      "Bots fill it in. An If node checks it, and anything with that field filled in stops right there.",
-      "Add a second check for an empty email address, and you've caught most of it."
-    ]
-  },
-  {
-    "key": "e3",
-    "part": "p1",
-    "scene": "sheetRow",
-    "lines": [
-      "Then a Google Sheets node, set to append or update a row, matched on the email.",
-      "Someone who fills in the form twice is one lead, not two.",
-      "And you always have a list of every enquiry, even if a later step goes wrong."
-    ]
-  },
-  {
-    "key": "e4",
-    "part": "p1",
-    "scene": "presenter",
-    "lines": [
-      "That status column is the most important field in the whole workflow.",
-      "Everything later reads it."
-    ],
-    "hold": 0.3,
-    "params": {
-      "pills": [
-        [
-          0,
-          "status",
-          "The <em>status</em> column runs everything"
-        ]
-      ]
-    }
-  },
-  {
-    "key": "f1",
-    "part": "p2",
-    "scene": "stepTitle",
-    "lines": [
-      "Step three, reply in a minute."
-    ],
-    "chapter": "Step 3: Reply in a minute",
-    "params": {
-      "n": 3,
-      "title": "Reply in a minute"
-    }
-  },
-  {
-    "key": "f2",
-    "part": "p2",
-    "scene": "replyEmail",
-    "lines": [
-      "A Gmail or email node sends a reply from your real address.",
-      "Keep it short and honest.",
-      "Thanks, here's what happens next, and when you'll hear from a person.",
-      "Then one question that makes your real reply better, like what their timeline is."
-    ]
-  },
-  {
-    "key": "f2a",
-    "part": "p2",
-    "scene": "presenter",
-    "lines": [
-      "If you take calls, put your booking link at the bottom of that reply.",
-      "Some leads will book a time before you've even seen the alert, and that's the fastest follow-up there is.",
-      "And send it from an address a person reads, because when they answer the automatic reply, that's the warmest message you'll get all week."
+      "Make sure include other input fields is off, so only these seven go forward.",
+      "Then execute the step, and check the output on the right. Clean, consistent, and named exactly like the sheet."
     ],
     "params": {
-      "pills": [
-        [
-          0,
-          "booking",
-          "Add <em>your booking link</em>"
-        ],
-        [
-          2,
-          "reads",
-          "Send from an address <em>a person reads</em>"
-        ]
-      ]
-    }
-  },
-  {
-    "key": "f3",
-    "part": "p2",
-    "scene": "presenter",
-    "lines": [
-      "Don't dress it up as a personal note you didn't write.",
-      "The point isn't to fool anyone.",
-      "The point is that they know within a minute they reached a real business, and that's often enough to stop them filling in the next form."
-    ],
-    "params": {
-      "pills": [
-        [
-          0,
-          "dress",
-          "Don't fake <em>a personal note</em>"
-        ],
-        [
-          2,
-          "minute",
-          "They reached you <em>in a minute</em>"
-        ]
+      "screen": {
+        "clip": "s03.mp4"
+      },
+      "tag": "STEP 2 · Tidy lead",
+      "show": "Include Other Input Fields off → Execute step",
+      "notes": [
+        {
+          "at": [
+            0,
+            "include"
+          ],
+          "html": "Include Other Input Fields: <b>off</b>"
+        }
       ]
     }
   },
   {
     "key": "g1",
-    "part": "p2",
-    "scene": "stepTitle",
+    "part": null,
+    "scene": "screen",
     "lines": [
-      "Step four, tell a human."
+      "Next we write the lead into the sheet, and this is the first place self-hosting matters.",
+      "On n8n Cloud, you just click sign in with Google.",
+      "Self-hosted, you need your own Google OAuth app. You set it up once, and every Google node can use it."
     ],
-    "chapter": "Step 4: Tell a human",
     "params": {
-      "n": 4,
-      "title": "Tell a human"
-    }
+      "screen": {
+        "clip": "s04.mp4"
+      },
+      "tag": "SELF-HOSTED · Google sign-in",
+      "show": "Why self-hosted needs its own Google OAuth app"
+    },
+    "chapter": "Google sign-in (self-hosted)"
   },
   {
     "key": "g2",
-    "part": "p2",
-    "scene": "alertPhone",
+    "part": null,
+    "scene": "screen",
     "lines": [
-      "Send yourself a message where you'll actually see it.",
-      "Slack, Telegram, a text, whatever is on your phone. Not another email.",
-      "Put the name, what they asked for, and a link to the row in the message, so you can act on it without opening anything else."
-    ]
+      "In the Google Cloud console, create a project, and enable three APIs. Google Sheets, Google Drive, and Gmail.",
+      "Drive is what lets n8n list your spreadsheets by name."
+    ],
+    "params": {
+      "screen": {
+        "clip": "s04.mp4"
+      },
+      "tag": "SELF-HOSTED · Google Cloud console",
+      "show": "New project → enable Sheets, Drive and Gmail APIs",
+      "notes": [
+        {
+          "at": [
+            0,
+            "three"
+          ],
+          "html": "Enable: <b>Google Sheets API · Google Drive API · Gmail API</b>"
+        }
+      ]
+    }
   },
   {
     "key": "g3",
-    "part": "p2",
-    "scene": "presenter",
+    "part": null,
+    "scene": "screen",
     "lines": [
-      "If more than one person handles leads, send it to a shared channel, and have whoever takes it reply in the thread.",
-      "Then nobody wonders whether somebody else already got it."
+      "Then set up the OAuth consent screen as external, and add your own email as a test user.",
+      "Create an OAuth client ID of type web application.",
+      "For the authorised redirect URI, paste the OAuth redirect URL that n8n shows you in the new credential window.",
+      "It must be your real domain, not localhost."
     ],
     "params": {
-      "pills": [
-        [
-          0,
-          "thread",
-          "Take it? <em>Reply in the thread.</em>"
-        ]
+      "screen": {
+        "clip": "s04.mp4"
+      },
+      "tag": "SELF-HOSTED · OAuth client",
+      "show": "Consent screen (External, you as test user) → OAuth client ID (Web application) → redirect URI from n8n",
+      "notes": [
+        {
+          "at": [
+            0,
+            "external"
+          ],
+          "html": "Consent screen: <b>External</b> · test user: <b>you</b>"
+        },
+        {
+          "at": [
+            1,
+            "web"
+          ],
+          "html": "Client type: <b>Web application</b>"
+        },
+        {
+          "at": [
+            2,
+            "redirect"
+          ],
+          "html": "Redirect URI: <code style=\"font-family:monospace;font-size:28px;color:var(--blue)\">https://your-domain/rest/oauth2-credential/callback</code>"
+        }
+      ]
+    }
+  },
+  {
+    "key": "g4",
+    "part": null,
+    "scene": "screen",
+    "lines": [
+      "Copy the client ID and client secret into the n8n credential, and click sign in with Google.",
+      "One warning before we move on. While your consent screen is in testing mode, Google expires the sign-in after seven days, and the workflow quietly stops writing.",
+      "Once it works, go back and publish the app.",
+      "For your own account, Google shows an unverified app warning you can click through, and the sign-in stops expiring."
+    ],
+    "params": {
+      "screen": {
+        "clip": "s04.mp4"
+      },
+      "tag": "SELF-HOSTED · Sign in",
+      "show": "Client ID + secret into the n8n credential → Sign in with Google. Then publish the app.",
+      "notes": [
+        {
+          "at": [
+            1,
+            "seven"
+          ],
+          "html": "Testing mode → sign-in <b>expires after 7 days</b>"
+        },
+        {
+          "at": [
+            2,
+            "publish"
+          ],
+          "html": "Fix: <b>Publish app</b> (Audience → In production)"
+        }
+      ]
+    }
+  },
+  {
+    "key": "c1",
+    "part": null,
+    "scene": "screen",
+    "lines": [
+      "Now add a Google Sheets node, rename it save lead, and choose the operation append or update row.",
+      "Pick your credential, then the Leads document, and the sheet, from the lists."
+    ],
+    "params": {
+      "screen": {
+        "clip": "s05.mp4"
+      },
+      "tag": "STEP 3 · Google Sheets → Save lead",
+      "show": "Google Sheets, renamed <b>Save lead</b>, Append or Update Row, Leads / Sheet1",
+      "notes": [
+        {
+          "at": [
+            0,
+            "append"
+          ],
+          "html": "Operation: <b>Append or Update Row</b>"
+        },
+        {
+          "at": [
+            1,
+            "leads"
+          ],
+          "html": "Document: <b>Leads</b> · Sheet: <b>Sheet1</b>"
+        }
+      ]
+    },
+    "chapter": "Step 3: Write it down"
+  },
+  {
+    "key": "c2",
+    "part": null,
+    "scene": "screen",
+    "lines": [
+      "Set column to match on, to email.",
+      "That's what makes it append or update. A new email adds a row. An email we've seen before updates that row, instead of creating a duplicate.",
+      "Mapping is map each column manually, and because the names match, each field drags straight into its column.",
+      "Under options, set cell format to let Google Sheets format, so received at becomes a real date you can do maths with later."
+    ],
+    "params": {
+      "screen": {
+        "clip": "s05.mp4"
+      },
+      "tag": "STEP 3 · Save lead",
+      "show": "Column to match on: email · Map Each Column Manually · Cell Format",
+      "notes": [
+        {
+          "at": [
+            0,
+            "match"
+          ],
+          "html": "Column to match on: <b>email</b>"
+        },
+        {
+          "at": [
+            2,
+            "manually"
+          ],
+          "html": "Mapping: <b>Map Each Column Manually</b>"
+        },
+        {
+          "at": [
+            3,
+            "cell"
+          ],
+          "html": "Options → Cell Format: <b>Let Google Sheets format</b>"
+        }
+      ]
+    }
+  },
+  {
+    "key": "c3",
+    "part": null,
+    "scene": "screen",
+    "lines": [
+      "Execute the step, and switch to the sheet.",
+      "There's our test lead, in row two."
+    ],
+    "params": {
+      "screen": {
+        "clip": "s05.mp4"
+      },
+      "tag": "STEP 3 · Test it",
+      "show": "Execute step → switch to the sheet: row 2"
+    }
+  },
+  {
+    "key": "d1",
+    "part": null,
+    "scene": "screen",
+    "lines": [
+      "Next, the reply. Add a Gmail node, rename it reply to lead, and choose send.",
+      "Create a Gmail credential with the same client ID and secret, and sign in again.",
+      "This time Google asks for permission to send email."
+    ],
+    "params": {
+      "screen": {
+        "clip": "s06.mp4"
+      },
+      "tag": "STEP 4 · Gmail → Reply to lead",
+      "show": "Gmail, renamed <b>Reply to lead</b>, Send, new Gmail credential",
+      "notes": [
+        {
+          "at": [
+            0,
+            "send"
+          ],
+          "html": "Gmail · Message → <b>Send</b>"
+        },
+        {
+          "at": [
+            1,
+            "same"
+          ],
+          "html": "Gmail OAuth2: <b>same client ID + secret</b>"
+        }
+      ]
+    },
+    "chapter": "Step 4: Reply in a minute"
+  },
+  {
+    "key": "d2",
+    "part": null,
+    "scene": "screen",
+    "lines": [
+      "For to, don't use the incoming data directly.",
+      "After the sheet node, that data is the sheet's response, so reach back to the tidy node instead.",
+      "Dollar, open bracket, tidy lead, then item dot json dot email.",
+      "Subject, got your message, then the name. And email type, text."
+    ],
+    "params": {
+      "screen": {
+        "clip": "s06.mp4"
+      },
+      "tag": "STEP 4 · Reply to lead",
+      "show": "To / Subject from Tidy lead · Email Type: Text",
+      "notes": [
+        {
+          "at": [
+            2,
+            "dollar"
+          ],
+          "html": "To: <code style=\"font-family:monospace;font-size:28px;color:var(--blue)\">{{ $('Tidy lead').item.json.email }}</code>"
+        },
+        {
+          "at": [
+            3,
+            "subject"
+          ],
+          "html": "Subject: <code style=\"font-family:monospace;font-size:28px;color:var(--blue)\">Got your message, {{ $('Tidy lead').item.json.name }}</code>"
+        }
+      ]
+    }
+  },
+  {
+    "key": "d3",
+    "part": null,
+    "scene": "screen",
+    "lines": [
+      "The message is short and honest.",
+      "Thanks for getting in touch. Here's what happens next, and when you'll hear from a person.",
+      "And one question that makes your real reply better, like when they're hoping to start.",
+      "Then open the options and turn off append n8n attribution, or every reply ends with a line saying it was sent by n8n."
+    ],
+    "params": {
+      "screen": {
+        "clip": "s06.mp4"
+      },
+      "tag": "STEP 4 · Reply to lead",
+      "show": "Message text · Options → Append n8n Attribution off",
+      "notes": [
+        {
+          "at": [
+            1,
+            "thanks"
+          ],
+          "html": "What happens next · <b>when</b> a person replies"
+        },
+        {
+          "at": [
+            2,
+            "question"
+          ],
+          "html": "One useful question"
+        },
+        {
+          "at": [
+            3,
+            "attribution"
+          ],
+          "html": "Options → Append n8n Attribution: <b>off</b>"
+        }
+      ]
+    }
+  },
+  {
+    "key": "e1",
+    "part": null,
+    "scene": "screen",
+    "lines": [
+      "Now your phone. In Telegram, open a chat with BotFather, and send slash new bot.",
+      "Give it a name, and a username ending in bot, and copy the token it gives you.",
+      "Treat that token like a password."
+    ],
+    "params": {
+      "screen": {
+        "clip": "s07.mp4"
+      },
+      "tag": "STEP 5 · Telegram bot",
+      "show": "@BotFather → /newbot → name → username ending in bot → copy token",
+      "notes": [
+        {
+          "at": [
+            0,
+            "botfather"
+          ],
+          "html": "@BotFather → <b>/newbot</b>"
+        },
+        {
+          "at": [
+            2,
+            "password"
+          ],
+          "html": "Token = <b>password</b>. Never on screen."
+        }
+      ]
+    },
+    "chapter": "Step 5: Tell a human"
+  },
+  {
+    "key": "e2",
+    "part": null,
+    "scene": "screen",
+    "lines": [
+      "Send your new bot any message, so it's allowed to message you back.",
+      "Then open this address in your browser, with your token in it, and find chat, then id.",
+      "That number is where your alerts will go."
+    ],
+    "params": {
+      "screen": {
+        "clip": "s07.mp4"
+      },
+      "tag": "STEP 5 · Your chat ID",
+      "show": "Message the bot → open getUpdates → chat.id",
+      "notes": [
+        {
+          "at": [
+            1,
+            "address"
+          ],
+          "html": "<code style=\"font-family:monospace;font-size:28px;color:var(--blue)\">https://api.telegram.org/bot&lt;TOKEN&gt;/getUpdates</code>"
+        },
+        {
+          "at": [
+            1,
+            "id"
+          ],
+          "html": "Copy <b>result → message → chat → id</b>"
+        }
+      ]
+    }
+  },
+  {
+    "key": "e3",
+    "part": null,
+    "scene": "screen",
+    "lines": [
+      "Back in n8n, add a Telegram node, rename it alert me, and choose send message.",
+      "Create the credential by pasting the token, and paste the chat ID.",
+      "Write the text. New lead, the name, what they need, their email and phone, and a link to the sheet.",
+      "Under additional fields, turn off append n8n attribution here too.",
+      "Execute the step, and the alert lands on your phone."
+    ],
+    "params": {
+      "screen": {
+        "clip": "s07.mp4"
+      },
+      "tag": "STEP 5 · Telegram → Alert me",
+      "show": "Telegram, renamed <b>Alert me</b>, Send Message, token credential, chat ID, text",
+      "notes": [
+        {
+          "at": [
+            0,
+            "send"
+          ],
+          "html": "Telegram · <b>Send Message</b>"
+        },
+        {
+          "at": [
+            1,
+            "chat"
+          ],
+          "html": "Chat ID: <b>your number</b>"
+        },
+        {
+          "at": [
+            2,
+            "text"
+          ],
+          "html": "Text: <code style=\"font-family:monospace;font-size:28px;color:var(--blue)\">New lead: {{ $('Tidy lead').item.json.name }}</code>"
+        },
+        {
+          "at": [
+            3,
+            "attribution"
+          ],
+          "html": "Append n8n Attribution: <b>off</b>"
+        }
       ]
     }
   },
   {
     "key": "h1",
     "part": "p2",
-    "scene": "stepTitle",
+    "scene": "presenter",
     "lines": [
-      "Step five, the next day check.",
-      "This is the one that plugs leak three."
+      "So that's the first half working.",
+      "Every lead is written down, answered within a minute, and on your phone.",
+      "Before we build the second half, two decisions that matter more than any node."
     ],
-    "chapter": "Step 5: The next-day check",
     "params": {
-      "n": 5,
-      "title": "The next-day check"
-    }
+      "pills": [
+        [
+          1,
+          "minute",
+          "Written down · answered · <em>on your phone</em>"
+        ]
+      ]
+    },
+    "chapter": "Halfway: two decisions"
   },
   {
     "key": "h2",
     "part": "p2",
-    "scene": "waitNode",
-    "lines": [
-      "Add a Wait node set to twenty-four hours.",
-      "When it wakes up, look the lead up in the sheet again and read the status."
-    ]
-  },
-  {
-    "key": "h2a",
-    "part": "p2",
-    "scene": "businessHours",
-    "lines": [
-      "One refinement.",
-      "Twenty-four hours after a Friday evening is Saturday evening, and a reminder then helps nobody.",
-      "If you only work weekdays, set the Wait node to resume at a specific time instead, the next working morning at nine, so the reminder lands when you can act on it.",
-      "It takes one short expression to skip the weekend."
-    ]
-  },
-  {
-    "key": "h3",
-    "part": "p2",
-    "scene": "ifStatus",
-    "lines": [
-      "Then an If node.",
-      "If the status still says new, nobody has replied, and you get a second message. This lead has waited a day.",
-      "If someone did reply and changed the status, the workflow just ends."
-    ]
-  },
-  {
-    "key": "h3a",
-    "part": "p2",
     "scene": "presenter",
     "lines": [
-      "Which raises the obvious question. Who changes the status?",
+      "First, the status column. Who changes it from new to replied?",
       "You do.",
-      "When you reply to a lead, you set their row to replied.",
-      "It's the one manual step in the whole workflow, and it's deliberate, because it's the only honest record of whether a person actually got back to them."
+      "When you get back to a lead, you change their row.",
+      "It's the one manual step in the whole workflow, and it's on purpose, because it's the only honest record of whether a person actually got back to them."
     ],
     "params": {
       "pills": [
@@ -445,25 +838,24 @@
     }
   },
   {
-    "key": "h4",
+    "key": "h3",
     "part": "p2",
     "scene": "presenter",
     "lines": [
-      "Notice who that reminder goes to.",
-      "You, not the lead.",
+      "Second, the reminder we're about to build goes to you, not the lead.",
       "An automatic chaser to someone who hasn't answered is how a helpful business starts to look like a mailing list.",
-      "The workflow's job is to make sure a person follows up, not to do it for them."
+      "The workflow's job is to make sure a person follows up, not to do it for them.",
+      "Back to the canvas."
     ],
-    "hold": 0.3,
     "params": {
       "pills": [
         [
-          1,
+          0,
           "lead",
           "The reminder goes to <em>you</em>, not the lead"
         ],
         [
-          3,
+          2,
           "person",
           "Make sure <em>a person</em> follows up"
         ]
@@ -471,129 +863,465 @@
     }
   },
   {
-    "key": "i1",
-    "part": "p2",
-    "scene": "textCard",
+    "key": "f1",
+    "part": null,
+    "scene": "screen",
     "lines": [
-      "Which brings us to leak four.",
-      "The day this workflow breaks, it won't tell you.",
-      "Leads just stop arriving, and a quiet week looks exactly like a broken form."
+      "Add a wait node after alert me, and rename it wait until next working morning.",
+      "Set resume to at specified time, and switch the date and time field to an expression."
     ],
-    "chapter": "When the fix breaks",
     "params": {
-      "theme": "dark",
-      "blocks": [
+      "screen": {
+        "clip": "s08.mp4"
+      },
+      "tag": "STEP 6 · Wait",
+      "show": "Wait, renamed, Resume: At Specified Time, Date and Time as an expression",
+      "notes": [
         {
-          "html": "A quiet week",
           "at": [
-            2,
-            "quiet"
+            1,
+            "specified"
           ],
-          "size": 120
-        },
+          "html": "Resume: <b>At Specified Time</b>"
+        }
+      ]
+    },
+    "chapter": "Step 6: Wait for the next working morning"
+  },
+  {
+    "key": "f2",
+    "part": null,
+    "scene": "screen",
+    "lines": [
+      "The expression takes now, and adds one day.",
+      "Or, on a Friday, Saturday or Sunday, enough days to reach Monday.",
+      "Then it sets the time to nine o'clock. You can copy it from the description."
+    ],
+    "params": {
+      "screen": {
+        "clip": "s08.mp4"
+      },
+      "tag": "STEP 6 · Wait",
+      "show": "The next-working-morning expression",
+      "notes": [
         {
-          "html": "looks exactly like <span style='color:var(--accent)'>a broken form.</span>",
           "at": [
-            2,
-            "broken"
+            0,
+            "now"
           ],
-          "size": 96
+          "html": "<code style=\"font-family:monospace;font-size:28px;color:var(--blue)\">{{ $now.plus({ days: $now.weekday >= 5 ? 8 - $now.weekday : 1 })<br>.set({ hour: 9, minute: 0, second: 0, millisecond: 0 }).toISO() }}</code>"
         }
       ]
     }
   },
   {
-    "key": "i2",
-    "part": "p2",
-    "scene": "errorWorkflow",
+    "key": "f3",
+    "part": null,
+    "scene": "screen",
     "lines": [
-      "So build a second, tiny workflow that starts with an Error Trigger and sends you a message.",
-      "Then in the lead workflow's settings, choose it as the error workflow.",
-      "Now a failure in any step reaches your phone."
-    ]
-  },
-  {
-    "key": "i3",
-    "part": "p2",
-    "scene": "breakCauses",
-    "lines": [
-      "The usual causes are boring.",
-      "A Google connection that expired, a form field someone renamed, a sheet column someone deleted.",
-      "If your Google connection uses an app that's still in testing mode, its sign-in expires after seven days, so publish the app or expect to reconnect every week."
-    ]
-  },
-  {
-    "key": "i4",
-    "part": "p2",
-    "scene": "weeklyTest",
-    "lines": [
-      "And once a week, fill in your own form.",
-      "Thirty seconds.",
-      "If the reply and the alert both arrive, the whole chain works."
+      "That nine o'clock follows the workflow's time zone, so open the workflow settings and set it to yours.",
+      "On a self-hosted n8n, the default comes from your server's settings, and if nobody set it, n8n assumes New York time."
     ],
-    "hold": 0.3
-  },
-  {
-    "key": "i5",
-    "part": "p2",
-    "scene": "responseTime",
-    "chapter": "Measure the leak",
-    "lines": [
-      "Once this has run for a few weeks, add one more column, replied at, next to received at.",
-      "The gap between them is your real response time, lead by lead.",
-      "It's usually longer than people guess, and it's the one number that tells you whether the leak is actually fixed.",
-      "If it creeps up even with all this in place, the workflow isn't the problem. The bottleneck is the reply."
-    ]
-  },
-  {
-    "key": "j1",
-    "part": "p2",
-    "scene": "flowOverview",
-    "lines": [
-      "So that's the fix.",
-      "Catch it.",
-      "Write it down.",
-      "Reply in a minute.",
-      "Tell a human.",
-      "Check the next day.",
-      "And know when it breaks."
-    ],
-    "chapter": "Ten minutes",
     "params": {
-      "mode": "recap"
+      "screen": {
+        "clip": "s08.mp4"
+      },
+      "tag": "STEP 6 · Workflow settings",
+      "show": "Settings → Timezone: yours",
+      "notes": [
+        {
+          "at": [
+            0,
+            "settings"
+          ],
+          "html": "Workflow settings → Timezone: <b>yours</b>"
+        },
+        {
+          "at": [
+            1,
+            "york"
+          ],
+          "html": "Server default: <code style=\"font-family:monospace;font-size:28px;color:var(--blue)\">GENERIC_TIMEZONE</code>"
+        }
+      ]
     }
   },
   {
-    "key": "j2",
-    "part": "p2",
+    "key": "f4",
+    "part": null,
+    "scene": "screen",
+    "lines": [
+      "When it wakes up, it needs to know what has happened since.",
+      "Add a Google Sheets node, rename it look up lead, and choose get rows, with the same document and sheet.",
+      "Add a filter. Column email, and the value is the email from tidy lead."
+    ],
+    "params": {
+      "screen": {
+        "clip": "s09.mp4"
+      },
+      "tag": "STEP 7 · Google Sheets → Look up lead",
+      "show": "Get Row(s), filter email = Tidy lead email",
+      "notes": [
+        {
+          "at": [
+            1,
+            "rows"
+          ],
+          "html": "Operation: <b>Get Row(s)</b>"
+        },
+        {
+          "at": [
+            2,
+            "filter"
+          ],
+          "html": "Filter: email = <code style=\"font-family:monospace;font-size:28px;color:var(--blue)\">{{ $('Tidy lead').item.json.email }}</code>"
+        }
+      ]
+    },
+    "chapter": "Step 7: Still new?"
+  },
+  {
+    "key": "f5",
+    "part": null,
+    "scene": "screen",
+    "lines": [
+      "Then an if node, called still new.",
+      "The condition is status, from the lookup, is equal to new, as a string.",
+      "If it's true, nobody has replied. If it's false, someone has, and that branch just ends."
+    ],
+    "params": {
+      "screen": {
+        "clip": "s09.mp4"
+      },
+      "tag": "STEP 7 · If → Still new?",
+      "show": "If: status is equal to new",
+      "notes": [
+        {
+          "at": [
+            1,
+            "condition"
+          ],
+          "html": "<code style=\"font-family:monospace;font-size:28px;color:var(--blue)\">{{ $json.status }}</code> · String · <b>is equal to</b> · <b>new</b>"
+        }
+      ]
+    }
+  },
+  {
+    "key": "f6",
+    "part": null,
+    "scene": "screen",
+    "lines": [
+      "On the true branch, add one more Telegram node, remind me, with the same chat.",
+      "The text says the name, that they've waited since received at, and that nobody has replied yet."
+    ],
+    "params": {
+      "screen": {
+        "clip": "s09.mp4"
+      },
+      "tag": "STEP 7 · Telegram → Remind me",
+      "show": "On the true branch: Telegram, same chat, reminder text",
+      "notes": [
+        {
+          "at": [
+            1,
+            "text"
+          ],
+          "html": "Text: <code style=\"font-family:monospace;font-size:28px;color:var(--blue)\">{{ name }} has waited since {{ received_at }}. Nobody has replied yet.</code>"
+        }
+      ]
+    }
+  },
+  {
+    "key": "k1",
+    "part": null,
+    "scene": "screen",
+    "lines": [
+      "Now the part most people skip.",
+      "Create a second workflow, called lead alarm.",
+      "Add an error trigger, and after it a Telegram node with the alarm text.",
+      "Which workflow failed, at which node, the error message, and a link to the execution. Then save it."
+    ],
+    "params": {
+      "screen": {
+        "clip": "s10.mp4"
+      },
+      "tag": "THE ALARM · Lead alarm",
+      "show": "New workflow <b>Lead alarm</b>: Error Trigger → Telegram",
+      "notes": [
+        {
+          "at": [
+            2,
+            "error"
+          ],
+          "html": "Trigger: <b>Error Trigger</b>"
+        },
+        {
+          "at": [
+            3,
+            "node"
+          ],
+          "html": "<code style=\"font-family:monospace;font-size:28px;color:var(--blue)\">{{ $json.execution.lastNodeExecuted }} · {{ $json.execution.error.message }}</code>"
+        }
+      ]
+    },
+    "chapter": "The alarm"
+  },
+  {
+    "key": "k2",
+    "part": null,
+    "scene": "screen",
+    "lines": [
+      "Go back to lead catcher, open its settings, and set error workflow to lead alarm.",
+      "One catch. Error workflows only run for live executions, not when you click execute in the editor.",
+      "We'll test it properly in a minute."
+    ],
+    "params": {
+      "screen": {
+        "clip": "s10.mp4"
+      },
+      "tag": "THE ALARM · Settings",
+      "show": "Lead catcher → Settings → Error workflow: Lead alarm",
+      "notes": [
+        {
+          "at": [
+            0,
+            "error"
+          ],
+          "html": "Settings → Error workflow: <b>Lead alarm</b>"
+        },
+        {
+          "at": [
+            1,
+            "live"
+          ],
+          "html": "Runs on <b>live executions only</b>"
+        }
+      ]
+    }
+  },
+  {
+    "key": "k3",
+    "part": null,
+    "scene": "screen",
+    "lines": [
+      "Last step before the live run. Switch the workflow on.",
+      "Then open the form trigger, and copy the production URL, not the test one. The test URL only works while you're watching the editor.",
+      "And here's the second self-hosted catch.",
+      "If the production URL says localhost, set the webhook URL environment variable on your server to your real domain, and restart n8n, or nobody outside your server can reach the form."
+    ],
+    "params": {
+      "screen": {
+        "clip": "s10.mp4"
+      },
+      "tag": "GO LIVE",
+      "show": "Switch the workflow on · copy the Production URL · WEBHOOK_URL",
+      "notes": [
+        {
+          "at": [
+            0,
+            "switch"
+          ],
+          "html": "Workflow: <b>on</b> (Active / Publish)"
+        },
+        {
+          "at": [
+            1,
+            "production"
+          ],
+          "html": "Use the <b>Production URL</b>"
+        },
+        {
+          "at": [
+            3,
+            "localhost"
+          ],
+          "html": "<code style=\"font-family:monospace;font-size:28px;color:var(--blue)\">WEBHOOK_URL=https://your-domain/</code>"
+        }
+      ]
+    },
+    "chapter": "Go live"
+  },
+  {
+    "key": "l1",
+    "part": null,
+    "scene": "screen",
+    "lines": [
+      "Right, let's run it for real.",
+      "For this demo, I've switched the wait node to after time interval, one minute, so we don't have to wait until tomorrow.",
+      "Open the production form, and submit a lead the way a customer would."
+    ],
+    "params": {
+      "screen": {
+        "clip": "s11.mp4"
+      },
+      "tag": "LIVE RUN",
+      "show": "Production form → submit as a customer",
+      "notes": [
+        {
+          "at": [
+            1,
+            "minute"
+          ],
+          "html": "Demo only: Wait → <b>After Time Interval · 1 minute</b>"
+        }
+      ]
+    },
+    "chapter": "Live run"
+  },
+  {
+    "key": "l2",
+    "part": null,
+    "scene": "screen",
+    "lines": [
+      "The completion message shows straight away.",
+      "A few seconds later, the alert arrives on my phone.",
+      "In the inbox, the reply is already there, from my own address, with no n8n footer.",
+      "And in the sheet, a new row, with the status new."
+    ],
+    "params": {
+      "screen": {
+        "clip": "s11.mp4"
+      },
+      "tag": "LIVE RUN",
+      "show": "Completion message → Telegram alert → inbox reply → new sheet row"
+    }
+  },
+  {
+    "key": "l3",
+    "part": null,
+    "scene": "screen",
+    "lines": [
+      "In executions, you can see this run, waiting.",
+      "After a minute, it wakes up, looks the lead up, finds the status still says new, and the reminder lands on my phone."
+    ],
+    "params": {
+      "screen": {
+        "clip": "s12.mp4"
+      },
+      "tag": "LIVE RUN · The next-day check",
+      "show": "Executions: run Waiting → wakes → reminder arrives"
+    }
+  },
+  {
+    "key": "l4",
+    "part": null,
+    "scene": "screen",
+    "lines": [
+      "Now a second lead. This time, before the minute is up, I change the row's status to replied.",
+      "When the run wakes up, the if node takes the false branch, and nothing is sent.",
+      "That's the whole loop, working."
+    ],
+    "params": {
+      "screen": {
+        "clip": "s12.mp4"
+      },
+      "tag": "LIVE RUN · Someone replied",
+      "show": "Second lead → set status to replied → run ends at If (false)"
+    }
+  },
+  {
+    "key": "l5",
+    "part": null,
+    "scene": "screen",
+    "lines": [
+      "Finally, let's break it on purpose.",
+      "In tidy lead, I misspell the name field in the expression, make the change live, and submit one more lead.",
+      "The step fails, and seconds later, lead alarm messages my phone, with the node and the error.",
+      "Put the spelling back, make it live again, and we're done."
+    ],
+    "params": {
+      "screen": {
+        "clip": "s13.mp4"
+      },
+      "tag": "LIVE RUN · Break it on purpose",
+      "show": "Typo in Tidy lead → submit → Lead alarm on the phone → fix",
+      "notes": [
+        {
+          "at": [
+            1,
+            "misspell"
+          ],
+          "html": "<code style=\"font-family:monospace;font-size:28px;color:var(--blue)\">{{ $json.Nmae.trim() }}</code> ← on purpose"
+        }
+      ]
+    }
+  },
+  {
+    "key": "z1",
+    "part": "p3",
     "scene": "presenter",
     "lines": [
-      "None of this brings you a single new lead.",
-      "It just stops you losing the ones that already chose you, which is the cheapest growth there is.",
-      "Build it tonight, then fill in your own contact form, and see how long it takes you to hear back."
+      "Before you leave it running, set the wait node back to the next working morning, and make that change live.",
+      "Then once a week, fill in your own form. Thirty seconds.",
+      "If the reply and the alert both arrive, the whole chain works."
     ],
-    "hold": 0.6,
+    "params": {
+      "pills": [
+        [
+          0,
+          "back",
+          "Wait → back to <em>next working morning</em>"
+        ],
+        [
+          1,
+          "week",
+          "Once a week: <em>test your own form</em>"
+        ]
+      ]
+    },
+    "chapter": "Keep it running"
+  },
+  {
+    "key": "z2",
+    "part": "p3",
+    "scene": "presenter",
+    "lines": [
+      "And when you reply to a lead, fill in replied at as well as the status.",
+      "After a few weeks, the gap between received at and replied at is your real response time, lead by lead.",
+      "It's usually longer than people guess, and it's the one number that tells you whether the leak is actually fixed."
+    ],
     "params": {
       "pills": [
         [
           1,
-          "cheapest",
-          "Keep the leads <em>that already chose you</em>"
-        ],
-        [
-          2,
-          "tonight",
-          "Build it <em>tonight</em>"
+          "gap",
+          "received_at → replied_at = <em>your real response time</em>"
         ]
       ]
     }
   },
   {
-    "key": "j3",
-    "part": "p2",
-    "scene": "flowOverview",
+    "key": "z3",
+    "part": "p3",
+    "scene": "presenter",
+    "lines": [
+      "None of this brings you a single new lead.",
+      "It stops you losing the ones that already chose you, which is the cheapest growth there is.",
+      "Every setting and expression from this build is in the description.",
+      "Build it tonight, then fill in your own form, and see how long it takes you to hear back."
+    ],
+    "params": {
+      "pills": [
+        [
+          1,
+          "chose",
+          "Keep the leads <em>that already chose you</em>"
+        ],
+        [
+          3,
+          "tonight",
+          "Build it <em>tonight</em>"
+        ]
+      ]
+    },
+    "hold": 0.6
+  },
+  {
+    "key": "z4",
+    "part": null,
+    "scene": "buildMap",
     "lines": [],
-    "hold": 4.5,
+    "hold": 4.0,
     "params": {
       "mode": "end"
     }

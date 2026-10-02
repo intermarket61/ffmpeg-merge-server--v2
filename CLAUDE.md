@@ -10,5 +10,8 @@
   order makes its part stale and costs a new take; use `trim` for pauses.
 * Long videos are at least 8 minutes, reached with substance, never padding
   (AUTHORING.md §4); `hedra` refuses a shorter cut.
+* Tutorial videos (AUTHORING.md §7): the avatar only at the open, middle and
+  close (~1 min each); the rest is the user's screen recording under the
+  narration, with a recording guide written for the user.
 * Review with `stills` before rendering. Look at every frame, not a sample.
 * `build/` holds paid-for assets (vo/, hedra/). Never delete it casually.

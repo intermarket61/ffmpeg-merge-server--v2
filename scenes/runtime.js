@@ -25,6 +25,11 @@ function wordAt(line, match, nth=0){
 }
 
 // ------------------------------------------------------------------ face
+let screenBitmap=null;                     // the current frame of a screen recording, if the shot plays one
+window.setScreen=async function(dataUrl){
+  if(!dataUrl){screenBitmap=null;return}
+  screenBitmap=await createImageBitmap(await (await fetch(dataUrl)).blob());
+};
 window.setFace=async function(dataUrl){
   if(!dataUrl){faceBitmap=null;return}
   const blob=await (await fetch(dataUrl)).blob();
@@ -51,6 +56,7 @@ function faceFull(z0=1.0,z1=1.08,parent){
   faceCanvases.push({canvas:c,kind:'full',z0,z1}); return c;
 }
 function cam(enterAt=0.2,size=330){
+  if(S.face===false) return ()=>{};          // voice-only shot (screen tutorial): no presenter
   const box=el('div','cam'); box.style.width=box.style.height=size+'px'; const c=el('canvas','',box); c.width=c.height=400;
   faceCanvases.push({canvas:c,kind:'bubble'});
   return t=>{const k=spring((t-enterAt)/0.9);

@@ -6,6 +6,7 @@
   Vertical Short frame (1080x1920). engine/shorts.py loads this page and,
   per frame, calls show({mode, graphic, face, label, words, current}):
     split  the cut's frame (the graphic) on top, the presenter below
+    graphic  the cut's frame alone, mid-height (screen recordings, no presenter)
     face   the presenter full frame (shots that are only the presenter)
   Captions are the chunk of spoken words on screen, the current one lit.
 -->
@@ -21,6 +22,9 @@
   body.face #face{top:0;height:1920px;object-position:50.5% 30%}
   #graphic{left:0;top:250px;width:1080px;height:608px;box-shadow:0 30px 60px rgba(0,0,0,.6);z-index:2}
   body.face #graphic{display:none}
+  body.graphic #face{display:none}
+  body.graphic #graphic{top:520px}
+  body.graphic #fadeTop{display:none}
   #fadeTop{position:absolute;left:0;right:0;top:860px;height:160px;z-index:1;background:linear-gradient(#0c0b0a,transparent)}
   body.face #fadeTop{display:none}
   #label{position:absolute;left:0;right:0;top:120px;text-align:center;z-index:3;font-weight:700;font-size:38px;

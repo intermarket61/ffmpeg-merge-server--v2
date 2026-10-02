@@ -124,13 +124,16 @@ def make_one(video, short):
         f, shot_start = 0, 0.0
         for shot in shots:
             face_from = FACE_SCENES.get(shot.scene)
-            face = frames(ff, take_for(shot), shot.part_offset, shot.length)
+            face = frames(ff, take_for(shot), shot.part_offset, shot.length) if shot.part else iter(lambda: None, 1)
             cut = frames(ff, video.final, shot.offset, shot.length)
             for _ in range(round((shot_start + shot.length) * FPS) - f):
                 if f >= n:
                     break
                 t = f / FPS
-                mode = "face" if face_from is not None and t - shot_start >= face_from else "split"
+                if shot.part is None:
+                    mode = "graphic"            # a voice-only shot (screen recording): no presenter
+                else:
+                    mode = "face" if face_from is not None and t - shot_start >= face_from else "split"
                 chunk = next((c for c in caps if c[0] <= t < c[1]), None)
                 words = [w[2] for w in chunk[2]] if chunk else []
                 current = max((i for i, w in enumerate(chunk[2]) if w[0] <= t), default=0) if chunk else -1

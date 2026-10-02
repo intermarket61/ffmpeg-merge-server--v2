@@ -202,7 +202,43 @@ and re-run `publish`: the same YouTube video is updated, unless its title or
 description was changed in YouTube Studio meanwhile (then it warns and
 leaves YouTube alone). Custom thumbnails need a verified channel.
 
-## 7. The review loop
+## 7. Tutorial videos (hands-on builds)
+
+The standard for every tutorial-based video (`"format": "tutorial"` in
+`video.json`; `videos/video-e` is the reference): the viewer watches the
+real thing being built and then run live, not graphics about it.
+
+* **The avatar appears three times only**: the open, the middle, the
+  close, about a minute each (`p1`, `p2`, `p3`, one Hedra take each). That
+  is the whole Hedra bill, so a 12-minute tutorial costs about what a
+  3-minute video did.
+* **Everything else is the screen**: shots with `"part": null` (voice
+  only, no presenter, no `cam()`) and the library `screen` scene. Each
+  plays a stretch of a recording the user makes
+  (`params.screen: {"clip": "s05.mp4", "from": 12.0, "to": 48.5}` from
+  `videos/<id>/screen/`), fitted under its narration: the engine speeds the
+  stretch up or slows it down to the shot's voiced length.
+* **Narrate exactly what is on screen**: node names, operations, field
+  values and expressions as the viewer will see them, then test each step
+  as it's added. End with a live run of the finished workflow, including
+  one deliberate failure, so the viewer sees it work and sees it recover.
+* **The middle segment** is for the decisions that matter more than any
+  node (why, not how). The close is how to keep it running.
+* **`screen` params**: `tag` (step chip), `show` (what to record; it is
+  the storyboard card until the clip exists, so stills work before
+  recording), `notes` (call-out cards: the exact setting just made, timed
+  to a word), `zoom` (ease into a 16:9 region), `marks` (highlight boxes),
+  `blur` (tokens, secrets, private emails). Coordinates are in a
+  1920x1080 reference frame.
+* **The recording guide** (`videos/<id>/RECORDING.md`) goes to the user
+  with the script: one clip per section, every click, setting, credential
+  and expression in order, what to keep off screen, and how to send the
+  clips. Write it from the same shot list so the two never disagree.
+* After the clips arrive: watch them, set `from`/`to` per shot, add
+  zooms, marks and blurs, then stills. Hedra is made only for the three
+  avatar parts; the 8-minute floor still applies to the whole cut.
+
+## 8. The review loop
 
 ```bash
 python -m engine voice videos/<id>                 # cheap; gives real timings

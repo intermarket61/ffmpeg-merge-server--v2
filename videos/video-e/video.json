@@ -1,7 +1,7 @@
 {
   "id": "video-e",
   "title": "Your Leads Are Slipping Through? Here's the 10-Minute n8n Fix",
-  "presenter": "../video-b/presenter.webp",
+  "presenter": "presenter.webp",
   "params": {
     "tally": false,
     "accent": "#8fd694",
@@ -14,13 +14,13 @@
     "model": "d1dd37a3-e39a-4854-a298-6510289f9cf2",
     "resolution": "1080p",
     "credits_per_second": 8.75,
-    "prompt": "A confident presenter in a leather jacket speaking directly to camera at a desk in a warm, modern home studio, calm and conversational, natural head movement and blinking, hands resting on the desk."
+    "prompt": "A confident, friendly presenter in a navy textured blazer over a light blue polo shirt, speaking directly to camera at a desk in a bright modern office with a city view, bookshelves and a warm lamp; calm and conversational, natural head movement and blinking."
   },
   "thumbnail": {
-    "shot": "a3",
+    "shot": "o2",
     "t": 2.0,
     "params": {
-      "kicker": "n8n · 10 minutes",
+      "kicker": "n8n · Live build",
       "lines": [
         {
           "html": "Stop losing",
@@ -32,17 +32,17 @@
           "color": "var(--accent)"
         }
       ],
-      "badge": "No code"
+      "badge": "Step by step"
     }
   },
   "shorts": [
     {
       "id": "slower-reply",
-      "from": "a1",
-      "to": "a3",
+      "from": "o1",
+      "to": "o2",
       "label": "Lost leads",
       "title": "You didn't lose that lead to a better offer",
-      "description": "Most small businesses don't have a lead problem, they have a leak: a form that lands in an inbox nobody checks. You lost the lead to a slower reply. Here's the ten-minute n8n fix.",
+      "description": "Most small businesses don't have a lead problem, they have a leak: a form that lands in an inbox nobody checks until Thursday. The full video builds the fix in n8n, live.",
       "tags": [
         "lead follow up",
         "n8n",
@@ -53,43 +53,41 @@
     },
     {
       "id": "reminder-goes-to-you",
-      "from": "h1",
-      "to": "h4",
-      "label": "Step 5 of 5",
-      "title": "The follow-up step most lead automations get wrong",
-      "description": "Wait a day, check the lead's status, and if nobody has replied, remind yourself, not the lead. An automatic chaser makes a helpful business look like a mailing list.",
+      "from": "h2",
+      "to": "h3",
+      "label": "Lead follow-up",
+      "title": "Who should your lead automation remind? You, not the lead.",
+      "description": "The one manual step in a lead workflow, and why the follow-up reminder should go to you, not the customer. From a live n8n build.",
       "tags": [
         "lead follow up",
         "n8n",
         "n8n workflow",
         "small business automation"
       ],
-      "publish_at": "2026-10-29 14:00 America/Chicago",
-      "skip": [
-        "h2a",
-        "h3a"
-      ]
+      "publish_at": "2026-10-29 14:00 America/Chicago"
     }
   ],
   "youtube": {
     "title": "Your Leads Are Slipping Through? Here's the 10-Minute n8n Fix",
-    "description": "Most small businesses don't have a lead problem, they have a leak. Someone fills in the contact form on a Tuesday night, the notification lands in an inbox nobody checks until Thursday, and by then they've heard back from someone else.\n\nThis video builds one n8n workflow, in about ten minutes once your accounts are connected, that plugs the three places leads slip through: nobody sees it, nobody replies fast, nobody follows up. Plus the fourth leak nobody plans for: the fix itself breaking quietly.\n\nThe workflow, step by step:\n1. Catch the form: a Webhook node (or n8n's Form Trigger), and why your form needs the production URL, not the test one.\n2. Write it down: tidy the data with Edit Fields and append or update a Google Sheets row matched on email, with a status column.\n3. Reply in a minute: a short, honest automatic reply from your real address.\n4. Tell a human: an alert to Slack, Telegram or your phone with a link to the row.\n5. The next-day check: a Wait node and an If node that remind you, not the lead, when nobody has replied.\nThen an Error Trigger workflow so you find out when it breaks, the Google sign-in that expires after seven days, and a thirty-second weekly test.",
+    "description": "Most small businesses don't have a lead problem, they have a leak. A form submitted on Tuesday night gets seen on Thursday, and by then someone else has answered. In this video we build the fix in n8n, step by step from an empty canvas, and then run it live: a real form, a real inbox, a real phone.\n\nWHAT WE BUILD\nLead catcher: On form submission → Tidy lead (Edit Fields) → Save lead (Google Sheets, Append or Update Row, matched on email) → Reply to lead (Gmail) → Alert me (Telegram) → Wait until next working morning → Look up lead (Google Sheets, Get Row(s)) → Still new? (If) → Remind me (Telegram).\nLead alarm: Error Trigger → Telegram, set as Lead catcher's error workflow.\n\nSHEET HEADERS (row 1)\nreceived_at | name | email | phone | need | source | status | replied_at\n\nEXPRESSIONS\nname: {{ $json.Name.trim() }}\nemail: {{ $json.Email.trim().toLowerCase() }}\nreceived_at: {{ $now.toFormat('yyyy-MM-dd HH:mm') }}\nGmail To: {{ $('Tidy lead').item.json.email }}\nWait (At Specified Time): {{ $now.plus({ days: $now.weekday >= 5 ? 8 - $now.weekday : 1 }).set({ hour: 9, minute: 0, second: 0, millisecond: 0 }).toISO() }}\nLook up filter: email = {{ $('Tidy lead').item.json.email }}\nStill new?: {{ $json.status }} is equal to new\nTelegram chat ID: message your bot, then open https://api.telegram.org/bot<TOKEN>/getUpdates and copy result → message → chat → id\n\nSELF-HOSTED NOTES\nGoogle: create an OAuth client (Web application) in Google Cloud, enable the Sheets, Drive and Gmail APIs, and use the OAuth redirect URL n8n shows you. Publish the consent screen once it works, or the sign-in expires after 7 days in testing mode.\nSet WEBHOOK_URL to your real domain so the form's production URL isn't localhost, and set GENERIC_TIMEZONE (or the workflow's timezone) so 9 am means your 9 am.\nError workflows only run for live executions, not manual tests.",
     "tags": [
       "n8n",
       "n8n tutorial",
       "n8n workflow",
+      "n8n self-hosted",
       "lead follow up",
       "lead management",
       "small business automation",
       "no code automation",
-      "webhook",
       "Google Sheets automation",
-      "lead response time",
+      "Telegram bot",
+      "n8n form trigger",
       "workflow automation"
     ],
     "category_id": "28",
     "privacy": "private",
     "language": "en",
     "publish_at": "2026-10-25 14:00 America/Chicago"
-  }
+  },
+  "format": "tutorial"
 }

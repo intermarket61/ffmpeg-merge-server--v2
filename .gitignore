@@ -2,3 +2,6 @@ build/
 __pycache__/
 *.pyc
 .env
+
+# screen recordings for tutorial videos: large source media, kept out of git
+videos/*/screen/
