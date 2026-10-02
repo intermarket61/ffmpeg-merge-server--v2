@@ -1,0 +1,89 @@
+{
+  "id": "video-d",
+  "title": "The 4 Alarms That Let You Stop Watching Your AI Agents",
+  "presenter": "../video-b/presenter.webp",
+  "params": {
+    "tally": false,
+    "accent": "#ffb13d",
+    "accentInk": "#a5600c"
+  },
+  "voice": {
+    "model": "eleven_multilingual_v2"
+  },
+  "hedra": {
+    "model": "d1dd37a3-e39a-4854-a298-6510289f9cf2",
+    "resolution": "1080p",
+    "credits_per_second": 8.75,
+    "prompt": "A confident presenter in a leather jacket speaking directly to camera at a desk in a warm, modern home studio, calm and conversational, natural head movement and blinking, hands resting on the desk."
+  },
+  "thumbnail": {
+    "shot": "a2",
+    "t": 3.0,
+    "params": {
+      "lines": [
+        {
+          "html": "4 alarms.",
+          "size": 220,
+          "color": "var(--accent)"
+        },
+        {
+          "html": "Then stop<br>watching.",
+          "size": 150
+        }
+      ]
+    }
+  },
+  "shorts": [
+    {
+      "id": "looking-at-what",
+      "from": "a1",
+      "to": "a3",
+      "label": "Human in the loop",
+      "title": "Keep a human in the loop. Looking at what?",
+      "description": "Every guide to AI agents ends with: keep a human in the loop. None of them say what that human should look at. Reading everything can't work. Four alarms can.",
+      "tags": [
+        "AI agents",
+        "human in the loop",
+        "AI agent monitoring",
+        "AI automation"
+      ],
+      "publish_at": "2026-10-20 14:00 America/Chicago"
+    },
+    {
+      "id": "never-says-no",
+      "from": "d1",
+      "to": "d5",
+      "label": "Alarm 2 of 4",
+      "title": "A filter that never removes anything is broken",
+      "description": "If your judgment or triage agent keeps 100% of its input run after run, it isn't filtering, it's formatting. Here's the alarm that catches it.",
+      "tags": [
+        "AI agents",
+        "AI agent monitoring",
+        "AI agent failures",
+        "AI automation"
+      ],
+      "publish_at": "2026-10-22 14:00 America/Chicago"
+    }
+  ],
+  "youtube": {
+    "title": "The 4 Alarms That Let You Stop Watching Your AI Agents",
+    "description": "Every guide to running AI agents ends with the same advice: keep a human in the loop. None of them say what that human is supposed to be looking at. Reading every output can't work, because agents don't fail loudly: a confused agent writes something fluent and plausible, which is exactly what working output looks like.\n\nThe answer is to stop checking whether the output is good and start checking whether it has the right shape. Four alarms, each a condition that cannot be true if your agent team is working, checked automatically on every run:\n1. The run that produced nothing, including runs stuck waiting for approval.\n2. The step that never says no: a filtering agent that passes everything through.\n3. The missing field: required information checked in code, not requested in a prompt.\n4. The bill: a per-run spending cap with an alert at half, and cost per useful output.\n\nThen how to wire them up so they reach you, why you should break each one on purpose to test it, how to keep alarms from becoming noise, and the one five-minute habit that covers what alarms can't.",
+    "tags": [
+      "AI agents",
+      "AI agent monitoring",
+      "AI agent team",
+      "AI automation",
+      "human in the loop",
+      "AI observability",
+      "agent alerts",
+      "AI workflow",
+      "multi-agent systems",
+      "AI agent failures",
+      "LLM monitoring"
+    ],
+    "category_id": "28",
+    "privacy": "private",
+    "language": "en",
+    "publish_at": "2026-10-18 14:00 America/Chicago"
+  }
+}

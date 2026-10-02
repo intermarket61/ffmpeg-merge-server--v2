@@ -1,0 +1,538 @@
+[
+  {
+    "key": "a1",
+    "part": "p1",
+    "scene": "loopHuman",
+    "lines": [
+      "Every guide to running AI agents says the same thing at the end.",
+      "Keep a human in the loop.",
+      "And not one of them tells you what that human is supposed to be looking at."
+    ],
+    "chapter": "What the human is supposed to look at"
+  },
+  {
+    "key": "a2",
+    "part": "p1",
+    "scene": "presenter",
+    "lines": [
+      "Because the obvious answer, reading everything the agents produce, is the one thing that cannot work.",
+      "You built the team so you wouldn't have to read every version of the work.",
+      "If you read every version anyway, you've hired three agents to give yourself a second job."
+    ],
+    "params": {
+      "pills": [
+        [
+          0,
+          "cannot",
+          "Reading everything <em>can't work</em>"
+        ],
+        [
+          2,
+          "second",
+          "Three agents. <em>A second job.</em>"
+        ]
+      ]
+    }
+  },
+  {
+    "key": "a3",
+    "part": "p1",
+    "scene": "alarmPanel",
+    "lines": [
+      "So this video is the other answer.",
+      "Four alarms.",
+      "Four conditions that cannot be true if your agent team is working, each one checked automatically on every run, each one wired to somewhere you'll actually see it.",
+      "Set them up once, and you can stop watching."
+    ],
+    "hold": 0.5,
+    "params": {
+      "mode": "intro"
+    }
+  },
+  {
+    "key": "b1",
+    "part": "p1",
+    "scene": "presenter",
+    "lines": [
+      "Start with why reading the output doesn't work, even when you have the time."
+    ],
+    "chapter": "Why reading the output fails",
+    "params": {
+      "pills": [
+        [
+          0,
+          "output",
+          "Why reading <em>doesn't work</em>"
+        ]
+      ]
+    }
+  },
+  {
+    "key": "b2",
+    "part": "p1",
+    "scene": "normalOutput",
+    "lines": [
+      "In the thirty day experiment, three of the five failures produced output that looked completely normal.",
+      "A page with five items on it.",
+      "A list with a reason next to every entry.",
+      "Nothing about any of it said broken."
+    ]
+  },
+  {
+    "key": "b3",
+    "part": "p1",
+    "scene": "crashVsFluent",
+    "lines": [
+      "That's the pattern with agents.",
+      "They don't fail loudly.",
+      "A crashed script throws an error.",
+      "A confused agent writes you something fluent and plausible, and fluent and plausible is exactly what working output looks like too."
+    ]
+  },
+  {
+    "key": "b4",
+    "part": "p1",
+    "scene": "shapeVsQuality",
+    "lines": [
+      "So you stop asking whether the output is good, which needs judgment, and start asking whether the output has the right shape, which a few lines of code can answer every single time.",
+      "An alarm is a condition that cannot be true if everything is working.",
+      "If it is true, something is wrong, even when every page looks fine."
+    ],
+    "hold": 0.5
+  },
+  {
+    "key": "c1",
+    "part": "p1",
+    "scene": "alarmTitle",
+    "lines": [
+      "Alarm one, the run that produced nothing.",
+      "The first alarm is the simplest and it catches the most."
+    ],
+    "chapter": "Alarm 1: the run that produced nothing",
+    "params": {
+      "n": 1,
+      "title": "The run that<br>produced nothing"
+    }
+  },
+  {
+    "key": "c2",
+    "part": "p1",
+    "scene": "runCounter",
+    "lines": [
+      "Every scheduled run should end with something delivered.",
+      "A page published, a message posted, a file saved.",
+      "So count it."
+    ]
+  },
+  {
+    "key": "c3",
+    "part": "p1",
+    "scene": "zeroCases",
+    "lines": [
+      "If a run finishes and the count is zero, that's an alarm.",
+      "And the important part is what counts as zero.",
+      "A run that errored is zero.",
+      "A run that found nothing worth reporting is zero, unless you've decided that an empty week is a valid result and it says so.",
+      "And a run that's sitting in an approval queue waiting for a click is zero, which is the one that catches people, because nothing failed."
+    ]
+  },
+  {
+    "key": "c4",
+    "part": "p1",
+    "scene": "presenter",
+    "lines": [
+      "That last case is why this alarm has to check the queue, not just the logs.",
+      "A request that has waited more than a day is a run that produced nothing, it just hasn't admitted it yet."
+    ],
+    "params": {
+      "pills": [
+        [
+          0,
+          "queue",
+          "Check <em>the queue</em>, not just the logs"
+        ],
+        [
+          1,
+          "day",
+          "Waiting a day = <em>produced nothing</em>"
+        ]
+      ]
+    }
+  },
+  {
+    "key": "d1",
+    "part": "p1",
+    "scene": "alarmTitle",
+    "lines": [
+      "Alarm two, the step that never says no.",
+      "The second alarm watches any agent whose job is to filter."
+    ],
+    "chapter": "Alarm 2: the step that never says no",
+    "params": {
+      "n": 2,
+      "title": "The step that<br>never says no"
+    }
+  },
+  {
+    "key": "d2",
+    "part": "p1",
+    "scene": "presenter",
+    "lines": [
+      "A judgment step, a reviewer, a triage agent.",
+      "Anything that's supposed to throw some of its input away."
+    ],
+    "params": {
+      "pills": [
+        [
+          1,
+          "away",
+          "Its job is to <em>throw things away</em>"
+        ]
+      ]
+    }
+  },
+  {
+    "key": "d3",
+    "part": "p1",
+    "scene": "passThrough",
+    "lines": [
+      "Count what goes in and what comes out.",
+      "If it passes through everything, every run, it isn't filtering, it's formatting.",
+      "In the thirty day experiment the judgment agent marked every single item as worth covering for three weeks straight, and the output looked thoughtful the whole time."
+    ]
+  },
+  {
+    "key": "d4",
+    "part": "p1",
+    "scene": "presenter",
+    "lines": [
+      "So the alarm is a pass-through rate.",
+      "If a filtering step keeps a hundred percent of its input three runs in a row, tell me.",
+      "You'll want to tune the number to your own work, but the principle doesn't change."
+    ],
+    "params": {
+      "pills": [
+        [
+          1,
+          "hundred",
+          "<em>100% kept</em>, three runs in a row"
+        ]
+      ]
+    }
+  },
+  {
+    "key": "d5",
+    "part": "p1",
+    "scene": "textCard",
+    "lines": [
+      "A filter that never removes anything is broken, however good its reasons sound."
+    ],
+    "params": {
+      "theme": "dark",
+      "blocks": [
+        {
+          "html": "A filter that never removes anything",
+          "at": [
+            0,
+            "filter"
+          ],
+          "size": 84
+        },
+        {
+          "html": "is <span style='color:var(--accent)'>broken.</span>",
+          "at": [
+            0,
+            "broken"
+          ],
+          "size": 150
+        },
+        {
+          "html": "However good its reasons sound.",
+          "at": [
+            0,
+            "however"
+          ],
+          "size": 56,
+          "serif": true,
+          "italic": true
+        }
+      ]
+    },
+    "hold": 0.4
+  },
+  {
+    "key": "e1",
+    "part": "p2",
+    "scene": "alarmTitle",
+    "lines": [
+      "Alarm three, the missing field.",
+      "The third alarm checks the contract."
+    ],
+    "chapter": "Alarm 3: the missing field",
+    "params": {
+      "n": 3,
+      "title": "The missing<br>field"
+    }
+  },
+  {
+    "key": "e2",
+    "part": "p2",
+    "scene": "contract",
+    "lines": [
+      "Every agent team has a few things that have to be on every item it produces.",
+      "For a research page that's a source link and a date.",
+      "For an email triage agent it might be the sender and a suggested action."
+    ]
+  },
+  {
+    "key": "e3",
+    "part": "p2",
+    "scene": "promptVsCheck",
+    "lines": [
+      "Write that list down, and then check it in code, not in the prompt.",
+      "A prompt that says always include a source is a request.",
+      "A check that rejects any item without a link is a guarantee.",
+      "Information drops out at handoffs between agents, quietly, and this is the alarm that notices."
+    ]
+  },
+  {
+    "key": "e4",
+    "part": "p2",
+    "scene": "fieldAlert",
+    "lines": [
+      "When it fires, it should say which item and which field, so you can see straight away whether one agent dropped it or the source never had it."
+    ]
+  },
+  {
+    "key": "f1",
+    "part": "p2",
+    "scene": "alarmTitle",
+    "lines": [
+      "Alarm four, the bill.",
+      "The fourth alarm is about money, and it's the one people set up last and wish they'd set up first."
+    ],
+    "chapter": "Alarm 4: the bill",
+    "params": {
+      "n": 4,
+      "title": "The bill"
+    }
+  },
+  {
+    "key": "f2",
+    "part": "p2",
+    "scene": "spendBar",
+    "lines": [
+      "Put a ceiling on what a single run is allowed to spend, and alert at half of it.",
+      "Not at the ceiling, at half, because by the time you hit the ceiling the run has already cost you the money."
+    ]
+  },
+  {
+    "key": "f3",
+    "part": "p2",
+    "scene": "costPerUseful",
+    "lines": [
+      "Then track one more number, which is cost per useful output.",
+      "Not cost per run, cost per page you'd actually send.",
+      "A team that gets cheaper per run but produces fewer usable pages is getting more expensive, and only that second number shows it."
+    ],
+    "hold": 0.4
+  },
+  {
+    "key": "g1",
+    "part": "p2",
+    "scene": "alarmPanel",
+    "lines": [
+      "That's the four.",
+      "A run that produced nothing.",
+      "A filter that never says no.",
+      "A required field that's missing.",
+      "A run that costs more than it should."
+    ],
+    "chapter": "Wiring them up",
+    "params": {
+      "mode": "recap"
+    }
+  },
+  {
+    "key": "g2",
+    "part": "p2",
+    "scene": "checkStep",
+    "lines": [
+      "Now where they live.",
+      "The checks themselves are deliberately boring.",
+      "A final step at the end of each run, or a small script that reads what the run produced.",
+      "Don't use your most expensive model to check your other models.",
+      "Counting and comparing is exactly the work code is for."
+    ]
+  },
+  {
+    "key": "g3",
+    "part": "p2",
+    "scene": "alertRoute",
+    "lines": [
+      "Where the alarms go matters more than how they're built.",
+      "An alarm in a dashboard you don't open is the same as no alarm.",
+      "Send them to your phone or to a channel you already have open all day.",
+      "And write each one as one plain sentence, like, the Monday run produced nothing and has been waiting for approval for thirty hours."
+    ]
+  },
+  {
+    "key": "g4",
+    "part": "p2",
+    "scene": "breakTest",
+    "lines": [
+      "Then test every alarm by breaking it on purpose.",
+      "Turn off a tool, delete a link, set the spending cap low, and make sure the right sentence arrives where you'll see it.",
+      "An alarm you've never seen fire is an alarm you're only hoping works."
+    ],
+    "hold": 0.4
+  },
+  {
+    "key": "h1",
+    "part": "p2",
+    "scene": "presenter",
+    "lines": [
+      "There's one way this goes wrong, and it's too many alarms.",
+      "If one of them fires every week for something that turns out to be fine, within a month you'll stop reading it, and then you're back to no alarms at all."
+    ],
+    "chapter": "Too many alarms",
+    "params": {
+      "pills": [
+        [
+          0,
+          "many",
+          "The failure mode: <em>too many alarms</em>"
+        ],
+        [
+          1,
+          "stop",
+          "Within a month <em>you stop reading</em>"
+        ]
+      ]
+    }
+  },
+  {
+    "key": "h2",
+    "part": "p2",
+    "scene": "textCard",
+    "lines": [
+      "So tune them until they're quiet.",
+      "When an alarm fires and nothing was wrong, change the threshold or change the rule that same day.",
+      "The goal is an alarm that stays silent for weeks, so that when it does speak, you stop what you're doing."
+    ],
+    "params": {
+      "theme": "paper",
+      "blocks": [
+        {
+          "html": "Tune them until they're quiet.",
+          "at": [
+            0,
+            "tune"
+          ],
+          "size": 104
+        },
+        {
+          "html": "Wrong alarm? Fix the rule the same day.",
+          "at": [
+            1,
+            "change"
+          ],
+          "size": 56,
+          "serif": true,
+          "italic": true
+        },
+        {
+          "html": "Silent for weeks. <span style='color:var(--accent)'>Then it matters.</span>",
+          "at": [
+            2,
+            "silent"
+          ],
+          "size": 84
+        }
+      ]
+    }
+  },
+  {
+    "key": "i1",
+    "part": "p2",
+    "scene": "shapeNotQuality",
+    "lines": [
+      "And to be clear about what these don't do.",
+      "Alarms catch the shape of a failure, not the quality of the work.",
+      "A page can have five items, all sourced, all dated, under budget, and still be about the wrong things."
+    ],
+    "chapter": "What alarms can't catch"
+  },
+  {
+    "key": "i2",
+    "part": "p2",
+    "scene": "presenter",
+    "lines": [
+      "So keep one small habit.",
+      "Once a week, read one output end to end.",
+      "Not all of them, one.",
+      "Five minutes.",
+      "The alarms cover everything that can be counted, and that one read covers the rest."
+    ],
+    "params": {
+      "pills": [
+        [
+          1,
+          "week",
+          "Once a week: <em>one output</em>, end to end"
+        ],
+        [
+          3,
+          "minutes",
+          "<em>Five minutes.</em>"
+        ]
+      ]
+    }
+  },
+  {
+    "key": "j1",
+    "part": "p2",
+    "scene": "presenter",
+    "lines": [
+      "Keeping a human in the loop doesn't mean a human reading every page.",
+      "It means a human deciding, in advance, what cannot be true if this is going well, and then building the thing that says so."
+    ],
+    "chapter": "Four sentences",
+    "params": {
+      "pills": [
+        [
+          1,
+          "advance",
+          "Decide <em>in advance</em> what can't be true"
+        ]
+      ]
+    }
+  },
+  {
+    "key": "j2",
+    "part": "p2",
+    "scene": "alarmPanel",
+    "lines": [
+      "Four sentences.",
+      "Nothing came out.",
+      "Everything got through.",
+      "Something's missing.",
+      "It cost too much.",
+      "Write those down for your own team before you set it running, and then, honestly, stop watching it."
+    ],
+    "hold": 0.6,
+    "params": {
+      "mode": "close"
+    }
+  },
+  {
+    "key": "j3",
+    "part": "p2",
+    "scene": "alarmPanel",
+    "lines": [],
+    "hold": 4.5,
+    "params": {
+      "mode": "end"
+    }
+  }
+]
