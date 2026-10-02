@@ -9,7 +9,7 @@ SCENES.alertRoute=()=>{
   const n=el('div','',ph); Object.assign(n.style,{marginTop:'30px',padding:'26px 30px',borderRadius:'26px',background:'rgba(240,248,250,.16)',color:'#eef6f8'});
   n.innerHTML='<div style="font-weight:700;font-size:22px;opacity:.8">AGENT ALARMS · now</div><div style="font-weight:900;font-size:32px;margin-top:8px;line-height:1.3">The Monday run produced nothing and has been waiting for approval for 30 hours.</div>';
   const tD=wordAt(1,'dashboard'), tP=wordAt(2,'phone'), tS=wordAt(3,'sentence');
-  const a=pop(dash,tD-.2,40);
+  const a=pop(dash,.3,40);
   const camIn=cam(.2,240);
   return t=>{hd(t); a(t); dash.style.filter=`grayscale(${ramp(t,tD+1.2,.6)})`; ph.style.opacity=ramp(t,tP-.2,.4);
     n.style.opacity=ramp(t,tS,.4); n.style.transform=`translateY(${(1-spring((t-tS)/.6))*30}px)`; camIn(t)};
