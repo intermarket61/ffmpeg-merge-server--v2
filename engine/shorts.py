@@ -26,7 +26,7 @@ MAX_SECONDS = 60
 # shots that are the presenter full frame (in the cut, text over the face), so a
 # split would show him twice: these go full frame in a Short, from the time given
 FACE_SCENES = {"presenter": 0, "presenterWords": 0, "presenterFive": 0, "failureTitle": 3.8,
-               "alarmTitle": 3.8}
+               "alarmTitle": 3.8, "stepTitle": 3.8}
 MAX_WORDS = 3                               # words per caption
 
 

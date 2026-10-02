@@ -1,0 +1,30 @@
+// 2:39 — Google Sheets append-or-update matched on email: a second submission updates, doesn't duplicate
+SCENES.sheetRow=()=>{
+  theme('dark');
+  const hd=heading('Step 02 · Google Sheets','One lead, <span style="color:var(--accent)">one row.</span>',420,70,80);
+  const cfg=el('div','abs'); Object.assign(cfg.style,{left:'420px',top:'250px',display:'flex',gap:'16px'});
+  const c1=chip(cfg,'Operation: <b style="color:var(--cream)">Append or update row</b>','#b9b0a4',{fontSize:'26px'});
+  const c2=chip(cfg,'Match on: <b style="color:var(--accent)">email</b>','#b9b0a4',{fontSize:'26px'});
+  const cols=['received_at','name','email','source','status'], w=[230,210,430,230,160];
+  const tbl=panel(null,{left:'420px',top:'350px',width:'1420px',padding:'10px 30px',borderRadius:'18px'});
+  const mk=(vals,hdr)=>{const r=el('div','',tbl); Object.assign(r.style,{display:'flex',height:'74px',alignItems:'center',borderTop:hdr?'0':'1px solid #2a2622',fontSize:hdr?'22px':'28px',fontWeight:hdr?700:500,letterSpacing:hdr?'.12em':'0',color:hdr?'#8d857b':'#cfc6b8',fontFamily:hdr?'Archivo':'monospace'});
+    vals.forEach((v,i)=>{const c=el('span','',r,v); c.style.width=w[i]+'px'; c.style.whiteSpace='nowrap'}); return r};
+  mk(cols.map(c=>c.toUpperCase()),true);
+  mk(['10-18 09:02','Omar Haddad','omar@haddadco.com','website form','replied']);
+  mk(['10-19 14:40','Priya Nair','priya.nair@outlook.com','website form','replied']);
+  const dana=mk(['10-20 21:14','Dana Ruiz','dana.ruiz@gmail.com','website form','new']);
+  const st=dana.lastChild; st.style.color=LEAD;
+  const ghost=panel(null,{left:'420px',top:'720px',width:'1420px',padding:'0 30px',height:'74px',borderRadius:'14px',display:'flex',alignItems:'center',background:'#22201c',boxShadow:`0 0 0 2px ${WARN}`});
+  ghost.innerHTML=`<span style="font-family:monospace;font-size:28px;color:#cfc6b8">10-20 21:31 &nbsp; Dana Ruiz &nbsp; <b style="color:${WARN}">dana.ruiz@gmail.com</b> &nbsp; second submission</span>`;
+  const note=el('div','abs serif',null,'<i>Same email → same row. Still one lead.</i>'); Object.assign(note.style,{left:'420px',top:'830px',fontSize:'40px',color:LEAD});
+  const every=el('div','abs mega',null,'Every enquiry, <span style="color:var(--accent)">written down.</span>'); Object.assign(every.style,{left:'420px',top:'830px',fontSize:'64px',whiteSpace:'nowrap'});
+  const tC=wordAt(0,'append'), tM=wordAt(0,'matched'), tG=wordAt(1,'twice'), tO=wordAt(1,'one'), tE=S.lines[2].t0;
+  const camIn=cam(.2,220);
+  return t=>{hd(t); c1.style.opacity=ramp(t,tC-.2,.3); c2.style.opacity=ramp(t,tM-.2,.3); tbl.style.opacity=ramp(t,.2,.4);
+    const g=ramp(t,tG-.2,.3), m=ramp(t,tO,.6,inOut);
+    ghost.style.opacity=g*(1-ramp(t,tO+.5,.2)); ghost.style.transform=`translateY(${-m*(720-350-10-74*3)}px)`;
+    dana.style.background= t>tO+.5 && t<tE+.5 ? 'rgba(255,177,61,.12)':'transparent';
+    dana.children[0].textContent= t>tO+.5?'10-20 21:31':'10-20 21:14';
+    note.style.opacity=ramp(t,tO+.5,.3)*(1-ramp(t,tE-.2,.3)); every.style.opacity=ramp(t,tE,.4);
+    camIn(t)};
+};

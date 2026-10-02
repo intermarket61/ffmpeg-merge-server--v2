@@ -1,0 +1,91 @@
+{
+  "id": "video-e",
+  "title": "Your Leads Are Slipping Through? Here's the 10-Minute n8n Fix",
+  "presenter": "../video-b/presenter.webp",
+  "params": {
+    "tally": false,
+    "accent": "#8fd694",
+    "accentInk": "#3d7a43"
+  },
+  "voice": {
+    "model": "eleven_multilingual_v2"
+  },
+  "hedra": {
+    "model": "d1dd37a3-e39a-4854-a298-6510289f9cf2",
+    "resolution": "1080p",
+    "credits_per_second": 8.75,
+    "prompt": "A confident presenter in a leather jacket speaking directly to camera at a desk in a warm, modern home studio, calm and conversational, natural head movement and blinking, hands resting on the desk."
+  },
+  "thumbnail": {
+    "shot": "a3",
+    "t": 2.0,
+    "params": {
+      "kicker": "n8n · 10 minutes",
+      "lines": [
+        {
+          "html": "Stop losing",
+          "size": 150
+        },
+        {
+          "html": "leads.",
+          "size": 230,
+          "color": "var(--accent)"
+        }
+      ],
+      "badge": "No code"
+    }
+  },
+  "shorts": [
+    {
+      "id": "slower-reply",
+      "from": "a1",
+      "to": "a3",
+      "label": "Lost leads",
+      "title": "You didn't lose that lead to a better offer",
+      "description": "Most small businesses don't have a lead problem, they have a leak: a form that lands in an inbox nobody checks. You lost the lead to a slower reply. Here's the ten-minute n8n fix.",
+      "tags": [
+        "lead follow up",
+        "n8n",
+        "small business automation",
+        "lead generation"
+      ],
+      "publish_at": "2026-10-27 14:00 America/Chicago"
+    },
+    {
+      "id": "reminder-goes-to-you",
+      "from": "h1",
+      "to": "h4",
+      "label": "Step 5 of 5",
+      "title": "The follow-up step most lead automations get wrong",
+      "description": "Wait a day, check the lead's status, and if nobody has replied, remind yourself, not the lead. An automatic chaser makes a helpful business look like a mailing list.",
+      "tags": [
+        "lead follow up",
+        "n8n",
+        "n8n workflow",
+        "small business automation"
+      ],
+      "publish_at": "2026-10-29 14:00 America/Chicago"
+    }
+  ],
+  "youtube": {
+    "title": "Your Leads Are Slipping Through? Here's the 10-Minute n8n Fix",
+    "description": "Most small businesses don't have a lead problem, they have a leak. Someone fills in the contact form on a Tuesday night, the notification lands in an inbox nobody checks until Thursday, and by then they've heard back from someone else.\n\nThis video builds one n8n workflow, in about ten minutes once your accounts are connected, that plugs the three places leads slip through: nobody sees it, nobody replies fast, nobody follows up. Plus the fourth leak nobody plans for: the fix itself breaking quietly.\n\nThe workflow, step by step:\n1. Catch the form: a Webhook node (or n8n's Form Trigger), and why your form needs the production URL, not the test one.\n2. Write it down: tidy the data with Edit Fields and append or update a Google Sheets row matched on email, with a status column.\n3. Reply in a minute: a short, honest automatic reply from your real address.\n4. Tell a human: an alert to Slack, Telegram or your phone with a link to the row.\n5. The next-day check: a Wait node and an If node that remind you, not the lead, when nobody has replied.\nThen an Error Trigger workflow so you find out when it breaks, the Google sign-in that expires after seven days, and a thirty-second weekly test.",
+    "tags": [
+      "n8n",
+      "n8n tutorial",
+      "n8n workflow",
+      "lead follow up",
+      "lead management",
+      "small business automation",
+      "no code automation",
+      "webhook",
+      "Google Sheets automation",
+      "lead response time",
+      "workflow automation"
+    ],
+    "category_id": "28",
+    "privacy": "private",
+    "language": "en",
+    "publish_at": "2026-10-25 14:00 America/Chicago"
+  }
+}

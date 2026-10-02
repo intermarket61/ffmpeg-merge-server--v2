@@ -1,0 +1,506 @@
+[
+  {
+    "key": "a1",
+    "part": "p1",
+    "scene": "presenter",
+    "lines": [
+      "Most small businesses don't have a lead problem.",
+      "They have a leak.",
+      "Someone fills in your contact form on a Tuesday night, and the notification lands in an inbox nobody checks until Thursday."
+    ],
+    "chapter": "Where leads slip through",
+    "params": {
+      "pills": [
+        [
+          1,
+          "leak",
+          "Not a lead problem. <em>A leak.</em>"
+        ],
+        [
+          2,
+          "Thursday",
+          "Tuesday night → <em>seen Thursday</em>"
+        ]
+      ]
+    }
+  },
+  {
+    "key": "a2",
+    "part": "p1",
+    "scene": "leakTimeline",
+    "lines": [
+      "By then they've asked two other businesses, and one of them answered in five minutes.",
+      "You didn't lose that lead to a better offer.",
+      "You lost it to a slower reply."
+    ]
+  },
+  {
+    "key": "a3",
+    "part": "p1",
+    "scene": "presenter",
+    "lines": [
+      "So here's a fix you can build tonight.",
+      "One n8n workflow, about ten minutes once your accounts are connected.",
+      "Every lead gets seen and answered within a minute, followed up if nobody gets back to them, and you find out if the whole thing ever breaks."
+    ],
+    "params": {
+      "pills": [
+        [
+          1,
+          "ten",
+          "One workflow. <em>Ten minutes.</em>"
+        ],
+        [
+          2,
+          "minute",
+          "Seen and answered <em>in a minute</em>"
+        ]
+      ]
+    }
+  },
+  {
+    "key": "b1",
+    "part": "p1",
+    "scene": "leakMap",
+    "lines": [
+      "There are three places a lead slips through, and it's worth naming them, because each one gets its own step.",
+      "Leak one, nobody sees it.",
+      "The form emails a shared inbox, or a spam folder, or the address of someone who left last year."
+    ],
+    "chapter": "The three leaks",
+    "params": {
+      "upto": 1
+    }
+  },
+  {
+    "key": "b2",
+    "part": "p1",
+    "scene": "leakMap",
+    "lines": [
+      "Leak two, nobody replies fast.",
+      "Someone sees it, means to answer properly, and properly turns into tomorrow."
+    ],
+    "params": {
+      "upto": 2
+    }
+  },
+  {
+    "key": "b3",
+    "part": "p1",
+    "scene": "leakMap",
+    "lines": [
+      "Leak three, nobody follows up.",
+      "One reply goes out, the lead doesn't answer, and the conversation just stops.",
+      "Nobody decided to drop it. There was just nothing to remind anyone."
+    ],
+    "params": {
+      "upto": 3
+    }
+  },
+  {
+    "key": "b4",
+    "part": "p1",
+    "scene": "presenter",
+    "lines": [
+      "And there's a fourth leak that nobody plans for, which is the fix itself breaking quietly.",
+      "We'll get to that one last, because it's the one that turns a good workflow into a false sense of security."
+    ],
+    "params": {
+      "pills": [
+        [
+          0,
+          "quietly",
+          "Leak four: <em>the fix breaks quietly</em>"
+        ]
+      ]
+    }
+  },
+  {
+    "key": "c1",
+    "part": "p1",
+    "scene": "flowOverview",
+    "lines": [
+      "Here's the whole thing.",
+      "A trigger that catches the form.",
+      "A step that tidies the data.",
+      "A row in a sheet, so every lead is written down somewhere.",
+      "An instant reply to the lead.",
+      "An alert to you.",
+      "And a wait that checks back the next day."
+    ],
+    "chapter": "The whole workflow",
+    "params": {
+      "mode": "intro"
+    }
+  },
+  {
+    "key": "c2",
+    "part": "p1",
+    "scene": "presenter",
+    "lines": [
+      "No code, and nothing you have to host to try it.",
+      "Let's build it in order."
+    ],
+    "params": {
+      "pills": [
+        [
+          0,
+          "code",
+          "<em>No code.</em>"
+        ]
+      ]
+    }
+  },
+  {
+    "key": "d1",
+    "part": "p1",
+    "scene": "stepTitle",
+    "lines": [
+      "Step one, catch the form.",
+      "Start with a Webhook node, or n8n's own Form Trigger if you don't have a form yet."
+    ],
+    "chapter": "Step 1: Catch the form",
+    "params": {
+      "n": 1,
+      "title": "Catch the form"
+    }
+  },
+  {
+    "key": "d2",
+    "part": "p1",
+    "scene": "webhookUrl",
+    "lines": [
+      "The webhook gives you a web address.",
+      "Most form tools and website builders have a setting that sends every submission to an address like that.",
+      "Paste it in there, submit a test, and you'll see the lead arrive in n8n."
+    ]
+  },
+  {
+    "key": "d3",
+    "part": "p1",
+    "scene": "testVsProd",
+    "lines": [
+      "One thing catches nearly everyone the first time.",
+      "The webhook has a test address and a production address.",
+      "The test one only listens while you're watching the editor.",
+      "Put the production address in your form, and make sure the workflow is switched on, or it hears nothing."
+    ],
+    "hold": 0.3
+  },
+  {
+    "key": "e1",
+    "part": "p1",
+    "scene": "stepTitle",
+    "lines": [
+      "Step two, write it down."
+    ],
+    "chapter": "Step 2: Write it down",
+    "params": {
+      "n": 2,
+      "title": "Write it down"
+    }
+  },
+  {
+    "key": "e2",
+    "part": "p1",
+    "scene": "cleanFields",
+    "lines": [
+      "Add an Edit Fields node and tidy what came in.",
+      "Trim the spaces and lower-case the email.",
+      "Then add three fields of your own. When it arrived, where it came from, and a status, which starts as new."
+    ]
+  },
+  {
+    "key": "e3",
+    "part": "p1",
+    "scene": "sheetRow",
+    "lines": [
+      "Then a Google Sheets node, set to append or update a row, matched on the email.",
+      "Someone who fills in the form twice is one lead, not two.",
+      "And you always have a list of every enquiry, even if a later step goes wrong."
+    ]
+  },
+  {
+    "key": "e4",
+    "part": "p1",
+    "scene": "presenter",
+    "lines": [
+      "That status column is the most important field in the whole workflow.",
+      "Everything later reads it."
+    ],
+    "hold": 0.3,
+    "params": {
+      "pills": [
+        [
+          0,
+          "status",
+          "The <em>status</em> column runs everything"
+        ]
+      ]
+    }
+  },
+  {
+    "key": "f1",
+    "part": "p2",
+    "scene": "stepTitle",
+    "lines": [
+      "Step three, reply in a minute."
+    ],
+    "chapter": "Step 3: Reply in a minute",
+    "params": {
+      "n": 3,
+      "title": "Reply in a minute"
+    }
+  },
+  {
+    "key": "f2",
+    "part": "p2",
+    "scene": "replyEmail",
+    "lines": [
+      "A Gmail or email node sends a reply from your real address.",
+      "Keep it short and honest.",
+      "Thanks, here's what happens next, and when you'll hear from a person.",
+      "Then one question that makes your real reply better, like what their timeline is."
+    ]
+  },
+  {
+    "key": "f3",
+    "part": "p2",
+    "scene": "presenter",
+    "lines": [
+      "Don't dress it up as a personal note you didn't write.",
+      "The point isn't to fool anyone.",
+      "The point is that they know within a minute they reached a real business, and that's often enough to stop them filling in the next form."
+    ],
+    "params": {
+      "pills": [
+        [
+          0,
+          "dress",
+          "Don't fake <em>a personal note</em>"
+        ],
+        [
+          2,
+          "minute",
+          "They reached you <em>in a minute</em>"
+        ]
+      ]
+    }
+  },
+  {
+    "key": "g1",
+    "part": "p2",
+    "scene": "stepTitle",
+    "lines": [
+      "Step four, tell a human."
+    ],
+    "chapter": "Step 4: Tell a human",
+    "params": {
+      "n": 4,
+      "title": "Tell a human"
+    }
+  },
+  {
+    "key": "g2",
+    "part": "p2",
+    "scene": "alertPhone",
+    "lines": [
+      "Send yourself a message where you'll actually see it.",
+      "Slack, Telegram, a text, whatever is on your phone. Not another email.",
+      "Put the name, what they asked for, and a link to the row in the message, so you can act on it without opening anything else."
+    ]
+  },
+  {
+    "key": "g3",
+    "part": "p2",
+    "scene": "presenter",
+    "lines": [
+      "If more than one person handles leads, send it to a shared channel, and have whoever takes it reply in the thread.",
+      "Then nobody wonders whether somebody else already got it."
+    ],
+    "params": {
+      "pills": [
+        [
+          0,
+          "thread",
+          "Take it? <em>Reply in the thread.</em>"
+        ]
+      ]
+    }
+  },
+  {
+    "key": "h1",
+    "part": "p2",
+    "scene": "stepTitle",
+    "lines": [
+      "Step five, the next day check.",
+      "This is the one that plugs leak three."
+    ],
+    "chapter": "Step 5: The next-day check",
+    "params": {
+      "n": 5,
+      "title": "The next-day check"
+    }
+  },
+  {
+    "key": "h2",
+    "part": "p2",
+    "scene": "waitNode",
+    "lines": [
+      "Add a Wait node set to twenty-four hours.",
+      "When it wakes up, look the lead up in the sheet again and read the status."
+    ]
+  },
+  {
+    "key": "h3",
+    "part": "p2",
+    "scene": "ifStatus",
+    "lines": [
+      "Then an If node.",
+      "If the status still says new, nobody has replied, and you get a second message. This lead has waited a day.",
+      "If someone did reply and changed the status, the workflow just ends."
+    ]
+  },
+  {
+    "key": "h4",
+    "part": "p2",
+    "scene": "presenter",
+    "lines": [
+      "Notice who that reminder goes to.",
+      "You, not the lead.",
+      "An automatic chaser to someone who hasn't answered is how a helpful business starts to look like a mailing list.",
+      "The workflow's job is to make sure a person follows up, not to do it for them."
+    ],
+    "hold": 0.3,
+    "params": {
+      "pills": [
+        [
+          1,
+          "lead",
+          "The reminder goes to <em>you</em>, not the lead"
+        ],
+        [
+          3,
+          "person",
+          "Make sure <em>a person</em> follows up"
+        ]
+      ]
+    }
+  },
+  {
+    "key": "i1",
+    "part": "p2",
+    "scene": "textCard",
+    "lines": [
+      "Which brings us to leak four.",
+      "The day this workflow breaks, it won't tell you.",
+      "Leads just stop arriving, and a quiet week looks exactly like a broken form."
+    ],
+    "chapter": "When the fix breaks",
+    "params": {
+      "theme": "dark",
+      "blocks": [
+        {
+          "html": "A quiet week",
+          "at": [
+            2,
+            "quiet"
+          ],
+          "size": 120
+        },
+        {
+          "html": "looks exactly like <span style='color:var(--accent)'>a broken form.</span>",
+          "at": [
+            2,
+            "broken"
+          ],
+          "size": 96
+        }
+      ]
+    }
+  },
+  {
+    "key": "i2",
+    "part": "p2",
+    "scene": "errorWorkflow",
+    "lines": [
+      "So build a second, tiny workflow that starts with an Error Trigger and sends you a message.",
+      "Then in the lead workflow's settings, choose it as the error workflow.",
+      "Now a failure in any step reaches your phone."
+    ]
+  },
+  {
+    "key": "i3",
+    "part": "p2",
+    "scene": "breakCauses",
+    "lines": [
+      "The usual causes are boring.",
+      "A Google connection that expired, a form field someone renamed, a sheet column someone deleted.",
+      "If your Google connection uses an app that's still in testing mode, its sign-in expires after seven days, so publish the app or expect to reconnect every week."
+    ]
+  },
+  {
+    "key": "i4",
+    "part": "p2",
+    "scene": "weeklyTest",
+    "lines": [
+      "And once a week, fill in your own form.",
+      "Thirty seconds.",
+      "If the reply and the alert both arrive, the whole chain works."
+    ],
+    "hold": 0.3
+  },
+  {
+    "key": "j1",
+    "part": "p2",
+    "scene": "flowOverview",
+    "lines": [
+      "So that's the fix.",
+      "Catch it.",
+      "Write it down.",
+      "Reply in a minute.",
+      "Tell a human.",
+      "Check the next day.",
+      "And know when it breaks."
+    ],
+    "chapter": "Ten minutes",
+    "params": {
+      "mode": "recap"
+    }
+  },
+  {
+    "key": "j2",
+    "part": "p2",
+    "scene": "presenter",
+    "lines": [
+      "None of this brings you a single new lead.",
+      "It just stops you losing the ones that already chose you, which is the cheapest growth there is.",
+      "Build it tonight, then fill in your own contact form, and see how long it takes you to hear back."
+    ],
+    "hold": 0.6,
+    "params": {
+      "pills": [
+        [
+          1,
+          "cheapest",
+          "Keep the leads <em>that already chose you</em>"
+        ],
+        [
+          2,
+          "tonight",
+          "Build it <em>tonight</em>"
+        ]
+      ]
+    }
+  },
+  {
+    "key": "j3",
+    "part": "p2",
+    "scene": "flowOverview",
+    "lines": [],
+    "hold": 4.5,
+    "params": {
+      "mode": "end"
+    }
+  }
+]
