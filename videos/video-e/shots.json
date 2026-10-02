@@ -188,6 +188,17 @@
     "hold": 0.3
   },
   {
+    "key": "d4",
+    "part": "p1",
+    "scene": "leadSources",
+    "lines": [
+      "Your website form probably isn't the only way leads arrive.",
+      "There's a booking page, a lead ad, an email to your info address.",
+      "n8n has a trigger for most of them, and each one can feed into the same steps you're about to build, with a source field saying which door it came through.",
+      "After a month, that one field tells you where your leads actually come from."
+    ]
+  },
+  {
     "key": "e1",
     "part": "p1",
     "scene": "stepTitle",
@@ -208,6 +219,18 @@
       "Add an Edit Fields node and tidy what came in.",
       "Trim the spaces and lower-case the email.",
       "Then add three fields of your own. When it arrived, where it came from, and a status, which starts as new."
+    ]
+  },
+  {
+    "key": "e2a",
+    "part": "p1",
+    "scene": "junkFilter",
+    "lines": [
+      "Before anything gets written down, drop the junk.",
+      "Any public form attracts bots, and if every bot gets an instant reply and sets off an alert, within a week you'll mute the alerts, real leads included.",
+      "The simplest fix is a hidden field on the form that people never see.",
+      "Bots fill it in. An If node checks it, and anything with that field filled in stops right there.",
+      "Add a second check for an empty email address, and you've caught most of it."
     ]
   },
   {
@@ -262,6 +285,30 @@
       "Thanks, here's what happens next, and when you'll hear from a person.",
       "Then one question that makes your real reply better, like what their timeline is."
     ]
+  },
+  {
+    "key": "f2a",
+    "part": "p2",
+    "scene": "presenter",
+    "lines": [
+      "If you take calls, put your booking link at the bottom of that reply.",
+      "Some leads will book a time before you've even seen the alert, and that's the fastest follow-up there is.",
+      "And send it from an address a person reads, because when they answer the automatic reply, that's the warmest message you'll get all week."
+    ],
+    "params": {
+      "pills": [
+        [
+          0,
+          "booking",
+          "Add <em>your booking link</em>"
+        ],
+        [
+          2,
+          "reads",
+          "Send from an address <em>a person reads</em>"
+        ]
+      ]
+    }
   },
   {
     "key": "f3",
@@ -352,6 +399,17 @@
     ]
   },
   {
+    "key": "h2a",
+    "part": "p2",
+    "scene": "businessHours",
+    "lines": [
+      "One refinement.",
+      "Twenty-four hours after a Friday evening is Saturday evening, and a reminder then helps nobody.",
+      "If you only work weekdays, set the Wait node to resume at a specific time instead, the next working morning at nine, so the reminder lands when you can act on it.",
+      "It takes one short expression to skip the weekend."
+    ]
+  },
+  {
     "key": "h3",
     "part": "p2",
     "scene": "ifStatus",
@@ -360,6 +418,31 @@
       "If the status still says new, nobody has replied, and you get a second message. This lead has waited a day.",
       "If someone did reply and changed the status, the workflow just ends."
     ]
+  },
+  {
+    "key": "h3a",
+    "part": "p2",
+    "scene": "presenter",
+    "lines": [
+      "Which raises the obvious question. Who changes the status?",
+      "You do.",
+      "When you reply to a lead, you set their row to replied.",
+      "It's the one manual step in the whole workflow, and it's deliberate, because it's the only honest record of whether a person actually got back to them."
+    ],
+    "params": {
+      "pills": [
+        [
+          1,
+          "do",
+          "Who changes the status? <em>You do.</em>"
+        ],
+        [
+          3,
+          "manual",
+          "One manual step. <em>On purpose.</em>"
+        ]
+      ]
+    }
   },
   {
     "key": "h4",
@@ -449,6 +532,18 @@
       "If the reply and the alert both arrive, the whole chain works."
     ],
     "hold": 0.3
+  },
+  {
+    "key": "i5",
+    "part": "p2",
+    "scene": "responseTime",
+    "chapter": "Measure the leak",
+    "lines": [
+      "Once this has run for a few weeks, add one more column, replied at, next to received at.",
+      "The gap between them is your real response time, lead by lead.",
+      "It's usually longer than people guess, and it's the one number that tells you whether the leak is actually fixed.",
+      "If it creeps up even with all this in place, the workflow isn't the problem. The bottleneck is the reply."
+    ]
   },
   {
     "key": "j1",

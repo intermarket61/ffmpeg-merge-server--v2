@@ -25,6 +25,8 @@ def keys(arg):
 
 def cmd_status(video, args):
     print(f"{video.id}: {len(video.shots)} shots, {video.total / 60:.1f} min cut, parts {', '.join(video.parts)}")
+    if hedra.too_short(video):
+        print(f"  length: {video.total / 60:.2f} min, under the {hedra.MIN_MINUTES} min floor; hedra will refuse")
     unvoiced = [s.key for s in video.shots if not s.voiced]
     print(f"  voice:  {'all voiced' if not unvoiced else 'unvoiced ' + ', '.join(unvoiced)}")
     if not unvoiced:

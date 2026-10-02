@@ -121,6 +121,15 @@ def wait(video, part):
     print(f"  {part}: take downloaded -> {video.rel(take)}", flush=True)
 
 
+# The channel's floor for a long video. A shorter cut needs more substance (a
+# step it skips, a case it doesn't cover), never padding; see AUTHORING.md.
+MIN_MINUTES = 8
+
+
+def too_short(video):
+    return video.total < MIN_MINUTES * 60
+
+
 def run(video, yes=False):
     """Bring every part's take up to date. Parts generate in parallel."""
     st = status(video)
@@ -128,6 +137,9 @@ def run(video, yes=False):
         raise SystemExit("voice every shot before making Hedra takes")
     to_make = [p for p, s in st.items() if s in ("missing", "stale")]
     to_wait = [p for p, s in st.items() if s == "pending"] + to_make
+    if to_make and too_short(video):
+        raise SystemExit(f"the cut is {video.total / 60:.2f} min; long videos must be at least {MIN_MINUTES} min "
+                         "before any credits are spent (add substance, not padding: AUTHORING.md)")
     if to_make:
         credits = estimate(video, to_make)
         if not yes:

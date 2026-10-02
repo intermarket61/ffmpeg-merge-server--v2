@@ -8,5 +8,7 @@
 * Never run `hedra --yes` (or `make --yes`) without the user approving the
   credit estimate `status` prints. Changing a voiced shot's lines, hold or
   order makes its part stale and costs a new take; use `trim` for pauses.
+* Long videos are at least 8 minutes, reached with substance, never padding
+  (AUTHORING.md §4); `hedra` refuses a shorter cut.
 * Review with `stills` before rendering. Look at every frame, not a sample.
 * `build/` holds paid-for assets (vo/, hedra/). Never delete it casually.

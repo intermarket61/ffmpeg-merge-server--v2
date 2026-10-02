@@ -128,7 +128,18 @@ presenter in a rounded-square frame.
 | Presenter | full frame for opinion and story. `cam()` bottom-left while a graphic holds the frame. The persistent `tally` sits top-right |
 | Texture | film grain overlay at 0.06 (`params.grain` to change it; YouTube's encoder smears heavy grain) and a soft vignette are always on (runtime) |
 
-## 4. Pacing
+## 4. Length and pacing
+
+* **A long video is never under 8 minutes** of finished cut. `status` flags
+  a shorter cut and `hedra` refuses to spend credits on it.
+* **Reach it with substance, never padding.** When a script comes in short,
+  the topic is under-covered: find what a viewer would still need to do it
+  themselves (a step that was skipped, a case the advice breaks on, a
+  mistake people make, how to check it worked, how to measure it) and add
+  that. Never stretch it with restated points, slower delivery, longer
+  holds, filler intros or recaps of recaps. Every added line has to teach
+  or show something new.
+
 
 * Pauses between sentences come from ElevenLabs and sound natural. Don't
   add more.

@@ -64,7 +64,11 @@
         "n8n workflow",
         "small business automation"
       ],
-      "publish_at": "2026-10-29 14:00 America/Chicago"
+      "publish_at": "2026-10-29 14:00 America/Chicago",
+      "skip": [
+        "h2a",
+        "h3a"
+      ]
     }
   ],
   "youtube": {
