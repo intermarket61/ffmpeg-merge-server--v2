@@ -6,6 +6,7 @@ S3 (AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_REGION, S3_BUCKET, S3_PREFIX)
     can be re-cut anywhere.
 
 YouTube (YOUTUBE_CLIENT_ID, YOUTUBE_CLIENT_SECRET, YOUTUBE_REFRESH_TOKEN)
+    Refuses unless the login's channel is video.json "youtube.channel_id".
     Uploads with the title, description and tags from video.json "youtube",
     as private, flagged as containing synthetic media (AI voice and
     lip-sync), then attaches the captions. Get the refresh token once with
@@ -149,16 +150,37 @@ def upload_captions(video, token, video_id):
             headers={"Content-Type": f"multipart/related; boundary={boundary}"})
 
 
+def check_channel(video, token):
+    """The refresh token decides which channel an upload lands on, so name the
+    intended channel in video.json ("youtube": {"channel_id": "UC..."}) and
+    refuse anything else. Returns the channel id."""
+    want = video.meta.get("youtube", {}).get("channel_id")
+    _, _, body = request("GET", "https://www.googleapis.com/youtube/v3/channels?part=snippet&mine=true", token)
+    items = json.loads(body).get("items", [])
+    have = {c["id"]: c["snippet"]["title"] for c in items}
+    if not want:
+        raise SystemExit("youtube: set \"youtube\": {\"channel_id\": ...} in video.json. This login uploads to "
+                         + ", ".join(f"{t} ({i})" for i, t in have.items()))
+    if want not in have:
+        raise SystemExit(f"youtube: video.json wants channel {want}, but YOUTUBE_REFRESH_TOKEN belongs to "
+                         + ", ".join(f"{t} ({i})" for i, t in have.items())
+                         + ". Re-run tools/youtube_auth.py and pick the right channel.")
+    return want
+
+
 def to_youtube(video, rec):
     yt = rec.setdefault("youtube", {})
     sha = sha256_file(video.final)
-    if yt.get("video_sha") == sha and yt.get("video_id"):
+    want = video.meta.get("youtube", {}).get("channel_id")
+    if yt.get("video_sha") == sha and yt.get("video_id") and yt.get("channel_id") == want:
         print(f"  youtube: already uploaded https://youtu.be/{yt['video_id']}")
     else:
         if yt.get("video_id"):
-            print(f"  youtube: cut changed since upload {yt['video_id']}; uploading a new private video")
+            print(f"  youtube: {yt['video_id']} is an older cut or another channel; uploading a new private video")
         token = access_token()
-        yt.update(video_id=upload_video(video, token), video_sha=sha, captions=False)
+        channel = check_channel(video, token)
+        yt.clear()
+        yt.update(video_id=upload_video(video, token), video_sha=sha, channel_id=channel, captions=False)
         save_record(video, rec)
     if not yt.get("captions"):
         upload_captions(video, access_token(), yt["video_id"])
