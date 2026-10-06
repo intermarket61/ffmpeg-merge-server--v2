@@ -609,7 +609,7 @@
   ],
   "images": [
    {
-    "prompt": "Kelsey glancing across the party at a confident woman who resembles her, laughing with a group, a flicker of comparison on Kelsey's face",
+    "prompt": "Kelsey standing at the party holding a paper cup, glancing across the hall at her older sister, who looks clearly like her (same long dark hair and olive skin, a few years older) in an elegant cream blazer, laughing at the centre of an admiring group; a flicker of comparison on Kelsey's face",
     "refs": [
      "couple",
      "hall"
@@ -684,7 +684,7 @@
     ]
    },
    {
-    "prompt": "Teresa smiling and patting the young man's arm reassuringly",
+    "prompt": "Teresa smiling and patting the arm of her nephew reassuringly beside the coffee urn: the same young white man in his twenties with short light-brown hair, a light blue button-down shirt and khaki trousers",
     "refs": [
      "teresa",
      "hall"
@@ -793,7 +793,7 @@
     ]
    },
    {
-    "prompt": "Teresa walking out of a hospital entrance on a sunny weekday carrying a small cardboard box and a potted plant, smiling",
+    "prompt": "Teresa walking out through the glass doors of a hospital on a sunny weekday carrying a small cardboard box and a potted plant, smiling; plain brick walls, no signs or notices anywhere",
     "refs": [
      "teresa"
     ]
