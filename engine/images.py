@@ -63,7 +63,8 @@ class Still:
 
     @property
     def path(self):
-        hits = sorted((self.video.build / "images").glob(self.stem + ".*"))
+        hits = [p for p in sorted((self.video.build / "images").glob(self.stem + ".*"))
+                if p.suffix != ".json" and not p.stem.endswith(".trim")]
         return hits[0] if hits else None
 
     @property
@@ -164,10 +165,53 @@ def run(video, only=None, yes=False):
     return made
 
 
+def trimmed(path):
+    """The still with any painted paper margin cut off, cropped back to 16:9.
+    Gemini often paints a cream deckle border round a gouache image, which
+    would show as pale edges on screen. Made once, next to the original."""
+    out = path.with_name(path.stem + ".trim.jpg")
+    if out.exists():
+        return out
+    from PIL import Image
+
+    im = Image.open(path).convert("RGB")
+    w, h = im.size
+    px = im.load()
+
+    def paper(x, y):
+        r, g, b = px[x, y]
+        return min(r, g, b) > 185 and max(r, g, b) - min(r, g, b) < 45
+
+    def margin(n, line):                 # how many edge lines are mostly paper
+        for i in range(int(n * 0.09)):
+            pts = line(i)
+            if sum(paper(x, y) for x, y in pts) < 0.55 * len(pts):
+                return i
+        return int(n * 0.09)
+    step = 4
+    top = margin(h, lambda i: [(x, i) for x in range(0, w, step)])
+    bot = margin(h, lambda i: [(x, h - 1 - i) for x in range(0, w, step)])
+    left = margin(w, lambda i: [(i, y) for y in range(0, h, step)])
+    right = margin(w, lambda i: [(w - 1 - i, y) for y in range(0, h, step)])
+    pad = 0.012                          # brushy edges run a little past the margin
+    box = [left + w * pad, top + h * pad, w - right - w * pad, h - bot - h * pad]
+    if box == [w * pad, h * pad, w - w * pad, h - h * pad]:
+        box = [0, 0, w, h]               # no margin: leave it whole
+    cw, ch = box[2] - box[0], box[3] - box[1]
+    if cw / ch > 16 / 9:                 # back to 16:9, centred
+        d = (cw - ch * 16 / 9) / 2
+        box[0] += d; box[2] -= d
+    else:
+        d = (ch - cw * 9 / 16) / 2
+        box[1] += d; box[3] -= d
+    im.crop(tuple(round(v) for v in box)).save(out, quality=94)
+    return out
+
+
 def resolved(shot):
     """The shot's stills for the scene page: file URI (or None) plus timing."""
     out = []
     for e, (_, s) in zip(entries(shot), stills(shot.video, [shot.key])):
-        out.append({"src": s.path.as_uri() if s.done else None, "prompt": e["prompt"],
+        out.append({"src": trimmed(s.path).as_uri() if s.done else None, "prompt": e["prompt"],
                     "at": e.get("at"), "move": e.get("move")})
     return out
