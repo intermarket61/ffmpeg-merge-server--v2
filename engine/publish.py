@@ -2,7 +2,8 @@
 
 S3 (AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_REGION, S3_BUCKET, S3_PREFIX)
     s3://<bucket>/<prefix><id>/<id>.mp4, <id>.srt, and assets/ (the voice
-    and Hedra takes, the paid-for parts) so the video can be re-cut anywhere.
+    and Hedra takes and the Gemini stills, the paid-for parts) so the video
+    can be re-cut anywhere.
 
 YouTube (YOUTUBE_CLIENT_ID, YOUTUBE_CLIENT_SECRET, YOUTUBE_REFRESH_TOKEN)
     Uploads with the title, description and tags from video.json "youtube",
@@ -55,6 +56,10 @@ def to_s3(video, rec):
     files += [(p, "application/json") for p in sorted((video.build / "vo").glob("*.json"))]
     files += [(p, "video/mp4") for p in sorted((video.build / "hedra").glob("*.mp4"))]
     files += [(p, "application/json") for p in sorted((video.build / "hedra").glob("*.json"))]
+    stills = video.build / "images"                     # Gemini stills, also paid for
+    files += [(p, "image/jpeg") for p in sorted(stills.glob("*.jpg")) if not p.stem.endswith(".trim")]
+    files += [(p, "image/png") for p in sorted(stills.glob("*.png"))]
+    files += [(p, "application/json") for p in sorted(stills.glob("*.json"))]
     done = rec.setdefault("s3", {})
     for path, ctype in files:
         rel = path.name if path.parent == video.build else f"assets/{path.parent.name}/{path.name}"
