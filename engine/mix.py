@@ -44,7 +44,9 @@ def merge(video):
     audio = ["-i", str(vo)] if vo else ["-f", "lavfi", "-t", f"{video.total:.3f}",
                                         "-i", "anullsrc=r=48000:cl=stereo"]
     subprocess.run([ff, "-y", "-loglevel", "error", "-f", "concat", "-safe", "0",
-                    "-i", str(listing), *audio, "-c:v", "copy", "-c:a", "aac", "-b:a", "192k",
+                    "-i", str(listing), *audio, "-c:v", "copy",
+                    # YouTube plays at about -14 LUFS; a raw ElevenLabs read sits well under it
+                    "-af", "loudnorm=I=-14:TP=-1.5:LRA=11", "-ar", "48000", "-c:a", "aac", "-b:a", "192k",
                     "-shortest", "-movflags", "+faststart", str(video.final)], check=True)
     write_srt(video)
     return video.final
