@@ -168,6 +168,8 @@ def to_youtube(video, rec):
 
 
 def run(video, s3=True, youtube=True):
+    from . import gates
+    gates.check_publish(video)
     if not video.final.exists():
         raise SystemExit("nothing to publish: run make (or merge) first")
     rec = load_record(video)

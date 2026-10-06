@@ -28,7 +28,7 @@ same from shot to shot. Nothing is generated without yes=True.
 import base64
 import json
 
-from . import gemini
+from . import gates, gemini
 from .util import sha256_text
 
 DEFAULTS = {
@@ -147,7 +147,7 @@ def run(video, only=None, yes=False):
     if not todo:
         return []
     usd = estimate(video, todo)
-    if not yes:
+    if not gates.allow(video, "images", usd, yes):
         raise SystemExit(f"images: {len(todo)} stills to generate, about ${usd:.2f}. "
                          "Re-run with --yes to spend it.")
     print(f"  generating {len(todo)} stills (~${usd:.2f})", flush=True)
@@ -157,6 +157,7 @@ def run(video, only=None, yes=False):
             continue
         try:
             p = s.generate()
+            gates.record(video, "images", cfg(video)["usd_per_image"], s.stem)
             made.append(p)
             print(f"  {video.rel(p)}", flush=True)
         except (RuntimeError, OSError) as e:

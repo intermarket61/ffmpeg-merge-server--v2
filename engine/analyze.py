@@ -25,7 +25,7 @@ import re
 import urllib.parse
 import urllib.request
 
-from . import gemini
+from . import gates, gemini
 
 DEFAULT_MODEL = "gemini-2.5-flash"
 LOW_RES = {"mediaResolution": "MEDIA_RESOLUTION_LOW"}
@@ -129,12 +129,13 @@ def run(video, yes=False):
             n, det = gemini.count_tokens(model, contents(url), LOW_RES)
             total += cost(det)
             print(f"  {vid_id(url)}: {n:,} tokens to analyse with {model}")
-        if not yes:
+        if not gates.allow(video, "analyze", total, yes):
             print(f"analyze: Gemini pass for {len(todo)} video(s), about ${total:.2f}. "
                   "Re-run with --yes to spend it.")
             return write_brief(video, found, ref)
         for url, d, meta in todo:
             paid_pass(url, d, model)
+            gates.record(video, "analyze", total / len(todo), vid_id(url))
             print(f"  {vid_id(url)}: analysed")
     return write_brief(video, found, ref)
 

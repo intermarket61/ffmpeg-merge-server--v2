@@ -5,6 +5,7 @@ import base64
 import json
 import urllib.request
 
+from . import gates
 from .util import env
 
 DEFAULT_MODEL = "eleven_multilingual_v2"
@@ -28,16 +29,19 @@ def voice_shot(video, shot):
     return data["alignment"]["character_end_times_seconds"][-1]
 
 
-def run(video, only=None, force=False):
-    """Voice what needs voicing; returns the keys voiced."""
+def run(video, only=None, force=False, yes=False):
+    """Voice what needs voicing; returns the keys voiced. A gated video
+    (engine/gates.py) voices only inside its approved budget."""
+    todo = [s for s in video.shots if s.lines and (not only or s.key in only) and (force or not s.voiced)]
+    usd = gates.voice_usd(video, sum(len(s.text) for s in todo))
+    if todo and gates.enabled(video):
+        gates.allow(video, "voice", usd, yes)
     done = []
-    for shot in video.shots:
-        if not shot.lines or (only and shot.key not in only):
-            continue
-        if force or not shot.voiced:
-            secs = voice_shot(video, shot)
-            print(f"  voiced {shot.key}: {secs:.1f}s", flush=True)
-            done.append(shot.key)
+    for shot in todo:
+        secs = voice_shot(video, shot)
+        gates.record(video, "voice", gates.voice_usd(video, len(shot.text)), shot.key)
+        print(f"  voiced {shot.key}: {secs:.1f}s", flush=True)
+        done.append(shot.key)
     if done:
         video.reload()
     return done

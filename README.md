@@ -52,6 +52,23 @@ Single steps: `analyze`, `voice`, `images`, `hedra`, `render`, `merge`,
 `previews`, `stills`, `publish`. Run `python -m engine --help` for flags. `--only a1,b2` limits
 a step to some shots, and `--force` redoes current work.
 
+## Running unattended (gates and a budget)
+
+For an orchestrator such as Hermes Agent, set `"gates": true` in video.json.
+Then two human approvals replace the per-step `--yes`:
+
+```bash
+python -m engine status videos/<id> --json          # state, costs, and "next"
+python -m engine approve videos/<id> script --budget 8   # gate 1: after a human reads the script
+python -m engine make videos/<id>                    # spends only inside the budget
+python -m engine approve videos/<id> cut             # gate 2: after a human watches the previews
+python -m engine publish videos/<id>
+```
+
+Approvals and every dollar spent are logged in `videos/<id>/approvals.json`.
+Editing the script after approval closes gate 1 again; re-merging closes
+gate 2. Hedra still needs an explicit `--yes`. See `engine/gates.py`.
+
 ## A new video
 
 Write `videos/<id>/video.json` and `videos/<id>/shots.json`, add a
