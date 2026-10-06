@@ -15,6 +15,8 @@ shots.json, per shot:
       "a plain prompt",
       {"prompt": "...", "refs": ["ruth"], "at": [line, "word"], "move": "in", "v": 2}
     ]
+`"trim": false` shows a still whole, painted paper margin and all (for a
+vignette that would lose its subject if cropped to fill the frame).
 
 A still is named after a hash of everything that shapes it (model, aspect,
 style, suffix, prompt, the reference images it was given, and `v`), so it is
@@ -212,6 +214,7 @@ def resolved(shot):
     """The shot's stills for the scene page: file URI (or None) plus timing."""
     out = []
     for e, (_, s) in zip(entries(shot), stills(shot.video, [shot.key])):
-        out.append({"src": trimmed(s.path).as_uri() if s.done else None, "prompt": e["prompt"],
+        src = (trimmed(s.path) if e.get("trim", True) else s.path) if s.done else None
+        out.append({"src": src.as_uri() if src else None, "prompt": e["prompt"],
                     "at": e.get("at"), "move": e.get("move")})
     return out

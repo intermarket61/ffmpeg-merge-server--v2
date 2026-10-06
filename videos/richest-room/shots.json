@@ -354,7 +354,8 @@
     "prompt": "Teresa at her own small kitchen table in the morning with a cup of coffee and a plain notepad, content",
     "refs": [
      "teresa"
-    ]
+    ],
+    "trim": false
    }
   ],
   "params": {
@@ -693,7 +694,8 @@
     "prompt": "Teresa carrying her own grocery bags up the front steps of her bungalow, sturdy and at ease",
     "refs": [
      "teresa"
-    ]
+    ],
+    "trim": false
    }
   ]
  },
