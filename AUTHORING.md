@@ -109,7 +109,11 @@ library.
 
 ## 3. Visual language
 
-The look matches two reference channels (RoboNuggets, Parker Prompts):
+There are two looks. **Presenter videos** (video-a) use the kinetic look
+below. **Presenter-free videos** (`"hedra": false`) are narrated over
+painted stills; see section 7.
+
+The presenter look matches two reference channels (RoboNuggets, Parker Prompts):
 kinetic type, orange slams, cream paper cards, glowing node diagrams, a
 presenter in a rounded-square frame.
 
@@ -164,3 +168,52 @@ python -m engine merge videos/<id> && python -m engine previews videos/<id>
 Stills work before Hedra: without a take, the presenter frame is empty,
 which is enough to judge layout. Check stills at more than one point
 (`--at 0.3`, `--at 0.9`) for scenes that build over time.
+
+## 7. Presenter-free videos (painted stills)
+
+Set `"hedra": false` in video.json. There is no face, so `part` can be left
+out of shots and the Hedra step is skipped. `videos/richest-room` is the
+worked example.
+
+**Study the reference first.** List the channel and 1–3 example videos
+under `"reference"` in video.json and run `python -m engine analyze
+videos/<id>`. The free pass gets titles and thumbnails. `--yes` has
+Gemini watch each video and fills `videos/<id>/reference.md` with its
+structure, pacing and look (a few cents per video, printed first). Learn
+the *format* from it. Never reuse its words, characters, examples or look:
+the script is original, and the visuals must be clearly different.
+
+**Stills.** Each shot lists its `images` (see `engine/images.py`).
+`"images"` in video.json holds the model, the style prefix that goes in
+front of every prompt, and the suffix that bans text. `refs` holds the
+recurring characters and places: name one in a still's `refs` and its
+reference image is sent along with the prompt, which keeps a face the
+same from shot to shot. `python -m engine images videos/<id>` prints the
+count and cost. `--yes` generates them into `build/<id>/images`, named by
+a hash of everything that shaped them, so a still is paid for once. To
+reroll one bad still, bump its `"v"`.
+
+| Scene | Use |
+|---|---|
+| `still` | the shot's images full frame, a slow 100→106% push or drift on each, a 1 s dissolve between. Each image starts at its `at` word, or the sentences are shared out evenly. `params.notes: [[line, word, html]]` shows a small paper label lower left |
+| `chapter` | numbered section card: `params: {n, title}` on warm paper (or over the shot's first image) |
+
+**The gouache look** (`style-tests/CHOSEN.md`):
+
+| | |
+|---|---|
+| Palette | ochre, sage, dusty blue in the art; paper `#efe5d2`, ink `#3b2f24`, accent `#b9772f`/`#a5552a` in the type |
+| Type | Newsreader only: italic numerals on chapter cards, roman for notes. No burned-in word-by-word captions (YouTube gets the .srt) |
+| Rhythm | one still per sentence or so (6–9 s); a note label at most once per shot, for the line worth remembering |
+| Texture | `"look": {"grain": 0.05, "vignette": 0.55}`: the paint is the texture |
+
+**Prompts.** These rules come from the style test:
+
+* Name no brands. Describe props as plain or unlabelled, and keep paper,
+  signs and screens blank or turned away. The model still adds lettering
+  sometimes, so check every still.
+* Put a character's ref on every still they appear in, and describe the
+  action, not their look (the ref carries that).
+* Review all the stills before rendering: `stills` shows each one in place,
+  with a placeholder card for any not generated yet.
+

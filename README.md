@@ -48,8 +48,8 @@ Outputs land in `build/<id>/`:
 `build/` is never committed. Treat `vo/` and `hedra/` as paid-for assets
 and keep a copy (`publish` uploads them to S3 alongside the cut).
 
-Single steps: `voice`, `hedra`, `render`, `merge`, `previews`, `stills`,
-`publish`. Run `python -m engine --help` for flags. `--only a1,b2` limits
+Single steps: `analyze`, `voice`, `images`, `hedra`, `render`, `merge`,
+`previews`, `stills`, `publish`. Run `python -m engine --help` for flags. `--only a1,b2` limits
 a step to some shots, and `--force` redoes current work.
 
 ## A new video
@@ -74,7 +74,11 @@ assets/fonts/      Archivo and Newsreader (SIL Open Font License)
 | Step | Cost |
 |---|---|
 | ElevenLabs | per character, about 10k characters for a 10-minute video |
+| Gemini stills | about $0.07 each (estimate, set `usd_per_image`); `images --yes` |
+| Gemini analysis | a few cents per reference video; `analyze --yes` |
 | Hedra Character 3 at 1080p | about 8.75 credits per second of video (about 5,600 for 10 minutes) |
 | Rendering | free, about 35 minutes for 10 minutes of video on 4 cores |
 
-`status` prints the Hedra estimate before anything is spent.
+`status` prints the voice, image and Hedra estimates before anything is
+spent. Presenter-free videos (`"hedra": false`) skip Hedra entirely; see
+AUTHORING.md section 7.

@@ -1,0 +1,891 @@
+[
+ {
+  "key": "a1",
+  "scene": "still",
+  "lines": [
+   "It's a Saturday afternoon in a rented community hall, and somebody's brother is turning sixty.",
+   "There are folding tables with paper tablecloths, a sheet cake nobody has cut yet, and a coffee urn that has been running since noon.",
+   "About thirty people, most of whom know each other a little."
+  ],
+  "images": [
+   {
+    "prompt": "wide view of a modest community hall during a sixtieth birthday party, guests mingling in small groups, late afternoon light through high windows",
+    "refs": [
+     "hall"
+    ]
+   },
+   {
+    "prompt": "close still life of a long folding table with a white paper tablecloth, an uncut sheet cake with plain white frosting and a blue piped border, a tall steel coffee urn and stacked paper cups",
+    "refs": [
+     "hall"
+    ]
+   },
+   {
+    "prompt": "guests chatting in clusters with paper plates and cups, seen from the side of the hall, relaxed and ordinary",
+    "refs": [
+     "hall"
+    ]
+   }
+  ]
+ },
+ {
+  "key": "a2",
+  "scene": "still",
+  "lines": [
+   "Here's a small game. Look around this room and try to guess who has the most money.",
+   "Not who earns the most. Who actually has the most."
+  ],
+  "images": [
+   {
+    "prompt": "the whole party seen from a high corner of the hall, about thirty guests, a few faces turned toward the viewer, curious composition",
+    "refs": [
+     "hall"
+    ]
+   },
+   {
+    "prompt": "slow detail of guests' hands holding paper cups and plates, a mix of watches, rings and plain cuffs",
+    "refs": [
+     "hall"
+    ]
+   }
+  ]
+ },
+ {
+  "key": "a3",
+  "scene": "still",
+  "lines": [
+   "Most people would pick Grant.",
+   "He's forty-four, a regional sales manager, and he parked the new SUV right by the front door, with the temporary paper still taped in the back window.",
+   "He's got a heavy steel watch, a good haircut, and he's already told two different people about a stock he got into early.",
+   "When the drinks table ran out of ice, Grant was the one who drove to the store and paid for it."
+  ],
+  "images": [
+   {
+    "prompt": "Grant laughing and talking with a small group of guests, holding a drink, the centre of attention",
+    "refs": [
+     "grant",
+     "hall"
+    ]
+   },
+   {
+    "prompt": "a large new dark grey SUV parked right beside the entrance of a modest community hall, a blank sheet of paper taped inside the rear window",
+    "refs": [
+     "hall"
+    ]
+   },
+   {
+    "prompt": "Grant gesturing confidently as he talks to two older men, a heavy steel wristwatch catching the light",
+    "refs": [
+     "grant",
+     "hall"
+    ]
+   },
+   {
+    "prompt": "Grant shouldering through the hall's side door carrying two clear plastic bags of ice, cheerful",
+    "refs": [
+     "grant",
+     "hall"
+    ]
+   }
+  ]
+ },
+ {
+  "key": "a4",
+  "scene": "still",
+  "lines": [
+   "Or you might pick Kelsey and Jordan.",
+   "They're in their early thirties, two good incomes, and they closed on a four bedroom new build in March.",
+   "Right now Kelsey is scrolling through photos of the kitchen backsplash for anyone who'll look, and people are genuinely impressed."
+  ],
+  "images": [
+   {
+    "prompt": "Kelsey and Jordan standing together at the party, smiling, a young couple holding paper cups",
+    "refs": [
+     "couple",
+     "hall"
+    ]
+   },
+   {
+    "prompt": "a large brand-new two-storey suburban house with a double garage, freshly laid lawn and thin newly planted trees, bright spring day"
+   },
+   {
+    "prompt": "Kelsey showing her phone to two admiring older women at a party table, the phone's screen glow lighting their faces, the screen itself turned away from the viewer",
+    "refs": [
+     "couple",
+     "hall"
+    ]
+   }
+  ]
+ },
+ {
+  "key": "a5",
+  "scene": "still",
+  "lines": [
+   "And then there's Teresa.",
+   "She's sixty-six, the birthday boy's older sister, and she's been quietly refilling the coffee urn all afternoon because nobody else noticed it was empty.",
+   "She drove here in a minivan that's older than some of the guests' kids.",
+   "Her cardigan has been mended at the elbow, and hardly anyone has asked her a single question about herself."
+  ],
+  "images": [
+   {
+    "prompt": "Teresa standing at the refreshments table, quietly refilling a tall steel coffee urn from a jug, unnoticed by the guests behind her",
+    "refs": [
+     "teresa",
+     "hall"
+    ]
+   },
+   {
+    "prompt": "an old faded silver minivan parked at the far end of a small parking lot beside a community hall, late afternoon",
+    "refs": [
+     "hall"
+    ]
+   },
+   {
+    "prompt": "close-up of the elbow of a moss-green cardigan with a small neat darned patch, a hand resting on a paper tablecloth",
+    "refs": [
+     "teresa"
+    ]
+   },
+   {
+    "prompt": "Teresa sitting alone at the end of a party table with a cup of coffee, smiling softly as she watches the room",
+    "refs": [
+     "teresa",
+     "hall"
+    ]
+   }
+  ]
+ },
+ {
+  "key": "a6",
+  "scene": "still",
+  "lines": [
+   "Here's what was actually going on in that room.",
+   "Grant earns about two hundred and ten thousand dollars a year, but once you subtract the car payment, the boat loan and the line of credit on his house, his net worth is somewhere around thirty-eight thousand dollars.",
+   "Kelsey and Jordan are worth about sixty thousand, and nearly all of it is the part of the house the bank doesn't own yet.",
+   "Teresa is worth a little over three million dollars."
+  ],
+  "images": [
+   {
+    "prompt": "the party seen through a doorway, everyone frozen mid-gesture, a quiet observational mood",
+    "refs": [
+     "hall"
+    ]
+   },
+   {
+    "prompt": "Grant standing in his driveway at dusk looking at a gleaming motorboat on a trailer, hands in pockets, a large house behind him",
+    "refs": [
+     "grant"
+    ]
+   },
+   {
+    "prompt": "Kelsey and Jordan standing in a big empty new living room full of unpacked cardboard boxes, echoing and bare",
+    "refs": [
+     "couple"
+    ]
+   },
+   {
+    "prompt": "Teresa at the end of the party table, warm light falling on her, calm and content",
+    "refs": [
+     "teresa",
+     "hall"
+    ]
+   }
+  ],
+  "params": {
+   "notes": [
+    [
+     1,
+     "grant",
+     "<em>Grant</em> · about $38,000"
+    ],
+    [
+     2,
+     "kelsey",
+     "<em>Kelsey &amp; Jordan</em> · about $60,000"
+    ],
+    [
+     3,
+     "teresa",
+     "<em>Teresa</em> · about $3.1 million"
+    ]
+   ]
+  }
+ },
+ {
+  "key": "a7",
+  "scene": "still",
+  "lines": [
+   "The room got it exactly backwards, and rooms get it backwards almost every time, for a reason that's simple once you see it.",
+   "Everything you can see in a room is spending. The car, the watch, the house on the phone. Spending is loud, and it's meant to be.",
+   "Wealth is the money that never got spent. It sits somewhere nobody at the party will ever see, so by definition, it's invisible.",
+   "If you're looking for the richest person in the room, you're looking for someone who has stopped trying to be looked at."
+  ],
+  "images": [
+   {
+    "prompt": "wide view of the hall with the guests in warm light and Teresa small and half in shadow at a far table",
+    "refs": [
+     "teresa",
+     "hall"
+    ]
+   },
+   {
+    "prompt": "still life on a party table: a set of new car keys with a chunky fob, a steel wristwatch, a phone lying face down"
+   },
+   {
+    "prompt": "a quiet kitchen table at dawn with a closed plain manila folder and a cup of tea, nothing else, soft window light"
+   },
+   {
+    "prompt": "Teresa's hands wrapped around a paper coffee cup, close-up, cardigan sleeves, gentle light",
+    "refs": [
+     "teresa"
+    ]
+   }
+  ],
+  "params": {
+   "notes": [
+    [
+     1,
+     "everything",
+     "Spending is loud."
+    ],
+    [
+     2,
+     "wealth",
+     "Wealth is invisible."
+    ]
+   ]
+  }
+ },
+ {
+  "key": "a8",
+  "scene": "still",
+  "lines": [
+   "So here are seven things the richest person in the room is usually doing that nobody notices.",
+   "Every one of them is cheap, most of them are free, and all of them are harder than they sound."
+  ],
+  "images": [
+   {
+    "prompt": "the community hall from outside at golden hour, windows glowing, a few cars in the lot including an old silver minivan",
+    "refs": [
+     "hall"
+    ]
+   },
+   {
+    "prompt": "a row of empty folding chairs along the hall wall in slanting evening light",
+    "refs": [
+     "hall"
+    ]
+   }
+  ]
+ },
+ {
+  "key": "b0",
+  "scene": "chapter",
+  "lines": [
+   "One. They're the one asking the questions."
+  ],
+  "images": [],
+  "hold": 0.5,
+  "params": {
+   "n": 1,
+   "title": "They’re the one asking the questions"
+  }
+ },
+ {
+  "key": "b1",
+  "scene": "still",
+  "lines": [
+   "Watch Teresa for an hour and you'll notice she has barely said anything about herself.",
+   "She asked Kelsey which tile they chose and why. She asked Grant how the new territory was going, and then she listened to the whole answer.",
+   "It isn't just politeness. It's what people do when they don't need the room to know anything about them."
+  ],
+  "images": [
+   {
+    "prompt": "Teresa listening attentively to Kelsey at a party table, leaning in with interest",
+    "refs": [
+     "teresa",
+     "couple",
+     "hall"
+    ]
+   },
+   {
+    "prompt": "Grant talking expansively with both hands while Teresa listens patiently, holding her coffee",
+    "refs": [
+     "grant",
+     "teresa",
+     "hall"
+    ]
+   },
+   {
+    "prompt": "Teresa in quiet profile against the busy party, relaxed, unhurried",
+    "refs": [
+     "teresa",
+     "hall"
+    ]
+   }
+  ]
+ },
+ {
+  "key": "b2",
+  "scene": "still",
+  "lines": [
+   "Grant needs the room. Not in a bad way. He works hard, and the watch and the car are how he tells people it's working.",
+   "But needing to be seen is the most expensive habit there is, because it never shows up as one purchase. It shows up in every purchase.",
+   "The upgrade you didn't need, the round you didn't have to buy, the holiday picked for how it'll look.",
+   "Teresa's budget has no line for being impressive. That line has been zero for forty years."
+  ],
+  "images": [
+   {
+    "prompt": "Grant at a busy hotel bar, sliding a card across the counter to pay for a round for a group of colleagues",
+    "refs": [
+     "grant"
+    ]
+   },
+   {
+    "prompt": "Grant alone in his car at night in a parking garage, tired, loosening his collar, the dashboard glow on his face",
+    "refs": [
+     "grant"
+    ]
+   },
+   {
+    "prompt": "an empty luxury resort pool at sunset with perfectly arranged loungers, beautiful and slightly lonely"
+   },
+   {
+    "prompt": "Teresa at her own small kitchen table in the morning with a cup of coffee and a plain notepad, content",
+    "refs": [
+     "teresa"
+    ]
+   }
+  ],
+  "params": {
+   "notes": [
+    [
+     1,
+     "but",
+     "Being seen shows up in <em>every</em> purchase."
+    ]
+   ]
+  }
+ },
+ {
+  "key": "c0",
+  "scene": "chapter",
+  "lines": [
+   "Two. Nothing they own sends them a bill."
+  ],
+  "images": [],
+  "hold": 0.5,
+  "params": {
+   "n": 2,
+   "title": "Nothing they own sends them a bill"
+  }
+ },
+ {
+  "key": "c1",
+  "scene": "still",
+  "lines": [
+   "Here's a quick exercise. Count the things you own that send you a bill every month.",
+   "Grant's list is long. Eleven hundred and forty dollars for the SUV. Four hundred and ten for the boat. Three hundred and eighty for the line of credit.",
+   "Then the phone, the watch he put on a card, the streaming services, and the gym he has been to twice.",
+   "Before Grant earns a single dollar on the first of the month, he's about three thousand dollars behind."
+  ],
+  "images": [
+   {
+    "prompt": "a small neat stack of plain unmarked white envelopes on a hallway side table under a lamp"
+   },
+   {
+    "prompt": "a motorboat on a trailer under a fitted cover in a suburban driveway, rain-wet, evening"
+   },
+   {
+    "prompt": "an expensive treadmill in a spare bedroom used as a clothes rack, shirts draped over it"
+   },
+   {
+    "prompt": "Grant at his kitchen island late at night with a laptop, rubbing his forehead, the room dark around him",
+    "refs": [
+     "grant"
+    ]
+   }
+  ]
+ },
+ {
+  "key": "c2",
+  "scene": "still",
+  "lines": [
+   "Teresa's minivan is paid off. So is the house. So is the phone, which is three models old and works fine.",
+   "Her month starts at zero, and every dollar after that is hers to decide about.",
+   "Grant owns more things than Teresa. But Teresa owns far more of her things."
+  ],
+  "images": [
+   {
+    "prompt": "an old silver minivan in the driveway of a small tidy brick bungalow with a vegetable garden, early morning",
+    "refs": [
+     "teresa"
+    ]
+   },
+   {
+    "prompt": "Teresa opening her front door to the morning sun with a watering can in hand, unhurried",
+    "refs": [
+     "teresa"
+    ]
+   },
+   {
+    "prompt": "two houses side by side at dusk: a large new house with a boat and SUV in the driveway, and a small paid-off bungalow with a single old minivan, warm light in its window"
+   }
+  ],
+  "params": {
+   "notes": [
+    [
+     2,
+     "grant",
+     "He owns more things. She owns more of <em>her</em> things."
+    ]
+   ]
+  }
+ },
+ {
+  "key": "d0",
+  "scene": "chapter",
+  "lines": [
+   "Three. They let time do the heavy lifting."
+  ],
+  "images": [],
+  "hold": 0.5,
+  "params": {
+   "n": 3,
+   "title": "They let time do the heavy lifting"
+  }
+ },
+ {
+  "key": "d1",
+  "scene": "still",
+  "lines": [
+   "Teresa never earned a big salary. For most of her career she worked in payroll at a regional hospital, and her best year she made sixty-one thousand dollars.",
+   "What she did was start early and never stop.",
+   "At twenty-four she began putting a little into the hospital's retirement plan, and every year on her birthday she nudged the amount up by one percent. That was the whole plan."
+  ],
+  "images": [
+   {
+    "prompt": "a young Teresa in her twenties in the late 1980s at a hospital payroll office desk with a beige computer and stacks of folders, focused",
+    "refs": [
+     "teresa"
+    ]
+   },
+   {
+    "prompt": "a busy regional hospital exterior in the 1990s on an ordinary weekday morning, nurses arriving"
+   },
+   {
+    "prompt": "a small birthday cupcake with a single lit candle on a plain kitchen table at night, a pen beside it"
+   }
+  ]
+ },
+ {
+  "key": "d2",
+  "scene": "still",
+  "lines": [
+   "For the first ten years, it looked like nothing. For the next ten, it looked like a decent savings account.",
+   "Somewhere in her fifties, the account started growing more in a good year than she earned in a year at work.",
+   "Nobody noticed that either, including, for a while, Teresa.",
+   "What looks like thrift from the outside is mostly patience. She let her money get old."
+  ],
+  "images": [
+   {
+    "prompt": "the same view through a kitchen window of a young maple sapling, painted in early spring"
+   },
+   {
+    "prompt": "the same view through a kitchen window, now a tall mature maple tree in full autumn colour"
+   },
+   {
+    "prompt": "Teresa in her fifties pausing at her desk with reading glasses pushed up, a small private smile",
+    "refs": [
+     "teresa"
+    ]
+   },
+   {
+    "prompt": "Teresa at sixty-six watering potted tomatoes on her back step in the morning sun",
+    "refs": [
+     "teresa"
+    ]
+   }
+  ],
+  "params": {
+   "notes": [
+    [
+     3,
+     "what",
+     "She let her money get <em>old</em>."
+    ]
+   ]
+  }
+ },
+ {
+  "key": "e0",
+  "scene": "chapter",
+  "lines": [
+   "Four. Their money works instead of shining."
+  ],
+  "images": [],
+  "hold": 0.5,
+  "params": {
+   "n": 4,
+   "title": "Their money works instead of shining"
+  }
+ },
+ {
+  "key": "e1",
+  "scene": "still",
+  "lines": [
+   "In nineteen ninety-eight, a coworker talked Teresa into buying a tired old duplex across town for a hundred and twelve thousand dollars.",
+   "She and her husband spent two years of weekends on it. Paint, floors, a new back porch. They rented out one side, and then both.",
+   "Twelve years later, they bought a second one."
+  ],
+  "images": [
+   {
+    "prompt": "a tired run-down two-family wooden duplex in the late 1990s, peeling paint, overgrown yard, a hand-painted blank sign stake in the lawn"
+   },
+   {
+    "prompt": "a younger Teresa and her husband painting the porch railing of an old duplex together on a sunny weekend, paint tins and brushes",
+    "refs": [
+     "teresa"
+    ]
+   },
+   {
+    "prompt": "a second modest duplex on a leafy street, freshly painted, autumn leaves on the steps"
+   }
+  ]
+ },
+ {
+  "key": "e2",
+  "scene": "still",
+  "lines": [
+   "Today both duplexes are paid off, and the rent from four small apartments covers everything Teresa spends in a year, with some left over.",
+   "Here's the difference that matters. Almost everything Grant owns is worth a little less every month. Almost everything Teresa owns pays her every month.",
+   "One of them owns objects. The other owns income. Only one of those shows up at a party."
+  ],
+  "images": [
+   {
+    "prompt": "a well-kept duplex today with bicycles and potted plants on both porches, a tenant waving from a doorway"
+   },
+   {
+    "prompt": "Grant's dark grey SUV parked alone in a rainy office car park, beautiful but lonely"
+   },
+   {
+    "prompt": "Teresa sitting on her back step at dusk with a cup of tea, string lights in the garden",
+    "refs": [
+     "teresa"
+    ]
+   }
+  ],
+  "params": {
+   "notes": [
+    [
+     2,
+     "one",
+     "Objects cost you. Ownership <em>pays</em> you."
+    ]
+   ]
+  }
+ },
+ {
+  "key": "f0",
+  "scene": "chapter",
+  "lines": [
+   "Five. They don't keep score against the room."
+  ],
+  "images": [],
+  "hold": 0.5,
+  "params": {
+   "n": 5,
+   "title": "They don’t keep score against the room"
+  }
+ },
+ {
+  "key": "f1",
+  "scene": "still",
+  "lines": [
+   "Kelsey loves her house. But the reason she keeps showing the backsplash is that her sister's house is bigger, and everyone at this party knows it.",
+   "Grant's watch isn't really for Grant. It's for the vice president who wears a nicer one.",
+   "That's the trap with keeping score against other people. The scoreboard never stops moving. Every time you catch up, the room changes, and somebody new is ahead."
+  ],
+  "images": [
+   {
+    "prompt": "Kelsey glancing across the party at a confident woman who resembles her, laughing with a group, a flicker of comparison on Kelsey's face",
+    "refs": [
+     "couple",
+     "hall"
+    ]
+   },
+   {
+    "prompt": "a boardroom table seen from the side, two men's wrists resting on it, one wearing a large steel watch and the other an even more lavish gold one"
+   },
+   {
+    "prompt": "a hillside street of houses at dusk, each house a little bigger than the one below it, climbing out of view"
+   }
+  ]
+ },
+ {
+  "key": "f2",
+  "scene": "still",
+  "lines": [
+   "Teresa keeps score too. But the only name on her scoreboard is her own, from last year.",
+   "Is she a little freer than she was? Then she's winning, and nobody else needs to know."
+  ],
+  "images": [
+   {
+    "prompt": "Teresa at her kitchen table writing in a small notebook with a pencil, the pages covered in faint illegible pencil marks, morning light",
+    "refs": [
+     "teresa"
+    ]
+   },
+   {
+    "prompt": "Teresa walking alone along a park path in early morning mist, light on her face, unhurried",
+    "refs": [
+     "teresa"
+    ]
+   }
+  ],
+  "params": {
+   "notes": [
+    [
+     0,
+     "teresa",
+     "The only name on her scoreboard is her own."
+    ]
+   ]
+  }
+ },
+ {
+  "key": "g0",
+  "scene": "chapter",
+  "lines": [
+   "Six. They're comfortable being underestimated."
+  ],
+  "images": [],
+  "hold": 0.5,
+  "params": {
+   "n": 6,
+   "title": "They’re comfortable being underestimated"
+  }
+ },
+ {
+  "key": "g1",
+  "scene": "still",
+  "lines": [
+   "At one point in the afternoon, Teresa's nephew asked her, kindly and a little carefully, whether she was doing all right on her pension.",
+   "He offered to help with her groceries. She thanked him, said she was fine, and left it at that.",
+   "Being underestimated sounds like a cost. It's actually some of the best protection money can buy."
+  ],
+  "images": [
+   {
+    "prompt": "a young man in his twenties leaning in to speak gently to Teresa beside the coffee urn, concerned and kind",
+    "refs": [
+     "teresa",
+     "hall"
+    ]
+   },
+   {
+    "prompt": "Teresa smiling and patting the young man's arm reassuringly",
+    "refs": [
+     "teresa",
+     "hall"
+    ]
+   },
+   {
+    "prompt": "Teresa carrying her own grocery bags up the front steps of her bungalow, sturdy and at ease",
+    "refs": [
+     "teresa"
+    ]
+   }
+  ]
+ },
+ {
+  "key": "g2",
+  "scene": "still",
+  "lines": [
+   "Nobody asks you for a loan. Salespeople don't size you up. Family arguments about money don't start with your name. And no one expects you to keep proving anything.",
+   "Grant pays a quiet tax for looking rich. The bigger tip, the better gift, the round everybody assumes he'll cover.",
+   "Teresa pays none of it."
+  ],
+  "images": [
+   {
+    "prompt": "a family dinner table mid-argument, relatives leaning in, Teresa calmly passing the potatoes, unbothered",
+    "refs": [
+     "teresa"
+    ]
+   },
+   {
+    "prompt": "Grant at an upscale restaurant reaching for the bill in a leather folder as friends look away, warm low light",
+    "refs": [
+     "grant"
+    ]
+   },
+   {
+    "prompt": "Teresa driving her old minivan along a quiet road at sunset, windows down, peaceful",
+    "refs": [
+     "teresa"
+    ]
+   }
+  ],
+  "params": {
+   "notes": [
+    [
+     1,
+     "grant",
+     "Looking rich comes with a <em>tax</em>."
+    ]
+   ]
+  }
+ },
+ {
+  "key": "h0",
+  "scene": "chapter",
+  "lines": [
+   "Seven. They know what the money is for."
+  ],
+  "images": [],
+  "hold": 0.5,
+  "params": {
+   "n": 7,
+   "title": "They know what the money is for"
+  }
+ },
+ {
+  "key": "h1",
+  "scene": "still",
+  "lines": [
+   "This is the one that separates looking rich from being wealthy for good.",
+   "There are people who do everything right, save for forty years, and then can't spend a dollar of it, because the saving became the point.",
+   "Teresa decided a long time ago what hers was for."
+  ],
+  "images": [
+   {
+    "prompt": "an elderly man alone in a large dim house, sitting very upright in an armchair, curtains drawn, a sense of a life on hold"
+   },
+   {
+    "prompt": "Teresa in her forties at a kitchen table at night, thinking, pencil in hand, a single lamp",
+    "refs": [
+     "teresa"
+    ]
+   }
+  ]
+ },
+ {
+  "key": "h2",
+  "scene": "still",
+  "lines": [
+   "It paid for her granddaughter's nursing degree, without a loan.",
+   "It lets her spend every April with her sister in Tucson.",
+   "And it let her stop working at fifty-eight, on a Tuesday, without asking anyone.",
+   "She doesn't need more. She knows exactly what enough looks like, because she wrote it down when she was forty."
+  ],
+  "images": [
+   {
+    "prompt": "a young woman in nursing scrubs hugging Teresa outside a college building on a bright day, both overjoyed",
+    "refs": [
+     "teresa"
+    ]
+   },
+   {
+    "prompt": "two older women laughing on a shaded desert patio with cactus and terracotta pots, iced tea, golden light",
+    "refs": [
+     "teresa"
+    ]
+   },
+   {
+    "prompt": "Teresa walking out of a hospital entrance on a sunny weekday carrying a small cardboard box and a potted plant, smiling",
+    "refs": [
+     "teresa"
+    ]
+   },
+   {
+    "prompt": "a folded handwritten note tucked into the corner of a kitchen window frame, the writing too small to read, morning light"
+   }
+  ],
+  "params": {
+   "notes": [
+    [
+     3,
+     "she",
+     "<em>Enough</em> is a number. She wrote hers down."
+    ]
+   ]
+  }
+ },
+ {
+  "key": "i1",
+  "scene": "still",
+  "lines": [
+   "Around six o'clock, Teresa wrapped the leftover cake in foil, wished her brother a happy birthday, and drove home in the minivan.",
+   "Grant was still telling someone about the stock. Kelsey had found someone new to show the kitchen to.",
+   "Almost nobody noticed she'd left."
+  ],
+  "images": [
+   {
+    "prompt": "Teresa wrapping a slice of sheet cake in tin foil at the refreshments table, hugging her brother, a grey-haired man of sixty",
+    "refs": [
+     "teresa",
+     "hall"
+    ]
+   },
+   {
+    "prompt": "an old silver minivan driving away down a tree-lined street at dusk, tail lights glowing"
+   },
+   {
+    "prompt": "the party continuing in the hall, Grant and Kelsey mid-conversation, an empty chair and a coffee cup where Teresa sat",
+    "refs": [
+     "grant",
+     "couple",
+     "hall"
+    ]
+   }
+  ]
+ },
+ {
+  "key": "i2",
+  "scene": "still",
+  "lines": [
+   "Next time you're in a room trying to work out who's doing well, notice what you're actually looking at.",
+   "You're looking at spending. The cars, the clothes, the photos on a phone.",
+   "The real money is in the part of the room that isn't trying to get your attention."
+  ],
+  "images": [
+   {
+    "prompt": "the community hall at dusk from across the street, windows glowing gold, people inside as small silhouettes",
+    "refs": [
+     "hall"
+    ]
+   },
+   {
+    "prompt": "a parking lot at dusk with gleaming new cars in the front row and one modest old minivan's empty space at the back"
+   },
+   {
+    "prompt": "Teresa at home in a worn armchair with a book under a lamp, a cat on the rug, deeply content",
+    "refs": [
+     "teresa"
+    ]
+   }
+  ]
+ },
+ {
+  "key": "i3",
+  "scene": "still",
+  "lines": [
+   "So here's my question for you. Think about the last room you were in.",
+   "Who did you assume was doing best, and what were you actually looking at? Tell me in the comments."
+  ],
+  "images": [
+   {
+    "prompt": "an empty folding chair beside a party table in the hall in late golden light, a single paper cup on the table",
+    "refs": [
+     "hall"
+    ]
+   },
+   {
+    "prompt": "Teresa's back step at night, an empty chair, a cup of tea and the garden string lights glowing",
+    "refs": [
+     "teresa"
+    ]
+   }
+  ],
+  "hold": 1.0
+ }
+]

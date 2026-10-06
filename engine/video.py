@@ -26,12 +26,13 @@ class Shot:
     def __init__(self, video, data):
         self.video = video
         self.key = data["key"]
-        self.part = data["part"]            # which Hedra take the face comes from
+        self.part = data.get("part", "p1")  # which Hedra take the face comes from
         self.scene = data["scene"]          # SCENES.<name> in a scene file
         self.lines = data["lines"]          # voiceover sentences, spoken in order
         self.hold = data.get("hold", 0.0)   # silence after the last word
         self.trim = data.get("trim", 0.0)   # seconds cut from the tail in the edit only
         self.params = data.get("params", {})
+        self.images = data.get("images", [])  # stills for the scene (engine/images.py)
         self.offset = 0.0
         self.part_offset = 0.0
         self.starts, self.ends, self.words = [], [], []
@@ -102,10 +103,12 @@ class Shot:
 
     def spec(self, first, last):
         """What the scene page receives in setup()."""
+        from . import images
         return {"key": self.key, "scene": self.scene, "duration": self.duration,
                 "lines": [{"t0": a, "t1": b} for a, b in zip(self.starts, self.ends)],
                 "words": self.words, "fadeIn": first, "fadeOut": last,
-                "params": self.params}
+                "params": self.params, "images": images.resolved(self) if self.images else [],
+                "look": self.video.meta.get("look", {})}
 
 
 class Video:
@@ -146,6 +149,11 @@ class Video:
 
     def shot(self, key):
         return next(s for s in self.shots if s.key == key)
+
+    @property
+    def uses_hedra(self):
+        """False for presenter-free videos ("hedra": false in video.json)."""
+        return self.meta.get("hedra", {}) is not False
 
     @property
     def presenter(self):

@@ -135,6 +135,10 @@ function panel(parent,style){const d=el('div','abs',parent);Object.assign(d.styl
 // ------------------------------------------------------------------ API
 window.setup=function(shot){
   S=shot; stage.innerHTML=''; stage.className=''; stage.style.background=''; faceCanvases.length=0;
+  // per-video texture (video.json "look"): presenter-free stills want less grain
+  const look=shot.look||{};
+  document.getElementById('grain').style.opacity=look.grain??.13;
+  document.getElementById('vignette').style.opacity=look.vignette??1;
   scene=SCENES[shot.scene]();
   return document.fonts.ready.then(()=>true);
 };

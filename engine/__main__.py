@@ -1,10 +1,12 @@
 """Video pipeline CLI.
 
-    python -m engine make videos/<id> [--yes]     voice, Hedra, render, merge, previews
-    python -m engine status videos/<id>           what is done and what is next
+    python -m engine make videos/<id> [--yes]     voice, images, Hedra, render, merge, previews
+    python -m engine status videos/<id>           what is done, what is next, what it costs
 
 Single steps, each safe to re-run (finished work is skipped):
+    analyze  [--yes]                     study the reference videos -> videos/<id>/reference.md
     voice    [--only k1,k2] [--force]    ElevenLabs read per shot
+    images   [--only k1,k2] [--yes]      Gemini stills per shot (spends money)
     hedra    [--yes]                     lip-synced take per part (spends credits)
     render   [--only k1,k2] [--force]    motion graphics per shot
     merge                                cut + voice -> build/<id>/<id>.mp4 and .srt
@@ -15,7 +17,7 @@ Single steps, each safe to re-run (finished work is skipped):
 import argparse
 import sys
 
-from . import hedra, mix, render, voice
+from . import analyze, hedra, images, mix, render, voice
 from .video import Video
 
 
@@ -25,9 +27,17 @@ def keys(arg):
 
 def cmd_status(video, args):
     print(f"{video.id}: {len(video.shots)} shots, {video.total / 60:.1f} min cut, parts {', '.join(video.parts)}")
-    unvoiced = [s.key for s in video.shots if not s.voiced]
-    print(f"  voice:  {'all voiced' if not unvoiced else 'unvoiced ' + ', '.join(unvoiced)}")
-    if not unvoiced:
+    unvoiced = [s for s in video.shots if not s.voiced]
+    chars = sum(len(s.text) for s in unvoiced)
+    print(f"  voice:  {'all voiced' if not unvoiced else f'{len(unvoiced)} shots unvoiced, {chars:,} characters to read'}")
+    if any(s.images for s in video.shots):
+        total = len(images.stills(video))
+        todo = images.needed(video)
+        extra = f", {len(todo)} to generate (~${images.estimate(video, todo):.2f})" if todo else ""
+        print(f"  images: {total} stills{extra}")
+    if not video.uses_hedra:
+        print("  hedra:  off (presenter-free)")
+    elif not unvoiced:
         st = hedra.status(video)
         need = [p for p, s in st.items() if s in ('missing', 'stale')]
         extra = f" (~{hedra.estimate(video, need)} credits to make {', '.join(need)})" if need else ""
@@ -40,6 +50,15 @@ def cmd_status(video, args):
 def cmd_voice(video, args):
     done = voice.run(video, keys(args.only), args.force)
     print(f"voiced {len(done)} shots" if done else "voice: nothing to do")
+
+
+def cmd_analyze(video, args):
+    print(f"brief -> {video.rel(analyze.run(video, yes=args.yes))}")
+
+
+def cmd_images(video, args):
+    made = images.run(video, keys(args.only), yes=args.yes)
+    print(f"images: {len(made)} generated" if made else "images: all stills current")
 
 
 def cmd_hedra(video, args):
@@ -70,6 +89,7 @@ def cmd_stills(video, args):
 
 def cmd_make(video, args):
     cmd_voice(video, args)
+    cmd_images(video, argparse.Namespace(only=None, yes=args.yes))
     cmd_hedra(video, args)
     video.reload()
     cmd_render(video, argparse.Namespace(only=None, force=False))
@@ -82,7 +102,7 @@ def cmd_publish(video, args):
     publish.run(video, s3=args.s3 or not args.youtube, youtube=args.youtube or not args.s3)
 
 
-COMMANDS = {"status": cmd_status, "voice": cmd_voice, "hedra": cmd_hedra, "render": cmd_render,
+COMMANDS = {"status": cmd_status, "analyze": cmd_analyze, "voice": cmd_voice, "images": cmd_images, "hedra": cmd_hedra, "render": cmd_render,
             "merge": cmd_merge, "previews": cmd_previews, "stills": cmd_stills, "make": cmd_make,
             "publish": cmd_publish}
 
@@ -94,7 +114,7 @@ def main(argv=None):
     ap.add_argument("video", help="path to a video folder, e.g. videos/video-a")
     ap.add_argument("--only", help="comma-separated shot keys")
     ap.add_argument("--force", action="store_true", help="redo even if current")
-    ap.add_argument("--yes", action="store_true", help="allow spending Hedra credits")
+    ap.add_argument("--yes", action="store_true", help="allow spending (Hedra credits, Gemini images and analysis)")
     ap.add_argument("--at", type=float, default=0.6, help="stills: fraction into each shot")
     ap.add_argument("--s3", action="store_true", help="publish: S3 only")
     ap.add_argument("--youtube", action="store_true", help="publish: YouTube only")

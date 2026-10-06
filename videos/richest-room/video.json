@@ -1,0 +1,48 @@
+{
+  "id": "richest-room",
+  "title": "The Richest Person in the Room Usually Doesn't Look Like It",
+  "hedra": false,
+  "voice": {
+    "voice_id": "e8RP2oM3tmrvKfJpd0ZQ",
+    "model": "eleven_multilingual_v2"
+  },
+  "reference": {
+    "channel": "https://www.youtube.com/@PaperWealthR",
+    "videos": [
+      "https://www.youtube.com/watch?v=EJUefgQc2t8",
+      "https://www.youtube.com/watch?v=cOOObqQA1-g",
+      "https://www.youtube.com/watch?v=P7DnUWr5DYI"
+    ]
+  },
+  "images": {
+    "model": "gemini-3.1-flash-image",
+    "aspect": "16:9",
+    "usd_per_image": 0.07,
+    "style": "Hand-painted gouache illustration, visible brush texture, soft edges, no black outlines, warm muted palette of ochre, sage and dusty blue, gentle storybook lighting:",
+    "suffix": "No text, letters, numbers, labels, logos, brand names or watermarks anywhere in the image. Any paper, sign or screen is blank or turned away.",
+    "refs": {
+      "teresa": "character reference: Teresa, a woman of sixty-six with short silver hair, warm brown skin, round reading glasses on a beaded chain, a soft moss-green cardigan with a small darned elbow over a cream blouse, dark slacks and flat shoes; kind, observant face. Shown full length, standing, three-quarter view, on a plain warm paper background.",
+      "grant": "character reference: Grant, a man of forty-four with fair skin, neatly styled dark-blond hair, clean-shaven, a fitted navy quarter-zip over a collared shirt, slim tan chinos, a large chunky steel wristwatch; confident, sociable. Shown full length, standing, three-quarter view, on a plain warm paper background.",
+      "couple": "character reference: Kelsey and Jordan, a couple in their early thirties standing side by side. Kelsey has light olive skin, a long dark ponytail and a mustard-yellow sweater; Jordan is a Black man with a short beard, a grey henley and dark jeans. Full length, three-quarter view, on a plain warm paper background.",
+      "hall": "establishing view of the inside of a modest rented community hall set up for a sixtieth birthday party: honey-coloured wood-panelled walls, high windows with late afternoon light, folding tables with white paper tablecloths, a string of plain coloured paper bunting, a refreshments table with a tall steel coffee urn, no people."
+    }
+  },
+  "look": {
+    "grain": 0.05,
+    "vignette": 0.55
+  },
+  "youtube": {
+    "title": "The Richest Person in the Room Usually Doesn't Look Like It",
+    "description": "A sixtieth birthday party in a rented hall, thirty guests, and one question: who in this room actually has the most money? The answer is almost never who you'd pick, and the seven reasons why have nothing to do with how much anyone earns.",
+    "tags": [
+      "personal finance",
+      "quiet wealth",
+      "net worth",
+      "financial independence",
+      "money habits"
+    ],
+    "category_id": "27",
+    "privacy": "private",
+    "language": "en"
+  }
+}

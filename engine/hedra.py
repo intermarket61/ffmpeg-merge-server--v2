@@ -64,8 +64,11 @@ def paths(video, part):
 
 
 def status(video):
-    """Per part: 'ready', 'pending' (queued, resumable), 'stale' or 'missing'."""
+    """Per part: 'ready', 'pending' (queued, resumable), 'stale' or 'missing'.
+    Empty for a presenter-free video."""
     out = {}
+    if not video.uses_hedra:
+        return out
     for part in video.parts:
         take, meta_path = paths(video, part)
         _, sha = mix.part_track_sha(video, part)
@@ -123,6 +126,8 @@ def wait(video, part):
 
 def run(video, yes=False):
     """Bring every part's take up to date. Parts generate in parallel."""
+    if not video.uses_hedra:
+        return []
     st = status(video)
     if "unvoiced" in st.values():
         raise SystemExit("voice every shot before making Hedra takes")
